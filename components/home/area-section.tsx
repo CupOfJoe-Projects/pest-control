@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { MapPin } from "lucide-react";
 import { Section, SectionHeading } from "@/components/site/section";
 import { AreaMap } from "@/components/site/area-map";
 import { areas } from "@/content/areas";
@@ -7,9 +6,9 @@ import { site } from "@/content/site";
 
 export function AreaSection() {
   return (
-    <Section id="areas" labelledBy="areas-title">
+    <Section id="areas" labelledBy="areas-title" className="bg-white">
       <div className="grid items-center gap-10 md:grid-cols-[1fr_1.1fr] lg:gap-16">
-        <div>
+        <div data-reveal>
           <SectionHeading
             id="areas-title"
             eyebrow="Service area"
@@ -23,7 +22,7 @@ export function AreaSection() {
                   href={`/areas/${a.slug}`}
                   className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-line bg-white px-4 text-[0.95rem] font-semibold text-ink transition hover:border-green hover:bg-green hover:text-cream"
                 >
-                  <MapPin aria-hidden="true" className="size-4 text-orange" />
+                  <span aria-hidden="true" className="size-2 rounded-full bg-orange" />
                   {a.name}
                 </Link>
               </li>
@@ -37,7 +36,7 @@ export function AreaSection() {
             and ask.
           </p>
         </div>
-        <div className="rounded-lg border border-line bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:p-6">
+        <div data-reveal className="rounded-[16px] border border-line bg-cream p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:p-6">
           <AreaMap />
         </div>
       </div>

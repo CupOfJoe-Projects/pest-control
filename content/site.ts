@@ -32,6 +32,15 @@ export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encode
 )}`;
 
 // ---------------------------------------------------------------------------
+// Demo guardrail
+// ---------------------------------------------------------------------------
+
+// TODO(launch): Set to false only after sample reviews are replaced with real
+// ones. While true: robots.txt disallows everything, every page is noindex,
+// the sitemap is empty, and the reviews wall shows a "Sample reviews" label.
+export const IS_DEMO = true;
+
+// ---------------------------------------------------------------------------
 // Placeholders. Every value below needs confirming with the owner.
 // ---------------------------------------------------------------------------
 
@@ -45,6 +54,18 @@ export const OFFER = {
   headline: "$50 off your first service",
   bar: "New customers: $50 off your first service.",
 };
+
+// Items in the scrolling ticker at the top of every page.
+// TODO(owner): Confirm "same day service when available".
+export const TICKER_ITEMS = [
+  ...(SHOW_OFFER ? ["New customers: $50 off first service"] : []),
+  "Same day service when available",
+  "Family owned since 1959",
+  "Call 863-533-1294",
+];
+
+// TODO(owner): Plan prices are placeholders. Set to false to hide prices.
+export const SHOW_PRICING = true;
 
 // TODO(owner): Replace with the real Google rating and review count.
 // Set to null to hide the rating everywhere (UI and JSON-LD).
@@ -60,6 +81,35 @@ export const GOOGLE_RATING: {
 
 // TODO(owner): Replace with the Google Business Profile reviews URL.
 export const GOOGLE_REVIEWS_URL = mapsUrl;
+
+// TODO(owner): Second review platform. Use whichever they actually have
+// (Trustpilot, Facebook, or Nextdoor), with real numbers. null hides it.
+export const SECOND_RATING: {
+  platform: "trustpilot" | "facebook" | "nextdoor";
+  label: string;
+  value: number;
+  countLabel: string;
+  url: string;
+} | null = {
+  platform: "trustpilot",
+  label: "Trustpilot",
+  value: 4.8,
+  countLabel: "50+",
+  url: "https://www.trustpilot.com/",
+};
+
+// TODO(owner): Confirm which of these actually apply before launch.
+// Set confirmed: true once verified. Unconfirmed badges still show in the demo.
+export const TRUST_BADGES = [
+  { id: "fdacs", title: "Licensed by FDACS", detail: "Florida Dept. of Agriculture", confirmed: false },
+  { id: "fpma", title: "FPMA member", detail: "Florida Pest Management Assn.", confirmed: false },
+  { id: "bbb", title: "BBB", detail: "Better Business Bureau", confirmed: false },
+  { id: "guarantee", title: "Satisfaction guaranteed", detail: "If they come back, so do we", confirmed: false },
+] as const;
+
+// TODO(owner): Confirm there are no long term contracts. Until then the
+// contracts row is hidden from the comparison table.
+export const NO_LONG_CONTRACTS_CONFIRMED = false;
 
 export const mainNav = [
   { label: "Services", href: "/services" },

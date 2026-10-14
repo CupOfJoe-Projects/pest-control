@@ -5,7 +5,7 @@ import { EstBadge } from "./est-badge";
 import { pests } from "@/content/pests";
 import { OFFER, SHOW_OFFER, site } from "@/content/site";
 
-const pestOptions = [
+export const pestOptions = [
   ...pests.map((p) => ({ value: p.name, label: p.name })),
   { value: "Not sure", label: "Not sure" },
 ];

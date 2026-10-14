@@ -11,6 +11,15 @@ import { EstBadge } from "@/components/site/est-badge";
 import { getService, services } from "@/content/services";
 import { getPests } from "@/content/pests";
 import { pageMetadata } from "@/lib/seo";
+import { SlotImage } from "@/components/site/slot-image";
+import { images, type ImageSlot } from "@/lib/images";
+
+// Service pages with a matching photo show it instead of the icon tile.
+const serviceImages: Partial<Record<string, ImageSlot>> = {
+  "mosquito-control": images.yard,
+  "commercial-services": images.commercial,
+  "homeowner-services": images.inspection,
+};
 
 export function generateStaticParams() {
   return services.map((s) => ({ slug: s.slug }));
@@ -41,8 +50,16 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         title={service.name}
         intro={<p>{service.short}</p>}
         aside={
-          <div className="relative flex aspect-square items-center justify-center rounded-lg bg-green text-cream shadow-lg">
-            <Icon name={service.icon} className="size-1/3" strokeWidth={1.25} />
+          <div className="relative">
+            {serviceImages[service.slug] ? (
+              <div className="overflow-hidden rounded-[16px] shadow-lg">
+                <SlotImage slot={serviceImages[service.slug]!} sizes="(min-width: 768px) 30vw, 100vw" priority className="aspect-square w-full" />
+              </div>
+            ) : (
+              <div className="flex aspect-square items-center justify-center rounded-[16px] bg-green text-cream shadow-lg">
+                <Icon name={service.icon} className="size-1/3" strokeWidth={1.25} />
+              </div>
+            )}
             <EstBadge className="absolute -right-4 -bottom-4 size-28" />
           </div>
         }

@@ -8,6 +8,8 @@ export type Pest = {
   /** Used in the page title, e.g. "Ant Control in Polk County". */
   singular: string;
   short: string;
+  /** One line question for the homepage problem picker. */
+  hook: string;
   signs: string[];
   /** Why they show up in Florida. */
   florida: string[];
@@ -25,6 +27,7 @@ const allPests: Pest[] = [
     name: "Ants",
     singular: "Ant",
     short: "Fire ants in the yard, sugar ants in the kitchen. We handle both.",
+    hook: "Trails on the counter or mounds in the yard?",
     signs: [
       "Trails of ants along counters, baseboards, or windowsills",
       "Dirt mounds in the lawn, often right after a rain",
@@ -52,6 +55,7 @@ const allPests: Pest[] = [
     name: "Cockroaches",
     singular: "Cockroach",
     short: "Big palmetto bugs or small German roaches. We know how to handle both.",
+    hook: "Roaches in the kitchen at night?",
     signs: [
       "Roaches running when you flip on the lights",
       "Droppings that look like pepper or coffee grounds",
@@ -79,6 +83,7 @@ const allPests: Pest[] = [
     name: "Mosquitoes",
     singular: "Mosquito",
     short: "Polk County lakes mean mosquitoes. We help you take back the yard.",
+    hook: "Can't sit outside without getting eaten?",
     signs: [
       "Bites within minutes of stepping outside",
       "Swarms near shady shrubs or under decks",
@@ -105,6 +110,7 @@ const allPests: Pest[] = [
     name: "Spiders",
     singular: "Spider",
     short: "Webs on the eaves and widows in the shed. We clear them out.",
+    hook: "Webs on the eaves or widows in the shed?",
     signs: [
       "Webs around eaves, porches, and window corners",
       "Spiders in garages, closets, or sheds",
@@ -131,6 +137,7 @@ const allPests: Pest[] = [
     name: "Rats",
     singular: "Rat",
     short: "Roof rats in the attic or Norway rats under the house. We get them out and keep them out.",
+    hook: "Scratching in the attic after dark?",
     signs: [
       "Scratching or running sounds in the attic at night",
       "Droppings about the size of a raisin",
@@ -157,6 +164,7 @@ const allPests: Pest[] = [
     name: "Mice",
     singular: "Mouse",
     short: "Small, fast, and sneaky. We find where they get in and close it up.",
+    hook: "Droppings in the pantry or drawers?",
     signs: [
       "Tiny droppings in drawers, cabinets, or the pantry",
       "Chewed food packages",
@@ -183,6 +191,7 @@ const allPests: Pest[] = [
     name: "Bed Bugs",
     singular: "Bed Bug",
     short: "Itchy bites and tiny spots on the sheets. We get rid of bed bugs for good.",
+    hook: "Waking up with itchy bites?",
     signs: [
       "Itchy bites in a line or cluster, often on arms and legs",
       "Small rusty or dark spots on sheets and mattress seams",
@@ -209,6 +218,7 @@ const allPests: Pest[] = [
     name: "Fleas",
     singular: "Flea",
     short: "Fleas on the dog, fleas in the carpet. We treat the house and the yard.",
+    hook: "Pets scratching nonstop?",
     signs: [
       "Pets scratching or chewing at their fur",
       "Small itchy bites around your ankles",
@@ -235,6 +245,7 @@ const allPests: Pest[] = [
     name: "Termites",
     singular: "Termite",
     short: "Swarmers in spring and mud tubes on the foundation. Do not wait on termites.",
+    hook: "Swarmers inside or mud tubes on the wall?",
     signs: [
       "Swarms of winged insects in spring, often after rain",
       "Piles of shed wings near windows or doors",
@@ -261,6 +272,7 @@ const allPests: Pest[] = [
     name: "Bats",
     singular: "Bat",
     short: "Bats in the attic have to come out the right way, and Florida law says when.",
+    hook: "Squeaking in the attic at dusk?",
     signs: [
       "Dark droppings piled below a roof line or vent",
       "Scratching or squeaking in the attic around dusk",
@@ -286,6 +298,7 @@ const allPests: Pest[] = [
     name: "Beetles",
     singular: "Beetle",
     short: "From carpet beetles in the closet to grain beetles in the pantry.",
+    hook: "Tiny beetles in the flour or closet?",
     signs: [
       "Small beetles near windows or light fixtures",
       "Holes in wool, rugs, or stored clothes",
@@ -311,6 +324,7 @@ const allPests: Pest[] = [
     name: "Crickets",
     singular: "Cricket",
     short: "Chirping all night? We quiet things down.",
+    hook: "Chirping inside all night?",
     signs: [
       "Chirping at night inside walls or the garage",
       "Crickets near doors, windows, or in the laundry room",
@@ -336,6 +350,7 @@ const allPests: Pest[] = [
     name: "Earwigs",
     singular: "Earwig",
     short: "Creepy pincers, mostly harmless, and not welcome inside.",
+    hook: "Pincer bugs in the bathroom after rain?",
     signs: [
       "Dark brown insects with pincers on the back end",
       "Bugs under mats, pots, or wet mulch",
@@ -361,6 +376,7 @@ const allPests: Pest[] = [
     name: "Gophers",
     singular: "Gopher",
     short: "Mounds in the lawn and plants pulled under. We stop the digging.",
+    hook: "Fresh sand mounds in the lawn?",
     signs: [
       "Fresh mounds of sandy soil in the lawn",
       "Plants wilting or disappearing from below",
@@ -385,6 +401,7 @@ const allPests: Pest[] = [
     name: "Specialty Bugs",
     singular: "Specialty Bug",
     short: "Silverfish, millipedes, and the bugs you cannot name. We will figure it out.",
+    hook: "Found a bug you can't name?",
     signs: [
       "Bugs you do not recognize showing up in numbers",
       "Silverfish in bathrooms, closets, or old books",

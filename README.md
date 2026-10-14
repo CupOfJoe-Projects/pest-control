@@ -42,9 +42,12 @@ All copy lives in typed files under `/content`. There is no CMS.
 | `content/services.ts` | Service pages: name, short line, description, bullets, icon, pests covered |
 | `content/pests.ts` | Pest library: signs, why they show up in Florida, prevention tips, when to call |
 | `content/areas.ts` | City pages: blurb, local intro (written differently per city), common pests, map coordinates |
-| `content/reviews.ts` | Testimonials |
+| `content/reviews.ts` | Reviews for the trust wall marquee. **Sample reviews while `IS_DEMO` is true** |
+| `content/plans.ts` | Plan cards (One Time, Quarterly, Commercial). Prices are placeholders |
+| `content/faq.ts` | FAQ answers, also published as `FAQPage` JSON-LD |
+| `lib/images.ts` | Image slots. Each renders a placeholder until its file is imported |
 
-Pages for every service, pest, and area are generated from these files with `generateStaticParams`. Add an entry and the page, sitemap entry, and links appear automatically.
+Pages for every service, pest, and area are generated from these files with `generateStaticParams`. Add an entry and the page and links appear automatically (and the sitemap entry, once `IS_DEMO` is off).
 
 **Copy rules:** short and plain, no em dashes, no hyphens in visible copy (write "family owned", "same day"), no "comprehensive", "cutting edge", "solutions", or "elevate".
 
@@ -54,7 +57,33 @@ Pages for every service, pest, and area are generated from these files with `gen
 | --- | --- | --- |
 | `SHOW_TERMITES` | `false` | Shows the termite service and termite pest page everywhere |
 | `SHOW_OFFER` | `true` | Shows the intro offer bar and offer callouts |
-| `GOOGLE_RATING` | `{ 4.9, 200+ }` | Rating shown in the hero, reviews, and JSON-LD. Set to `null` to hide it everywhere |
+| `IS_DEMO` | `true` | **Demo guardrail.** robots.txt disallows everything, every page is `noindex, nofollow`, the sitemap is empty, and the reviews wall shows a "Sample reviews" label. Set to `false` only after real reviews replace the samples |
+| `GOOGLE_RATING` | `{ 4.9, 200+ }` | Rating shown in the hero, trust wall, and JSON-LD. Set to `null` to hide it everywhere |
+| `SECOND_RATING` | Trustpilot placeholder | Second rating badge on the trust wall. `null` hides it |
+| `SHOW_PRICING` | `true` | Shows the placeholder prices on the plan cards |
+| `TRUST_BADGES` | all unconfirmed | Credential badges under the reviews (FDACS, FPMA, BBB, guarantee) |
+| `NO_LONG_CONTRACTS_CONFIRMED` | `false` | Shows the contracts row in the local vs national table |
+| `TICKER_ITEMS` | 4 items | Text in the scrolling bar at the top of every page |
+
+### Images
+
+Image slots live in `lib/images.ts`. Until a slot has a file, it renders a styled placeholder at the right aspect ratio, so the layout never shifts.
+
+To add one: export it as WebP into `/public/images`, `import` it at the top of `lib/images.ts`, and set `src` on its slot. The static import gives `next/image` the dimensions and the blur placeholder.
+
+| Slot | File | Size | Used in |
+| --- | --- | --- | --- |
+| `hero` | `hero.webp` | 2400x1350 | Homepage hero, desktop |
+| `heroMobile` | `hero-mobile.webp` | 1080x1350 | Homepage hero, phones |
+| `truck` | `truck.webp` | 1600x1200 | Story section |
+| `inspection` | `inspection.webp` | 1200x900 | Visit step 2, homeowner service page |
+| `yard` | `yard.webp` | 1200x900 | Visit step 3, final quote band, mosquito service page |
+| `commercial` | `commercial.webp` | 1200x900 | Commercial plan card, commercial service page |
+| `familyHome` | `family-home.webp` ✅ | 1600x900 | Guarantee band |
+
+**These are AI demo images.** Keep captions generic. Never present them as the McDonald family, staff, or trucks, and no generated truck should carry a name or logo. Replace with real photos before launch.
+
+Pest icons: `npm run icons` exports every pest icon to `/public/icons/pests/*.svg` (2px stroke, brand green). The site renders the same icons inline, so it makes no extra requests.
 
 ## Project layout
 
@@ -62,12 +91,14 @@ Pages for every service, pest, and area are generated from these files with `gen
 app/                    Routes (home, services, pests, areas, about, contact, legal, api/quote)
   sitemap.ts robots.ts  SEO files
   opengraph-image.tsx   Share image for texts and social posts
-components/home/        Homepage only sections
-components/site/        Shared sections (header, footer, quote form, CTA block, map, reviews)
+components/home/        Homepage only sections (hero and quote starter, problem picker, plans, guarantee, comparison, story, final CTA)
+components/site/        Shared sections (header, ticker, footer, trust wall, FAQ, quote form, visit steps, map)
 components/icons.tsx    Custom pest icons on lucide's grid, plus the icon map
 components/ui/          shadcn/ui primitives
 content/                All site copy and data
-lib/                    SEO helpers, quote schema, utilities
+lib/                    SEO helpers, quote schema, image slots, utilities
+public/icons/pests/     Exported pest icon SVGs (npm run icons)
+scripts/                Icon export script
 ```
 
 ## Decisions worth knowing
@@ -79,6 +110,11 @@ lib/                    SEO helpers, quote schema, utilities
 - **Light theme only.** `dark:` utilities only apply under a `.dark` class, so phones in dark mode get the designed look.
 - **Fonts use `display: optional`** so text never repaints after load, which keeps mobile LCP down.
 - **Map is a hand drawn SVG**, not a Google Maps embed, to keep the page fast.
+- **Marquees are pure CSS.** The server sends each row once; a tiny client component clones the second copy that makes the loop seamless. They pause on hover, focus, and touch, swipe on phones, and become a static scrollable row for reduced motion.
+- **Header is transparent only at the very top of the homepage.** It turns solid as soon as the page scrolls. Waiting until the hero was gone let hero content slide under a see through header on phones.
+- **Below the fold sections use `content-visibility: auto`** so phones skip laying them out until they scroll near.
+- **Ratings render as text stars**, not SVGs, to keep the HTML small.
+- **Inter (body font) is not preloaded.** Bricolage (headings) is. On a slow first visit body text uses the size matched fallback.
 - **Unknown slugs** (for example `/pests/termites` while the flag is off) return a real 404 on Vercel. Locally, `next start` can answer 200 with the not found page and a `noindex` tag, which is harmless.
 
 ## Deploy
@@ -104,11 +140,19 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Google rating and review count (`GOOGLE_RATING` in `content/site.ts`)
 - [ ] Termite service offered? (`SHOW_TERMITES`)
 - [ ] Current intro offer (`SHOW_OFFER`, `OFFER`)
-- [ ] Real photos: trucks, techs, family, early days (every `PhotoPlaceholder`)
+- [ ] Real reviews from the Google Business Profile, then set `IS_DEMO` to `false` (`content/reviews.ts`)
+- [ ] Which second review platform they use, and its real rating (`SECOND_RATING`)
+- [ ] Which credential badges apply: FDACS license, FPMA, BBB, satisfaction guarantee (`TRUST_BADGES`)
+- [ ] Plan names, prices, and inclusions, including the 30 day warranty and free callbacks (`content/plans.ts`)
+- [ ] Exact guarantee wording (`components/home/guarantee.tsx`)
+- [ ] Contract terms (`NO_LONG_CONTRACTS_CONFIRMED`, FAQ)
+- [ ] FAQ answers: pet safety, response time, being home, contracts (`content/faq.ts`)
+- [ ] Same day service when available, service reports by text or email, techs live in Polk County
+- [ ] Real photos to replace every AI demo image, plus the early days photo on `/about` (`lib/images.ts`, `PhotoPlaceholder`)
 - [ ] Logo files, ideally vector (`components/site/logo.tsx`; the current mark is cropped from the old site header)
 - [ ] Google Business Profile URL for the reviews link (`GOOGLE_REVIEWS_URL`)
 - [ ] Email address for quote form delivery (`QUOTE_TO_EMAIL`), then enable Resend
 - [ ] Star ratings for the three existing testimonials, plus more reviews (`content/reviews.ts`)
 - [ ] Founder name and family history for the story sections (home and `/about`)
-- [ ] Licensed and insured, satisfaction guarantee, and pet safe claims in the trust strip
+- [ ] Pet and family safe products claim (guarantee band, FAQ)
 - [ ] Privacy policy and terms reviewed

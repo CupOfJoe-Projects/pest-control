@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/site/page-header";
 import { Container, Section, SectionHeading } from "@/components/site/section";
 import { PhotoPlaceholder } from "@/components/site/photo-placeholder";
 import { EstBadge } from "@/components/site/est-badge";
-import { Reviews } from "@/components/site/reviews";
+import { TrustWall } from "@/components/site/trust-wall";
 import { CtaBlock } from "@/components/site/cta-block";
 import { pageMetadata } from "@/lib/seo";
 
@@ -102,7 +102,7 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      <Reviews />
+      <TrustWall className="bg-cream" />
       <CtaBlock />
     </>
   );

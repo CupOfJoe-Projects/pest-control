@@ -1,12 +1,14 @@
 import { Hero } from "@/components/home/hero";
-import { TrustStrip } from "@/components/home/trust-strip";
-import { PestSection } from "@/components/home/pest-section";
-import { ServicesSection } from "@/components/home/services-section";
+import { ProblemPicker } from "@/components/home/problem-picker";
+import { Plans } from "@/components/home/plans";
+import { Guarantee } from "@/components/home/guarantee";
+import { Comparison } from "@/components/home/comparison";
 import { StorySection } from "@/components/home/story-section";
 import { AreaSection } from "@/components/home/area-section";
+import { FinalCta } from "@/components/home/final-cta";
+import { TrustWall } from "@/components/site/trust-wall";
 import { HowItWorks } from "@/components/site/how-it-works";
-import { Reviews } from "@/components/site/reviews";
-import { QuoteSection } from "@/components/site/quote-form";
+import { Faq } from "@/components/site/faq";
 import { JsonLd, localBusinessJsonLd, pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -16,19 +18,18 @@ export const metadata = pageMetadata({
   path: "/",
 });
 
+// Section rhythm: photo, white, cream, white, photo, green, cream, white, cream, white, photo.
 export default function HomePage() {
   return (
     <>
       <JsonLd data={localBusinessJsonLd()} />
       <Hero />
-      <TrustStrip />
-      <PestSection />
-      <ServicesSection />
-      <HowItWorks className="bg-white" />
-      <Reviews />
-      <StorySection />
-      <AreaSection />
-      <QuoteSection />
+      <TrustWall />
+      {[ProblemPicker, Plans, Guarantee, Comparison, HowItWorks, StorySection, Faq, AreaSection, FinalCta].map((Section) => (
+        <div key={Section.name} className="below-fold">
+          <Section />
+        </div>
+      ))}
     </>
   );
 }

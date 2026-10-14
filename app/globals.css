@@ -109,3 +109,89 @@
     scroll-behavior: auto;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Marquee: pure CSS. The track holds the items twice and slides by half its
+   width, so the loop is seamless. Pauses on hover and focus. Reduced motion
+   gets a static row that scrolls by hand.
+   --------------------------------------------------------------------------- */
+@keyframes marquee-left {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.marquee {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.marquee::-webkit-scrollbar {
+  display: none;
+}
+.marquee-fade {
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-left var(--marquee-duration, 40s) linear infinite;
+  will-change: transform;
+}
+.marquee-track[data-direction="right"] {
+  animation-name: marquee-right;
+}
+/* Wait for the cloned copy before moving, so the loop never shows a gap. */
+.marquee-track:not([data-ready]) {
+  animation: none;
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track,
+.marquee:active .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    scroll-snap-type: x mandatory;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .marquee-track > * {
+    scroll-snap-align: start;
+  }
+  /* The duplicate copy only exists for the loop. */
+  .marquee-track [data-marquee-copy] {
+    display: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Scroll reveal: fade and 12px rise. Only hides content when JavaScript runs
+   and motion is allowed, so nothing is ever stuck invisible.
+   --------------------------------------------------------------------------- */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition:
+      opacity 0.6s ease,
+      translate 0.6s ease;
+  }
+  [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+/* Below the fold sections skip layout and paint until they near the screen.
+   Keeps the first load light on phones. `auto` remembers the real height. */
+.below-fold {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}

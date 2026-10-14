@@ -1,16 +1,17 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Icon } from "@/components/icons";
 import { PageHeader } from "@/components/site/page-header";
 import { Section, SectionHeading } from "@/components/site/section";
 import { PestGrid } from "@/components/site/pest-grid";
-import { Reviews } from "@/components/site/reviews";
+import { TrustWall } from "@/components/site/trust-wall";
 import { CtaBlock } from "@/components/site/cta-block";
 import { AreaMap } from "@/components/site/area-map";
 import { areas, getArea } from "@/content/areas";
 import { getPests } from "@/content/pests";
 import { services } from "@/content/services";
+import { reviewsFor } from "@/content/reviews";
 import { pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
@@ -89,7 +90,7 @@ export default async function AreaPage({ params }: PageProps<"/areas/[slug]">) {
         </ul>
       </Section>
 
-      <Reviews title={`Neighbors around ${area.name} say it best`} />
+      <TrustWall reviews={reviewsFor(area.name)} title={`Neighbors around ${area.name} say it best`} className="bg-cream" />
       <CtaBlock title={`Need pest control in ${area.name}?`} />
 
       <Section labelledBy="nearby-title" className="pt-4">
@@ -101,7 +102,7 @@ export default async function AreaPage({ params }: PageProps<"/areas/[slug]">) {
                 href={`/areas/${a.slug}`}
                 className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-line bg-white px-4 font-semibold text-ink transition hover:border-green hover:bg-green hover:text-cream"
               >
-                <MapPin aria-hidden="true" className="size-4 text-orange" />
+                <span aria-hidden="true" className="size-2 rounded-full bg-orange" />
                 {a.name}
               </Link>
             </li>

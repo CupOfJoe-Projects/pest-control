@@ -21,9 +21,10 @@ export function ServiceCard({ service, title }: { service: Service; title?: stri
       </ul>
       <Link
         href={`/services/${service.slug}`}
+        aria-label={`Learn more about ${service.name}`}
         className="mt-auto inline-flex min-h-12 items-center gap-1.5 pt-6 font-semibold text-green after:absolute after:inset-0 after:rounded-lg group-hover:underline underline-offset-4"
       >
-        Learn more<span className="sr-only"> about {service.name}</span>
+        Learn more
         <ArrowRight aria-hidden="true" className="size-4 transition group-hover:translate-x-0.5" />
       </Link>
     </article>

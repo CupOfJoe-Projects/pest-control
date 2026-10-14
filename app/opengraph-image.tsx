@@ -1,11 +1,16 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
 
-export const alt = `${site.name}. Family owned pest control in Polk County since 1959.`;
+export const alt = `${site.name}. Pest control in Polk County since 1959.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
+  const logo = await readFile(join(process.cwd(), "public/brand/logo-mark.png"));
+  const logoSrc = `data:image/png;base64,${logo.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -17,24 +22,26 @@ export default function OpengraphImage() {
           justifyContent: "space-between",
           background: "#1f3d2b",
           color: "#faf7f0",
-          padding: "72px 80px",
+          padding: "64px 80px",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 28, fontWeight: 700, opacity: 0.9 }}>
-          <div style={{ width: 14, height: 14, borderRadius: 7, background: "#e8701a" }} />
-          FAMILY OWNED IN POLK COUNTY SINCE 1959
-        </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 1.02, letterSpacing: -2 }}>Pests gone.</div>
-          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 1.02, letterSpacing: -2 }}>Done right.</div>
-          <div style={{ fontSize: 92, fontWeight: 800, lineHeight: 1.02, letterSpacing: -2, color: "#e8701a" }}>
-            Since 1959.
+        <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
+          <img src={logoSrc} width={66} height={115} alt="" style={{ background: "#faf7f0", borderRadius: 10, padding: 8 }} />
+          <div style={{ display: "flex", flexDirection: "column", fontSize: 44, fontWeight: 800, lineHeight: 1.05 }}>
+            <span>McDonald</span>
+            <span>Exterminators</span>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", fontSize: 34 }}>
-          <div style={{ fontWeight: 800 }}>{site.name}</div>
-          <div style={{ fontWeight: 700, color: "#e8701a" }}>{site.phone}</div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ fontSize: 76, fontWeight: 800, lineHeight: 1.04, letterSpacing: -2 }}>Pest control in</div>
+          <div style={{ fontSize: 76, fontWeight: 800, lineHeight: 1.04, letterSpacing: -2 }}>
+            Polk County <span style={{ color: "#e8701a", marginLeft: 20 }}>since 1959</span>
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between", fontSize: 32, fontWeight: 700 }}>
+          <span style={{ opacity: 0.85 }}>Family owned in Bartow, FL</span>
+          <span style={{ color: "#e8701a" }}>{site.phone}</span>
         </div>
       </div>
     ),

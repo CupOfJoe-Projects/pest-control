@@ -25,7 +25,7 @@ export function MobileNav() {
         }}
         // Start loading the panel on first touch so it is ready by the time the tap lands.
         onPointerDown={() => setRequested(true)}
-        className="flex size-12 items-center justify-center rounded-lg text-ink hover:bg-green-soft lg:hidden"
+        className="flex size-12 items-center justify-center rounded-lg text-ink transition-colors hover:bg-green-soft group-data-[over=true]:text-cream group-data-[over=true]:hover:bg-cream/15 lg:hidden"
       >
         <Menu aria-hidden="true" className="size-6" />
       </button>

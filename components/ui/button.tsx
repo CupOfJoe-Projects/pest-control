@@ -17,7 +17,7 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        cta: "bg-orange font-semibold text-ink shadow-sm hover:bg-orange-hover",
+        cta: "bg-orange font-semibold text-ink shadow-sm hover:bg-orange-hover active:scale-[0.98] active:shadow-none",
         "outline-green":
           "border-green/80 bg-transparent font-semibold text-green hover:bg-green hover:text-cream",
         "outline-cream":
@@ -31,7 +31,7 @@ const buttonVariants = cva(
         lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
         // 48px minimum tap targets for primary actions.
         xl: "h-12 gap-2 px-5 text-base [&_svg:not([class*='size-'])]:size-5",
-        "2xl": "h-14 gap-2.5 px-6 text-lg [&_svg:not([class*='size-'])]:size-5",
+        "2xl": "h-[3.25rem] gap-2.5 px-6 text-lg md:h-14 [&_svg:not([class*='size-'])]:size-5",
         icon: "size-8",
         "icon-xs":
           "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",

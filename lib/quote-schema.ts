@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 export const quoteSchema = z.object({
-  name: z.string().trim().min(2, "Please enter your name.").max(100),
+  // The hero quote starter only asks for pest, ZIP, and phone.
+  name: z.string().trim().max(100).optional().default(""),
   phone: z
     .string()
     .trim()
@@ -14,8 +15,15 @@ export const quoteSchema = z.object({
     .trim()
     .regex(/^\d{5}$/, "Please enter a 5 digit ZIP code."),
   message: z.string().trim().max(2000).optional().default(""),
+  plan: z.enum(["one-time", "quarterly", "commercial"]).optional(),
+  source: z.enum(["hero", "form"]).optional().default("form"),
   // Honeypot. Real people never see or fill this field.
   company: z.string().max(0).optional().default(""),
+}).superRefine((data, ctx) => {
+  // The full form asks for a name. The hero starter does not.
+  if (data.source === "form" && data.name.length < 2) {
+    ctx.addIssue({ code: "custom", path: ["name"], message: "Please enter your name." });
+  }
 });
 
 export type QuoteInput = z.infer<typeof quoteSchema>;

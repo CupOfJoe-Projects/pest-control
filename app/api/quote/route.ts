@@ -17,8 +17,8 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, fieldErrors }, { status: 400 });
   }
 
-  const { name, phone, pest, zip, message } = result.data;
-  const quote = { name, phone, pest, zip, message };
+  const { name, phone, pest, zip, message, plan, source } = result.data;
+  const quote = { name, phone, pest, zip, message, plan, source };
 
   // Demo: log the submission so it shows up in Vercel function logs.
   console.log("[quote] New quote request", { ...quote, receivedAt: new Date().toISOString() });

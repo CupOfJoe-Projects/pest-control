@@ -4,7 +4,8 @@ import { Header } from "@/components/site/header";
 import { OfferBar } from "@/components/site/offer-bar";
 import { Footer } from "@/components/site/footer";
 import { MobileActionBar } from "@/components/site/mobile-action-bar";
-import { site } from "@/content/site";
+import { RevealObserver } from "@/components/site/reveal-observer";
+import { IS_DEMO, site } from "@/content/site";
 import "./globals.css";
 
 // display: "optional" keeps text from repainting when fonts arrive, which keeps
@@ -13,6 +14,9 @@ const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "optional",
+  // Body font is not preloaded, to keep the first paint light on phones. The
+  // size matched fallback shows on a slow first visit; Inter is cached after.
+  preload: false,
 });
 
 const bricolage = Bricolage_Grotesque({
@@ -31,6 +35,8 @@ export const metadata: Metadata = {
   description: `Family owned pest control in Polk County, Florida since ${site.foundingYear}. Call ${site.phone} for a free quote.`,
   applicationName: site.name,
   formatDetection: { telephone: false },
+  // Demo: keep every page out of search results until IS_DEMO is false.
+  ...(IS_DEMO && { robots: { index: false, follow: false } }),
 };
 
 export const viewport: Viewport = {
@@ -54,6 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <MobileActionBar />
+        <RevealObserver />
       </body>
     </html>
   );

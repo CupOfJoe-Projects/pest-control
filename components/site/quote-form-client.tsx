@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { ChevronDown, CircleCheck, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { planLabels, type PlanId } from "@/content/plans";
+import { PLAN_EVENT } from "@/components/home/plan-button";
 
 type Option = { value: string; label: string };
 type Errors = Partial<Record<"name" | "phone" | "pest" | "zip" | "message" | "form", string>>;
@@ -30,14 +32,25 @@ export function QuoteFormClient({
   phone,
   phoneHref,
   textUrl,
+  showPlan = false,
 }: {
   pestOptions: Option[];
   defaultPest?: string;
   phone: string;
   phoneHref: string;
   textUrl: string;
+  /** Show the plan picker. Plan cards preselect it through PLAN_EVENT. */
+  showPlan?: boolean;
 }) {
   const [status, setStatus] = useState<Status>("idle");
+  const [plan, setPlan] = useState<PlanId | "">("");
+
+  useEffect(() => {
+    if (!showPlan) return;
+    const onPlan = (e: Event) => setPlan((e as CustomEvent<PlanId>).detail);
+    window.addEventListener(PLAN_EVENT, onPlan);
+    return () => window.removeEventListener(PLAN_EVENT, onPlan);
+  }, [showPlan]);
   const [errors, setErrors] = useState<Errors>({});
   const [pest, setPest] = useState<string>(defaultPest);
   const [firstName, setFirstName] = useState("");
@@ -63,6 +76,8 @@ export function QuoteFormClient({
       zip: String(fd.get("zip") ?? ""),
       message: String(fd.get("message") ?? ""),
       company: String(fd.get("company") ?? ""),
+      ...(plan && { plan }),
+      source: "form",
     };
 
     const clientErrors = validate(data);
@@ -225,19 +240,45 @@ export function QuoteFormClient({
           </div>
           {errorText("pest")}
         </div>
+        {showPlan && (
+          <div className="grid gap-2 sm:col-span-2">
+            <Label htmlFor="quote-plan" className="text-base font-semibold">
+              Plan <span className="font-normal text-muted-ink">(optional)</span>
+            </Label>
+            <div className="relative">
+              <select
+                id="quote-plan"
+                name="plan"
+                value={plan}
+                onChange={(e) => setPlan(e.target.value as PlanId | "")}
+                className={cn(
+                  fieldClass,
+                  "w-full appearance-none rounded-lg border border-input pr-10 outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+                  !plan && "text-muted-foreground",
+                )}
+              >
+                <option value="">Not sure yet</option>
+                {(Object.keys(planLabels) as PlanId[]).map((id) => (
+                  <option key={id} value={id} className="text-ink">
+                    {planLabels[id]}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                aria-hidden="true"
+                className="pointer-events-none absolute top-1/2 right-3.5 size-5 -translate-y-1/2 text-muted-ink"
+              />
+            </div>
+          </div>
+        )}
         <div className="grid gap-2 sm:col-span-2">
           <Label htmlFor="quote-message" className="text-base font-semibold">
             Anything else? <span className="font-normal text-muted-ink">(optional)</span>
           </Label>
           <Textarea id="quote-message" name="message" rows={3} className="bg-white px-3.5 py-3 text-base md:text-base" />
         </div>
-        {/* Honeypot for bots. Hidden from people and screen readers. */}
-        <div aria-hidden="true" className="absolute -left-[9999px] h-0 overflow-hidden">
-          <label>
-            Company
-            <input type="text" name="company" tabIndex={-1} autoComplete="off" />
-          </label>
-        </div>
+        {/* Honeypot for bots. Visually hidden, skipped by keyboard and screen readers. */}
+        <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       </div>
 
       {errors.form && (

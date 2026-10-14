@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/content/site";
+import { IS_DEMO, site } from "@/content/site";
 import { services } from "@/content/services";
 import { pests } from "@/content/pests";
 import { areas } from "@/content/areas";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  if (IS_DEMO) return [];
   const paths = [
     { path: "", priority: 1 },
     { path: "/services", priority: 0.8 },
