@@ -127,10 +127,10 @@ Hosted on Vercel: project `mcdonald-exterminators` in the **Validated Peptides' 
 
 ## Checks run before handoff
 
-- Lighthouse mobile on the live Vercel site: Performance 95 to 98, Accessibility 100, Best Practices 100, SEO 100
+- Lighthouse mobile on the live Vercel site (V2): Performance 95 to 97, Accessibility 100, Best Practices 100. SEO shows 69 only because `IS_DEMO` sets `noindex`; it was 100 before the flag and returns when it is turned off
 - No horizontal scroll at 375px and 768px
-- Quote form: client validation, server validation, honeypot, and success state
-- All 40 sitemap pages crawled, 0 broken internal links
+- Hero quote starter and full quote form: client validation, server validation, honeypot, success state, plan preselect from the plan cards
+- All 40 pages crawled from the homepage, 0 broken internal links, every `<img>` has alt text
 - Visible copy scanned for hyphens, dashes, and banned words: 0 found
 
 ## Confirm with owner
