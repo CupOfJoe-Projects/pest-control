@@ -63,7 +63,6 @@ Pages for every service, pest, and area are generated from these files with `gen
 | `SHOW_PRICING` | `true` | Shows the placeholder prices on the plan cards |
 | `TRUST_BADGES` | all unconfirmed | Credential badges under the reviews (FDACS, FPMA, BBB, guarantee) |
 | `NO_LONG_CONTRACTS_CONFIRMED` | `false` | Shows the contracts row in the local vs national table |
-| `TICKER_ITEMS` | 4 items | Text in the scrolling bar at the top of every page |
 
 ### Images
 
@@ -92,7 +91,7 @@ app/                    Routes (home, services, pests, areas, about, contact, le
   sitemap.ts robots.ts  SEO files
   opengraph-image.tsx   Share image for texts and social posts
 components/home/        Homepage only sections (hero and quote starter, problem picker, plans, guarantee, comparison, story, final CTA)
-components/site/        Shared sections (header, ticker, footer, trust wall, FAQ, quote form, visit steps, map)
+components/site/        Shared sections (header, offer bar, footer, trust wall, FAQ, quote form, visit steps, map)
 components/icons.tsx    Custom pest icons on lucide's grid, plus the icon map
 components/ui/          shadcn/ui primitives
 content/                All site copy and data
@@ -110,6 +109,7 @@ scripts/                Icon export script
 - **Light theme only.** `dark:` utilities only apply under a `.dark` class, so phones in dark mode get the designed look.
 - **Fonts use `display: optional`** so text never repaints after load, which keeps mobile LCP down.
 - **Map is a hand drawn SVG**, not a Google Maps embed, to keep the page fast.
+- **The top bar is static.** It was a scrolling ticker, but with the moving reviews that was too much motion.
 - **Marquees are pure CSS.** The server sends each row once; a tiny client component clones the second copy that makes the loop seamless. They pause on hover, focus, and touch, swipe on phones, and become a static scrollable row for reduced motion.
 - **Header is transparent only at the very top of the homepage.** It turns solid as soon as the page scrolls. Waiting until the hero was gone let hero content slide under a see through header on phones.
 - **Below the fold sections use `content-visibility: auto`** so phones skip laying them out until they scroll near.

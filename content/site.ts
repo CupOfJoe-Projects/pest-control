@@ -55,15 +55,6 @@ export const OFFER = {
   bar: "New customers: $50 off your first service.",
 };
 
-// Items in the scrolling ticker at the top of every page.
-// TODO(owner): Confirm "same day service when available".
-export const TICKER_ITEMS = [
-  ...(SHOW_OFFER ? ["New customers: $50 off first service"] : []),
-  "Same day service when available",
-  "Family owned since 1959",
-  "Call 863-533-1294",
-];
-
 // TODO(owner): Plan prices are placeholders. Set to false to hide prices.
 export const SHOW_PRICING = true;
 
