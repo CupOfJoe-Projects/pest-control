@@ -83,12 +83,11 @@ lib/                    SEO helpers, quote schema, utilities
 
 ## Deploy
 
-Hosted on Vercel: project `mcdonald-exterminators` in the `joseph-barkates-projects` team.
+Hosted on Vercel: project `mcdonald-exterminators` in the **Validated Peptides' projects** team, connected to `CupOfJoe-Projects/pest-control`.
 
-- Live: https://mcdonald-exterminators.vercel.app
-- Manual deploys from this folder: `vercel deploy` (preview) or `vercel deploy --prod`
+- Pushes to `main` deploy to production. Other branches and PRs get preview deployments.
+- Manual deploys from this folder: `vercel deploy` (preview) or `vercel deploy --prod`. Run `vercel whoami` first and confirm the account.
 - Preview URLs are behind Vercel Authentication. Share the production URL with people outside the team.
-- To deploy on every push, connect the GitHub repo in the Vercel dashboard under Project Settings, Git. Vercel's GitHub app needs access to this private repo first.
 
 ## Checks run before handoff
 
