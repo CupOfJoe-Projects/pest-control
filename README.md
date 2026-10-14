@@ -79,11 +79,20 @@ lib/                    SEO helpers, quote schema, utilities
 - **Light theme only.** `dark:` utilities only apply under a `.dark` class, so phones in dark mode get the designed look.
 - **Fonts use `display: optional`** so text never repaints after load, which keeps mobile LCP down.
 - **Map is a hand drawn SVG**, not a Google Maps embed, to keep the page fast.
-- **Unknown slugs** (for example `/pests/termites` while the flag is off) render the not found page with `noindex`. With Cache Components the status is 200 (a soft 404). A `proxy.ts` could force a real 404, but it would run on every pest, service, and area request, so it is left out for now.
+- **Unknown slugs** (for example `/pests/termites` while the flag is off) return a real 404 on Vercel. Locally, `next start` can answer 200 with the not found page and a `noindex` tag, which is harmless.
+
+## Deploy
+
+Hosted on Vercel: project `mcdonald-exterminators` in the `joseph-barkates-projects` team.
+
+- Live: https://mcdonald-exterminators.vercel.app
+- Manual deploys from this folder: `vercel deploy` (preview) or `vercel deploy --prod`
+- Preview URLs are behind Vercel Authentication. Share the production URL with people outside the team.
+- To deploy on every push, connect the GitHub repo in the Vercel dashboard under Project Settings, Git. Vercel's GitHub app needs access to this private repo first.
 
 ## Checks run before handoff
 
-- Lighthouse mobile (local production build): Performance 95 to 99, Accessibility 100, Best Practices 100, SEO 100
+- Lighthouse mobile on the live Vercel site: Performance 95 to 98, Accessibility 100, Best Practices 100, SEO 100
 - No horizontal scroll at 375px and 768px
 - Quote form: client validation, server validation, honeypot, and success state
 - All 40 sitemap pages crawled, 0 broken internal links
