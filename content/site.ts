@@ -82,13 +82,7 @@ export const SECOND_RATING: {
   value: number;
   countLabel: string;
   url: string;
-} | null = {
-  platform: "trustpilot",
-  label: "Trustpilot",
-  value: 4.8,
-  countLabel: "50+",
-  url: "https://www.trustpilot.com/",
-};
+} | null = null;
 
 // Floating cards in the homepage hero.
 // TODO(owner): Static demo text. Could be wired to the real schedule later.

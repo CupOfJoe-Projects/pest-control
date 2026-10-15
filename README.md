@@ -42,7 +42,7 @@ All copy lives in typed files under `/content`. There is no CMS.
 | `content/services.ts` | Service pages: name, short line, description, bullets, icon, pests covered |
 | `content/pests.ts` | Pest library: signs, why they show up in Florida, prevention tips, when to call |
 | `content/areas.ts` | City pages: blurb, local intro (written differently per city), common pests, map coordinates |
-| `content/reviews.ts` | Reviews for the trust wall marquee. **Sample reviews while `IS_DEMO` is true** |
+| `content/reviews.ts` | Reviews for the trust wall marquee. Real 5 star Google reviews, word for word |
 | `content/plans.ts` | Plan cards (One Time, Quarterly, Commercial). Prices are placeholders |
 | `content/affiliations.ts` | "Certified. Trusted. Proven." logos from the current site |
 | `content/faq.ts` | FAQ answers, also published as `FAQPage` JSON-LD |
@@ -58,9 +58,9 @@ Pages for every service, pest, and area are generated from these files with `gen
 | --- | --- | --- |
 | `SHOW_TERMITES` | `false` | Shows the termite service and termite pest page everywhere |
 | `SHOW_OFFER` | `true` | Shows the intro offer bar and offer callouts |
-| `IS_DEMO` | `true` | **Demo guardrail.** robots.txt disallows everything, every page is `noindex, nofollow`, the sitemap is empty, and the reviews wall shows a "Sample reviews" label. Set to `false` only after real reviews replace the samples |
+| `IS_DEMO` | `true` | **Demo guardrail.** robots.txt disallows everything, every page is `noindex, nofollow`, the sitemap is empty. Set to `false` at launch |
 | `GOOGLE_RATING` | `{ 5.0, 195 }` (real, checked Oct 2026) | Rating shown in the hero, trust wall, and JSON-LD. Set to `null` to hide it everywhere |
-| `SECOND_RATING` | Trustpilot placeholder | Second rating badge on the trust wall. `null` hides it |
+| `SECOND_RATING` | `null` (hidden) | Second rating badge on the trust wall. `null` hides it |
 | `SHOW_PRICING` | `true` | Shows the placeholder prices on the plan cards |
 | `NO_LONG_CONTRACTS_CONFIRMED` | `false` | Shows the contracts row in the local vs national table |
 
@@ -144,7 +144,8 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [x] Google rating and review count (`GOOGLE_RATING` in `content/site.ts`)
 - [ ] Termite service offered? (`SHOW_TERMITES`)
 - [ ] Current intro offer (`SHOW_OFFER`, `OFFER`)
-- [ ] Real reviews from the Google Business Profile, then set `IS_DEMO` to `false` (`content/reviews.ts`)
+- [x] Real reviews from the Google Business Profile (`content/reviews.ts`)
+- [ ] Set `IS_DEMO` to `false` at launch
 - [ ] Which second review platform they use, and its real rating (`SECOND_RATING`)
 - [ ] Original files for the affiliation logos (BusinessRate, FPMA, NPMA, Lakeland Chamber, BNI), pulled from the old site at web resolution (`content/affiliations.ts`)
 - [ ] Plan names, prices, and inclusions, including the 30 day warranty and free callbacks (`content/plans.ts`)
@@ -156,7 +157,7 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Logo files, ideally vector (`components/site/logo.tsx`; the current mark is cropped from the old site header)
 - [ ] Google Business Profile URL for the reviews link (`GOOGLE_REVIEWS_URL`)
 - [ ] Email address for quote form delivery (`QUOTE_TO_EMAIL`), then enable Resend
-- [ ] Star ratings for the three existing testimonials, plus more reviews (`content/reviews.ts`)
+- [ ] More real reviews, ideally ones that name a pest or a town (`content/reviews.ts`)
 - [ ] Founder name, family history, and timeline milestones (`TIMELINE` in `content/site.ts`)
 - [ ] FDACS license number for the hero card (`FDACS_LICENSE`)
 - [ ] Hero availability card text (`HERO_AVAILABILITY`), static for the demo

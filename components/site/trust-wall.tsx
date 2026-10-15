@@ -1,7 +1,7 @@
 import { Star } from "lucide-react";
 import { Container } from "./section";
 import { StarRating } from "./star-rating";
-import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, IS_DEMO, SECOND_RATING } from "@/content/site";
+import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, SECOND_RATING } from "@/content/site";
 import { Affiliations } from "./affiliations";
 import { reviews as allReviews, type Review, type ReviewPlatform } from "@/content/reviews";
 import { getCurrentYear } from "@/lib/year";
@@ -67,7 +67,7 @@ function ReviewCard({ review, wide = false }: { review: Review; wide?: boolean }
         <figcaption className="min-w-0 flex-1">
           <span className="block truncate font-semibold text-ink">{review.name}</span>
           <span className="block truncate text-sm text-muted-ink">
-            {review.town} · {review.date}
+            {review.town ? `${review.town} · ${review.date}` : review.date}
           </span>
         </figcaption>
         <span title={`Review on ${platformName[review.platform]}`}>
@@ -76,7 +76,7 @@ function ReviewCard({ review, wide = false }: { review: Review; wide?: boolean }
         </span>
       </div>
       <StarRating rating={review.rating} size="size-4" className="mt-3" />
-      <blockquote className="mt-2 line-clamp-4 text-[0.95rem] leading-relaxed text-ink">{review.text}</blockquote>
+      <blockquote className={cn("mt-2 text-[0.95rem] leading-relaxed text-ink", !wide && "line-clamp-5")}>{review.text}</blockquote>
     </figure>
   );
 }
@@ -125,8 +125,11 @@ export async function TrustWall({
   const top = reviews.filter((_, i) => i % 2 === 0);
   const bottom = reviews.filter((_, i) => i % 2 === 1);
 
-  // Three featured reviews, piled with slight rotations.
-  const featured = [...reviews].sort((a, b) => b.text.length - a.text.length).slice(0, 3);
+  // Three featured reviews, piled with slight rotations. The fullest ones that
+  // still fit a card; very long reviews stay in the rows below.
+  const featured = [...reviews]
+    .sort((a, b) => Number(b.text.length <= 240) - Number(a.text.length <= 240) || b.text.length - a.text.length)
+    .slice(0, 3);
   const tilts = ["-rotate-1", "rotate-0", "rotate-1"];
 
   return (
@@ -135,12 +138,6 @@ export async function TrustWall({
         <div data-reveal className="max-w-3xl">
           <p className="eyebrow flex-wrap text-green">
             Reviews
-            {IS_DEMO && (
-              // TODO(launch): Disappears when IS_DEMO is false.
-              <span className="rounded-full bg-orange/15 px-2.5 py-0.5 text-xs font-semibold tracking-normal text-ink normal-case">
-                Sample reviews for this demo
-              </span>
-            )}
           </p>
           <h2
             id="trust-title"
@@ -195,7 +192,7 @@ export async function TrustWall({
             </div>
           )}
 
-          <ul data-reveal className="relative mx-auto w-full max-w-md md:mx-0" aria-label="Featured reviews">
+          <ul data-reveal className="relative mx-auto w-full max-w-md min-w-0 md:mx-0" aria-label="Featured reviews">
             {featured.map((r, i) => (
               <li
                 key={r.name}
