@@ -41,29 +41,22 @@ export function SectionHeading({
   as?: "h1" | "h2";
 }) {
   return (
-    <div className={cn("max-w-2xl", className)}>
+    <div className={cn("max-w-3xl", className)}>
       {eyebrow && (
-        <p
-          className={cn(
-            "mb-3 flex items-center gap-2 text-sm font-semibold tracking-wide uppercase",
-            tone === "dark" ? "text-green" : "text-cream/85",
-          )}
-        >
-          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange" />
-          {eyebrow}
-        </p>
+        <p className={cn("eyebrow mb-4", tone === "dark" ? "text-green" : "text-cream/85")}>{eyebrow}</p>
       )}
       <Tag
         id={id}
         className={cn(
-          "text-3xl leading-[1.1] font-extrabold sm:text-4xl",
+          // H2 scale: 36px phones, 56px desktop.
+          "text-[2.25rem] leading-[1] font-extrabold md:text-[3.5rem] md:leading-[0.95]",
           tone === "dark" ? "text-ink" : "text-cream",
         )}
       >
         {title}
       </Tag>
       {intro && (
-        <p className={cn("mt-4 text-lg", tone === "dark" ? "text-muted-ink" : "text-cream/85")}>{intro}</p>
+        <p className={cn("mt-5 text-lg md:text-xl", tone === "dark" ? "text-muted-ink" : "text-cream/85")}>{intro}</p>
       )}
     </div>
   );

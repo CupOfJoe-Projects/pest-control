@@ -6,7 +6,7 @@ import { site } from "@/content/site";
 
 export function AreaSection() {
   return (
-    <Section id="areas" labelledBy="areas-title" className="bg-white">
+    <Section id="areas" labelledBy="areas-title" className="grain bg-cream">
       <div className="grid items-center gap-10 md:grid-cols-[1fr_1.1fr] lg:gap-16">
         <div data-reveal>
           <SectionHeading
@@ -36,7 +36,7 @@ export function AreaSection() {
             and ask.
           </p>
         </div>
-        <div data-reveal className="rounded-[16px] border border-line bg-cream p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:p-6">
+        <div data-reveal className="rounded-[20px] border border-line bg-white p-3 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:p-6">
           <AreaMap />
         </div>
       </div>

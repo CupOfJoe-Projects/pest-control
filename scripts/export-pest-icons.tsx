@@ -13,7 +13,7 @@ const outDir = join(process.cwd(), "public/icons/pests");
 mkdirSync(outDir, { recursive: true });
 
 for (const pest of pests) {
-  const svg = renderToStaticMarkup(<Icon name={pest.icon} stroke={BRAND_GREEN} strokeWidth={2} />)
+  const svg = renderToStaticMarkup(<Icon name={pest.icon} stroke={BRAND_GREEN} strokeWidth={1.75} />)
     .replace(/ aria-hidden="true"/g, "")
     .replace(/ class="[^"]*"/g, "");
   writeFileSync(join(outDir, `${pest.slug}.svg`), `${svg}\n`);

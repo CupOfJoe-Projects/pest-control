@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 
 export function ProblemPicker() {
   return (
-    <Section id="pests" labelledBy="picker-title">
+    <Section id="pests" labelledBy="picker-title" className="grain bg-cream">
       <div data-reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <SectionHeading
           id="picker-title"
@@ -28,7 +28,7 @@ export function ProblemPicker() {
           <li key={pest.slug} data-reveal>
             <Link
               href={`/pests/${pest.slug}`}
-              className="group relative flex h-full flex-col rounded-[16px] border border-line bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition duration-200 hover:-translate-y-1 hover:border-green/30 hover:shadow-xl sm:flex-row sm:items-center sm:gap-5 sm:p-6"
+              className="card-lift group relative flex h-full flex-col rounded-[16px] bg-white p-4 sm:flex-row sm:items-center sm:gap-5 sm:p-6"
             >
               <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-green-soft text-green transition group-hover:bg-green group-hover:text-cream sm:size-16">
                 <Icon name={pest.icon} className="size-7 sm:size-9" />

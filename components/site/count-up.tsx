@@ -2,10 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/** Counts from 0 to `to` once, the first time it scrolls into view. */
+/**
+ * Shows the final number by default. Only when at least half of it is on
+ * screen does it count up from zero, once. Fast scrolling, crawlers, and
+ * screenshots never catch it at zero.
+ */
 export function CountUp({ to, duration = 1400, className }: { to: number; duration?: number; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  // Render the final number on the server so it is correct without JavaScript.
   const [value, setValue] = useState(to);
 
   useEffect(() => {
@@ -25,10 +28,8 @@ export function CountUp({ to, duration = 1400, className }: { to: number; durati
         };
         frame = requestAnimationFrame(tick);
       },
-      { threshold: 0.6 },
+      { threshold: 0.5 },
     );
-    // Start from zero only once we know it will animate.
-    setValue(0);
     observer.observe(el);
     return () => {
       observer.disconnect();
@@ -38,7 +39,9 @@ export function CountUp({ to, duration = 1400, className }: { to: number; durati
 
   return (
     <span ref={ref} className={className}>
-      {value}
+      {/* Screen readers always get the real number, never the animation. */}
+      <span className="sr-only">{to}</span>
+      <span aria-hidden="true">{value}</span>
     </span>
   );
 }

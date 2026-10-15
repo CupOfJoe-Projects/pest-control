@@ -46,9 +46,16 @@ function PlatformMark({ platform, className }: { platform: ReviewPlatform | "nex
   );
 }
 
-function ReviewCard({ review }: { review: Review }) {
+function ReviewCard({ review, wide = false }: { review: Review; wide?: boolean }) {
   return (
-    <figure className="flex h-full w-[17.5rem] flex-col rounded-[16px] border border-line bg-white p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:w-[20rem]">
+    <figure
+      className={cn(
+        "flex h-full flex-col rounded-[16px] border border-line bg-white p-5",
+        wide
+          ? "w-full shadow-[0_18px_40px_-20px_rgba(20,42,29,0.35)]"
+          : "w-[17.5rem] shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:w-[20rem]",
+      )}
+    >
       <div className="flex items-start gap-3">
         <span
           aria-hidden="true"
@@ -124,75 +131,98 @@ export async function TrustWall({
   const top = reviews.filter((_, i) => i % 2 === 0);
   const bottom = reviews.filter((_, i) => i % 2 === 1);
 
+  // Three featured reviews, piled with slight rotations.
+  const featured = [...reviews].sort((a, b) => b.text.length - a.text.length).slice(0, 3);
+  const tilts = ["-rotate-1", "rotate-0", "rotate-1"];
+
   return (
     <section aria-labelledby="trust-title" className={cn("overflow-hidden bg-white py-16 md:py-24", className)}>
       <Container>
-        <div data-reveal className="flex flex-col items-start gap-6 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-2xl">
-            <p className="mb-3 flex items-center gap-2 text-sm font-semibold tracking-wide text-green uppercase">
-              <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange" />
-              Reviews
-              {IS_DEMO && (
-                // TODO(launch): Disappears when IS_DEMO is false.
-                <span className="ml-1 rounded-full bg-orange/15 px-2.5 py-0.5 text-xs tracking-normal text-ink normal-case">
-                  Sample reviews for this demo
-                </span>
-              )}
-            </p>
-            <h2 id="trust-title" className="text-3xl leading-[1.1] font-extrabold text-ink sm:text-4xl">
-              {title ?? `Polk County has been calling us for ${years} years`}
-            </h2>
-          </div>
+        <div data-reveal className="max-w-3xl">
+          <p className="eyebrow flex-wrap text-green">
+            Reviews
+            {IS_DEMO && (
+              // TODO(launch): Disappears when IS_DEMO is false.
+              <span className="rounded-full bg-orange/15 px-2.5 py-0.5 text-xs font-semibold tracking-normal text-ink normal-case">
+                Sample reviews for this demo
+              </span>
+            )}
+          </p>
+          <h2
+            id="trust-title"
+            className="mt-4 text-[2.25rem] leading-[1] font-extrabold text-ink md:text-[3.5rem] md:leading-[0.95]"
+          >
+            {title ?? `Polk County has been calling us for ${years} years`}
+          </h2>
+        </div>
 
-          <ul className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:flex-wrap sm:gap-3">
-            {GOOGLE_RATING && (
-              <li>
-                <a
-                  href={GOOGLE_REVIEWS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-full items-center gap-2.5 rounded-[16px] border border-line bg-cream px-3 py-3 transition hover:border-green/40 sm:gap-3 sm:px-4"
-                >
-                  <PlatformMark platform="google" className="size-8 shrink-0 text-lg sm:size-9" />
-                  <span>
-                    <span className="flex items-center gap-1.5 font-heading text-lg font-extrabold text-ink">
-                      {GOOGLE_RATING.value}
-                      <StarRating rating={GOOGLE_RATING.value} size="size-4" className="hidden sm:inline-flex" />
-                      <span aria-hidden="true" className="text-orange sm:hidden">★</span>
-                    </span>
-                    <span className="block text-xs text-muted-ink sm:text-sm">{GOOGLE_RATING.countLabel} on Google</span>
-                  </span>
-                </a>
+        <div className="mt-10 grid items-center gap-12 md:grid-cols-[0.9fr_1.1fr] lg:gap-20">
+          {/* Big numeral as the graphic. */}
+          {GOOGLE_RATING && (
+            <div data-reveal>
+              <p className="flex items-end gap-4">
+                <span className="font-heading text-[7rem] leading-[0.8] font-extrabold tracking-[-0.05em] text-green tabular-nums md:text-[10rem]">
+                  {GOOGLE_RATING.value}
+                </span>
+                <span className="pb-2">
+                  <StarRating rating={GOOGLE_RATING.value} />
+                  <span className="mt-1 block text-muted-ink">from {GOOGLE_RATING.countLabel} Google reviews</span>
+                </span>
+              </p>
+              <ul className="mt-8 flex flex-wrap gap-3 border-t border-line pt-6">
+                <li>
+                  <a
+                    href={GOOGLE_REVIEWS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2.5 rounded-full border border-line py-1.5 pr-4 pl-1.5 text-sm font-semibold text-ink transition hover:border-green/40"
+                  >
+                    <PlatformMark platform="google" className="size-7" />
+                    Google <span className="font-normal text-muted-ink tabular-nums">{GOOGLE_RATING.value}</span>
+                  </a>
+                </li>
+                {SECOND_RATING && (
+                  <li>
+                    <a
+                      href={SECOND_RATING.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2.5 rounded-full border border-line py-1.5 pr-4 pl-1.5 text-sm font-semibold text-ink transition hover:border-green/40"
+                    >
+                      <PlatformMark platform={SECOND_RATING.platform} className="size-7" />
+                      {SECOND_RATING.label}{" "}
+                      <span className="font-normal text-muted-ink tabular-nums">
+                        {SECOND_RATING.value} · {SECOND_RATING.countLabel}
+                      </span>
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+
+          <ul data-reveal className="relative mx-auto w-full max-w-md md:mx-0" aria-label="Featured reviews">
+            {featured.map((r, i) => (
+              <li
+                key={r.name}
+                className={cn(
+                  "relative transition hover:z-30",
+                  tilts[i],
+                  i > 0 && "mt-3 md:-mt-20",
+                  i === 0 && "md:mr-10",
+                  i === 1 && "z-10 ml-4 md:ml-12",
+                  i === 2 && "z-20 md:ml-4 md:mr-6",
+                )}
+              >
+                <ReviewCard review={r} wide />
               </li>
-            )}
-            {SECOND_RATING && (
-              <li>
-                <a
-                  href={SECOND_RATING.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex h-full items-center gap-2.5 rounded-[16px] border border-line bg-cream px-3 py-3 transition hover:border-green/40 sm:gap-3 sm:px-4"
-                >
-                  <PlatformMark platform={SECOND_RATING.platform} className="size-8 shrink-0 sm:size-9" />
-                  <span>
-                    <span className="flex items-center gap-1.5 font-heading text-lg font-extrabold text-ink">
-                      {SECOND_RATING.value}
-                      <StarRating rating={SECOND_RATING.value} size="size-4" className="hidden sm:inline-flex" />
-                      <span aria-hidden="true" className="text-orange sm:hidden">★</span>
-                    </span>
-                    <span className="block text-xs text-muted-ink sm:text-sm">
-                      {SECOND_RATING.countLabel} on {SECOND_RATING.label}
-                    </span>
-                  </span>
-                </a>
-              </li>
-            )}
+            ))}
           </ul>
         </div>
       </Container>
 
       {/* Full bleed rows. Hover, focus, or touch pauses them. */}
-      <div className="mx-auto mt-10 max-w-[2300px] space-y-2">
+      <div className="mx-auto mt-14 max-w-[2300px] space-y-2 md:mt-20">
         <MarqueeRow reviews={top} direction="left" duration="55s" label="Customer reviews, row one" />
         <MarqueeRow reviews={bottom.length ? bottom : top} direction="right" duration="60s" label="Customer reviews, row two" />
       </div>

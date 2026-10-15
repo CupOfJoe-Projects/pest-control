@@ -8,22 +8,24 @@ import { RevealObserver } from "@/components/site/reveal-observer";
 import { IS_DEMO, site } from "@/content/site";
 import "./globals.css";
 
-// display: "optional" keeps text from repainting when fonts arrive, which keeps
-// mobile LCP low. Fonts are preloaded, so they still show on nearly every visit.
+// Fonts swap in. Fallback lists end in a generic sans so text never drops to a
+// serif default where Arial is missing (headless Linux). Bricolage (headings)
+// is preloaded; Inter (body) is not, so it does not compete with the hero photo,
+// which is the LCP. It still loads right after the CSS and swaps in.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  display: "optional",
-  // Body font is not preloaded, to keep the first paint light on phones. The
-  // size matched fallback shows on a slow first visit; Inter is cached after.
+  display: "swap",
   preload: false,
+  fallback: ["ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
 });
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
   subsets: ["latin"],
-  display: "optional",
+  display: "swap",
   weight: ["600", "700", "800"],
+  fallback: ["ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Arial", "sans-serif"],
 });
 
 export const metadata: Metadata = {

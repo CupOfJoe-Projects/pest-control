@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/hero";
+import { QuoteBar } from "@/components/home/quote-bar";
 import { ProblemPicker } from "@/components/home/problem-picker";
 import { Plans } from "@/components/home/plans";
 import { Guarantee } from "@/components/home/guarantee";
@@ -18,17 +19,30 @@ export const metadata = pageMetadata({
   path: "/",
 });
 
-// Section rhythm: photo, white, cream, white, photo, green, cream, white, cream, white, photo.
+// Rooms: cream hero, white trust wall, cream pests, green plans, cream guarantee,
+// white comparison, cream how it works, green story, white FAQ, cream area, orange CTA.
+const belowFold = [
+  { key: "pests", Section: ProblemPicker },
+  { key: "plans", Section: Plans },
+  { key: "guarantee", Section: Guarantee },
+  { key: "comparison", Section: Comparison },
+  { key: "how", Section: () => <HowItWorks className="grain bg-cream" /> },
+  { key: "story", Section: StorySection },
+  { key: "faq", Section: () => <Faq className="bg-white" /> },
+  { key: "areas", Section: AreaSection },
+  { key: "cta", Section: FinalCta },
+];
+
 export default function HomePage() {
   return (
     <>
       <JsonLd data={localBusinessJsonLd()} />
       <Hero />
-      <TrustWall />
-      {[ProblemPicker, Plans, Guarantee, Comparison, HowItWorks, StorySection, Faq, AreaSection, FinalCta].map((Section) => (
-        <div key={Section.name} className="below-fold">
-          <Section />
-        </div>
+      <QuoteBar />
+      {/* Extra top padding makes room for the quote bar that overlaps this section. */}
+      <TrustWall className="pt-28 md:pt-36" />
+      {belowFold.map(({ key, Section }) => (
+        <Section key={key} />
       ))}
     </>
   );

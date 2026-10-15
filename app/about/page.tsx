@@ -1,7 +1,7 @@
 import { HeartHandshake, MapPin, Phone, ThumbsUp } from "lucide-react";
 import { PageHeader } from "@/components/site/page-header";
 import { Container, Section, SectionHeading } from "@/components/site/section";
-import { PhotoPlaceholder } from "@/components/site/photo-placeholder";
+import { TIMELINE } from "@/content/site";
 import { EstBadge } from "@/components/site/est-badge";
 import { TrustWall } from "@/components/site/trust-wall";
 import { CtaBlock } from "@/components/site/cta-block";
@@ -72,8 +72,19 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          {/* TODO(owner): Historic photo from the early days. 4:3, at least 1600x1200. */}
-          <PhotoPlaceholder label="An early McDonald truck or the original crew" tone="cream" className="aspect-[4/3]" />
+          {/* TODO(owner): A real early days photo can replace the seal and timeline here. */}
+          <div className="flex flex-col items-center gap-10 md:items-start">
+            <EstBadge className="size-48 drop-shadow-[0_20px_30px_rgba(0,0,0,0.35)] sm:size-56" />
+            <ol className="relative w-full space-y-6 border-l border-cream/20 pl-7">
+              {TIMELINE.map((t) => (
+                <li key={t.year} className="relative">
+                  <span aria-hidden="true" className="absolute top-1.5 -left-[2.0625rem] size-3 rounded-full bg-orange ring-4 ring-green" />
+                  <span className="block font-heading text-2xl font-extrabold tracking-[-0.03em] tabular-nums">{t.year}</span>
+                  <span className="block text-cream/80">{t.text}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
         </Container>
       </section>
 
@@ -92,15 +103,6 @@ export default function AboutPage() {
         </ul>
       </Section>
 
-      <Section labelledBy="team-title" className="bg-white">
-        <SectionHeading id="team-title" eyebrow="The team" title="Local people, local trucks" />
-        <div className="mt-8 grid gap-5 sm:grid-cols-3">
-          {/* TODO(owner): Team photos. 4:3 each, at least 1200x900. */}
-          <PhotoPlaceholder label="The office team in Bartow" className="aspect-[4/3]" />
-          <PhotoPlaceholder label="A tech on a service call" className="aspect-[4/3]" />
-          <PhotoPlaceholder label="The trucks lined up" className="aspect-[4/3]" />
-        </div>
-      </Section>
 
       <TrustWall className="bg-cream" />
       <CtaBlock />

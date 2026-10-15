@@ -1,66 +1,83 @@
 import { Check } from "lucide-react";
-import { Section, SectionHeading } from "@/components/site/section";
-import { SlotImage } from "@/components/site/slot-image";
+import { Container } from "@/components/site/section";
 import { PlanButton } from "./plan-button";
-import { plans } from "@/content/plans";
+import { plans, type Plan } from "@/content/plans";
 import { SHOW_PRICING } from "@/content/site";
-import { images } from "@/lib/images";
 import { cn } from "@/lib/utils";
 
+function Price({ price, popular }: { price: Plan["price"]; popular?: boolean }) {
+  // TODO(owner): Placeholder prices, see content/plans.ts.
+  if (price.text) {
+    return <p className="font-heading text-[2.5rem] leading-none font-extrabold tracking-[-0.03em]">{price.text}</p>;
+  }
+  return (
+    <p className="flex items-baseline gap-2 font-heading leading-none font-extrabold tracking-[-0.03em]">
+      {price.prefix && (
+        <span className={cn("font-sans text-base font-semibold tracking-normal", popular ? "text-cream/70" : "text-muted-ink")}>
+          {price.prefix}
+        </span>
+      )}
+      <span className="text-[3.5rem] tabular-nums">{price.amount}</span>
+      {price.suffix && <span className={cn("text-xl", popular ? "text-cream/70" : "text-muted-ink")}>{price.suffix}</span>}
+    </p>
+  );
+}
+
+/** Deep green room. Two cream cards and the popular plan in darker green. */
 export function Plans() {
   return (
-    <Section id="plans" labelledBy="plans-title" className="bg-white">
-      <SectionHeading
-        id="plans-title"
-        eyebrow="Plans"
-        title="Pick how much help you need"
-        intro="One problem or year round peace of mind. Every plan starts with a free quote."
-        className="mx-auto text-center [&>p:first-child]:justify-center"
-      />
+    <section id="plans" aria-labelledby="plans-title" className="grain bg-green py-16 text-cream md:py-24">
+      <Container>
+        <div data-reveal className="max-w-3xl">
+          <p className="eyebrow text-cream/85">Plans</p>
+          <h2 id="plans-title" className="mt-4 text-[2.25rem] leading-[1] font-extrabold md:text-[3.5rem] md:leading-[0.95]">
+            Pick how much help you need
+          </h2>
+          <p className="mt-5 text-lg text-cream/85 md:text-xl">
+            One problem or year round peace of mind. Every plan starts with a free quote.
+          </p>
+        </div>
 
-      <ul className="mt-12 grid items-stretch gap-5 md:grid-cols-3 md:gap-6">
-        {plans.map((plan) => (
-          <li
-            key={plan.id}
-            data-reveal
-            className={cn(
-              "relative flex flex-col overflow-hidden rounded-[16px] border bg-white",
-              plan.popular
-                ? // Phones see the most popular plan first.
-                  "order-first border-2 border-orange shadow-xl md:order-none md:-translate-y-3"
-                : "border-line shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
-            )}
-          >
-            {plan.popular && (
-              <p className="bg-orange py-2 text-center text-sm font-bold tracking-wide text-ink uppercase">
-                Most popular
-              </p>
-            )}
-            {plan.id === "commercial" && (
-              <SlotImage slot={images.commercial} sizes="(min-width: 768px) 33vw, 100vw" className="h-36 w-full object-cover" />
-            )}
-            <div className="flex flex-1 flex-col p-6 sm:p-7">
-              <h3 className="text-2xl font-extrabold text-ink">{plan.name}</h3>
-              <p className="mt-1 text-muted-ink">{plan.forWho}</p>
-              {SHOW_PRICING && (
-                // TODO(owner): Placeholder price.
-                <p className="mt-5 font-heading text-3xl font-extrabold text-green">{plan.price}</p>
+        <ul className="mt-12 grid items-stretch gap-5 md:grid-cols-3 md:gap-6">
+          {plans.map((plan) => (
+            <li
+              key={plan.id}
+              data-reveal
+              className={cn(
+                "relative flex flex-col rounded-[20px] p-6 sm:p-8",
+                plan.popular
+                  ? // Phones see the most popular plan first.
+                    "order-first bg-green-dark text-cream shadow-[0_30px_60px_-30px_rgba(0,0,0,0.6)] ring-1 ring-orange/70 md:order-none md:-translate-y-4"
+                  : "bg-cream text-ink",
               )}
-              <ul className="mt-5 space-y-3">
+            >
+              {plan.popular && (
+                <p className="absolute -top-3.5 left-6 rounded-full bg-orange px-3 py-1 text-xs font-bold tracking-[0.12em] text-ink uppercase sm:left-8">
+                  Most popular
+                </p>
+              )}
+              <h3 className="text-2xl font-extrabold">{plan.name}</h3>
+              <p className={cn("mt-1", plan.popular ? "text-cream/75" : "text-muted-ink")}>{plan.forWho}</p>
+              {SHOW_PRICING && (
+                <div className={cn("mt-6 border-t pt-6", plan.popular ? "border-cream/15" : "border-line")}>
+                  <Price price={plan.price} popular={plan.popular} />
+                </div>
+              )}
+              <ul className="mt-6 space-y-3">
                 {plan.includes.map((item) => (
-                  <li key={item} className="flex gap-2.5 text-ink">
-                    <Check aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-green" />
+                  <li key={item} className="flex gap-2.5">
+                    <Check aria-hidden="true" className={cn("mt-1 size-5 shrink-0", plan.popular ? "text-orange" : "text-green")} />
                     {item}
                   </li>
                 ))}
               </ul>
-              <div className="mt-auto pt-7">
+              <div className="mt-auto pt-8">
                 <PlanButton plan={plan.id} popular={plan.popular} label={`Get a ${plan.name} quote`} />
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </Section>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
   );
 }

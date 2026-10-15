@@ -23,15 +23,16 @@ const outline: [number, number][] = [
 ];
 
 type LabelPos = { dx: number; dy: number; anchor: "start" | "middle" | "end" };
-const right: LabelPos = { dx: 14, dy: 7, anchor: "start" };
-// Hand placed so labels stay readable (about 13px) on a phone without colliding.
+const right: LabelPos = { dx: 14, dy: 6, anchor: "start" };
+// Hand placed so no two labels touch at desktop size.
 const labels: Record<string, LabelPos> = {
-  lakeland: { dx: 0, dy: -18, anchor: "middle" },
-  "eagle-lake": { dx: 0, dy: 30, anchor: "middle" },
-  medulla: { dx: 0, dy: 30, anchor: "middle" },
-  mulberry: { dx: 0, dy: 33, anchor: "middle" },
+  lakeland: { dx: -14, dy: 6, anchor: "end" },
+  auburndale: { dx: 0, dy: -16, anchor: "middle" },
+  "eagle-lake": { dx: 0, dy: 26, anchor: "middle" },
+  medulla: { dx: 0, dy: -16, anchor: "middle" },
+  mulberry: { dx: 0, dy: 30, anchor: "middle" },
   "cypress-gardens": { dx: 14, dy: 18, anchor: "start" },
-  "winter-haven": { dx: 14, dy: 2, anchor: "start" },
+  "winter-haven": { dx: 14, dy: 4, anchor: "start" },
 };
 
 const HQ = "bartow";
@@ -78,10 +79,10 @@ export function AreaMap({ className, activeSlug }: { className?: string; activeS
                 x={x + pos.dx}
                 y={y + pos.dy}
                 textAnchor={pos.anchor}
-                fontSize="23"
+                fontSize="18"
                 fontWeight={isHQ || isActive ? 800 : 600}
                 fill="var(--brand-ink)"
-                className="group-hover:underline"
+                className={cn("group-hover:underline", !isHQ && "map-label")}
                 style={{ paintOrder: "stroke", stroke: "var(--brand-green-soft)", strokeWidth: 5 }}
               >
                 {area.name}
@@ -89,9 +90,9 @@ export function AreaMap({ className, activeSlug }: { className?: string; activeS
               {isHQ && (
                 <text
                   x={x + pos.dx}
-                  y={y + pos.dy + 22}
+                  y={y + pos.dy + 18}
                   textAnchor={pos.anchor}
-                  fontSize="18"
+                  fontSize="15"
                   fontWeight="600"
                   fill="var(--brand-green)"
                   style={{ paintOrder: "stroke", stroke: "var(--brand-green-soft)", strokeWidth: 5 }}

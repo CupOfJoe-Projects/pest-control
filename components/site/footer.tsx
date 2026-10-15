@@ -31,9 +31,13 @@ export async function Footer() {
                 <Phone aria-hidden="true" className="size-5 shrink-0" />
                 {site.phone}
               </a>
-              <a href={`mailto:${site.email}`} className={`flex items-center gap-2 break-all ${linkClass}`}>
+              <a href={`mailto:${site.email}`} className={`flex items-center gap-2 ${linkClass}`}>
                 <Mail aria-hidden="true" className="size-5 shrink-0" />
-                {site.email}
+                {/* Wrap before the @ on narrow columns, never mid word. */}
+                <span>
+                  {site.email.split("@")[0]}
+                  <wbr />@{site.email.split("@")[1]}
+                </span>
               </a>
               <a href={site.textUrl} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 ${linkClass}`}>
                 <MessageSquareText aria-hidden="true" className="size-5 shrink-0" />

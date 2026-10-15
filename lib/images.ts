@@ -1,8 +1,11 @@
 import type { StaticImageData } from "next/image";
 import familyHome from "@/public/images/family-home.webp";
+import hero from "@/public/images/hero.webp";
+import heroMobile from "@/public/images/hero-mobile.webp";
 
 /**
- * Image slots. Each one renders a styled placeholder until its file exists.
+ * Image slots. A slot with no file renders nothing: every section that uses
+ * one has a designed fallback, so the demo never shows a placeholder box.
  *
  * To add an image: drop the WebP into /public/images, import it at the top of
  * this file, and set `src` on its slot. Static imports give next/image the size
@@ -30,18 +33,26 @@ const slot = (alt: string, label: string, width: number, height: number): ImageS
 });
 
 export const images = {
-  hero: slot(
-    "Pest control technician treating the foundation of a Florida ranch home",
-    "Technician treating a home foundation",
-    2400,
-    1350,
-  ),
-  heroMobile: slot(
-    "Pest control technician treating the foundation of a Florida ranch home",
-    "Technician treating a home foundation",
-    1080,
-    1350,
-  ),
+  // Transparent WebP, waist up, under 150KB. Breaks out of the hero arch.
+  techCutout: slot("Pest control technician in a green polo holding a pump sprayer", "Technician cutout", 900, 1100),
+  hero: {
+    ...slot(
+      "Pest control technician treating the foundation of a Florida ranch home under oak trees, with a white pickup in the driveway",
+      "Technician treating a home foundation",
+      1672,
+      940,
+    ),
+    src: hero,
+  },
+  heroMobile: {
+    ...slot(
+      "Pest control technician treating the foundation of a Florida ranch home under oak trees",
+      "Technician treating a home foundation",
+      752,
+      940,
+    ),
+    src: heroMobile,
+  },
   truck: slot("White service pickup parked in a Central Florida driveway under oak trees", "Service truck on a job", 1600, 1200),
   inspection: slot("Technician with a flashlight inspecting under a kitchen sink", "Inspection under a kitchen sink", 1200, 900),
   yard: slot("Florida backyard at dusk with a screened lanai and pool", "Backyard mosquito treatment", 1200, 900),

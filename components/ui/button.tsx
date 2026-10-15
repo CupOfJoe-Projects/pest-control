@@ -2,7 +2,7 @@ import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "cn"
 
-const buttonVariants = cva(
+const baseButtonVariants = cva(
   "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
@@ -17,11 +17,14 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
-        cta: "bg-orange font-semibold text-ink shadow-sm hover:bg-orange-hover active:scale-[0.98] active:shadow-none",
+        // Orange primary: 1px darker inner border and a slight press.
+        cta: "bg-orange font-semibold text-ink shadow-[inset_0_0_0_1px_rgba(150,62,0,0.45),0_1px_2px_rgba(0,0,0,0.12)] hover:bg-orange-hover active:scale-[0.98]",
         "outline-green":
           "border-green/80 bg-transparent font-semibold text-green hover:bg-green hover:text-cream",
+        // Raw colors: the class merger does not know the custom cream token and would
+        // otherwise drop the border.
         "outline-cream":
-          "border-cream/70 bg-transparent font-semibold text-cream hover:bg-cream hover:text-green",
+          "border-[rgba(250,247,240,0.75)] bg-transparent font-semibold text-[#faf7f0] hover:bg-[#faf7f0] hover:text-[#1f3d2b]",
       },
       size: {
         default:
@@ -46,6 +49,13 @@ const buttonVariants = cva(
     },
   }
 )
+
+/**
+ * Variant classes, merged. Links use this directly (without <Button>), so the
+ * merge must happen here or base classes like border-transparent win by CSS
+ * order over variant classes like the outline colors.
+ */
+const buttonVariants = (props?: Parameters<typeof baseButtonVariants>[0]) => cn(baseButtonVariants(props))
 
 function Button({
   className,

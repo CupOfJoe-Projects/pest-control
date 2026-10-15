@@ -51,7 +51,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         intro={<p>{service.short}</p>}
         aside={
           <div className="relative">
-            {serviceImages[service.slug] ? (
+            {serviceImages[service.slug]?.src ? (
               <div className="overflow-hidden rounded-[16px] shadow-lg">
                 <SlotImage slot={serviceImages[service.slug]!} sizes="(min-width: 768px) 30vw, 100vw" priority className="aspect-square w-full" />
               </div>

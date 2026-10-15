@@ -1,6 +1,7 @@
 import { HandHeart, MessageSquareText, RotateCcw } from "lucide-react";
 import { Container } from "@/components/site/section";
 import { SlotImage } from "@/components/site/slot-image";
+import { EstBadge } from "@/components/site/est-badge";
 import { images } from "@/lib/images";
 
 // TODO(owner): Confirm the exact guarantee wording before launch.
@@ -12,28 +13,49 @@ const points = [
 
 export function Guarantee() {
   return (
-    <section aria-labelledby="guarantee-title" className="relative isolate overflow-hidden py-20 text-cream md:py-32">
-      <SlotImage slot={images.familyHome} fill sizes="100vw" className="-z-20 object-[70%_center]" />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-green-dark/80 md:bg-transparent md:bg-gradient-to-r md:from-green-dark/95 md:via-green-dark/60 md:to-green-dark/5" />
-      <Container>
-        <div data-reveal className="max-w-2xl">
-          <p className="mb-3 flex items-center gap-2 text-sm font-semibold tracking-wide uppercase">
-            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange" />
-            The McDonald guarantee
-          </p>
-          <h2 id="guarantee-title" className="text-4xl leading-[1.05] font-extrabold sm:text-6xl">
-            If they come back, so do we. <span className="text-orange">Free.</span>
-          </h2>
+    <section aria-labelledby="guarantee-title" className="grain bg-cream py-16 md:py-24">
+      <Container className="grid items-center gap-12 md:grid-cols-2 lg:gap-20">
+        <div>
+          <div data-reveal>
+            <p className="eyebrow text-green">The McDonald guarantee</p>
+            <h2
+              id="guarantee-title"
+              className="mt-4 text-[2.25rem] leading-[1] font-extrabold text-ink md:text-[3.5rem] md:leading-[0.95]"
+            >
+              If they come back, so do we. <span className="text-green">Free.</span>
+            </h2>
+          </div>
+          <ul className="mt-8 divide-y divide-line border-y border-line">
+            {points.map(({ icon: Icon, title, text }) => (
+              <li key={title} data-reveal className="flex gap-4 py-5">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-green-soft text-green">
+                  <Icon aria-hidden="true" className="size-5" />
+                </span>
+                <span>
+                  <span className="block text-lg font-bold text-ink">{title}</span>
+                  <span className="mt-0.5 block text-muted-ink">{text}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul className="mt-10 grid gap-4 md:grid-cols-3 md:gap-6">
-          {points.map(({ icon: Icon, title, text }) => (
-            <li key={title} data-reveal className="rounded-[16px] bg-green-dark/75 p-6 ring-1 ring-cream/20 backdrop-blur-md">
-              <Icon aria-hidden="true" className="size-8 text-orange" />
-              <h3 className="mt-4 text-xl font-bold">{title}</h3>
-              <p className="mt-1.5 text-cream/85">{text}</p>
-            </li>
-          ))}
-        </ul>
+
+        <div data-reveal className="relative">
+          {images.familyHome.src ? (
+            <div className="overflow-hidden rounded-[24px] shadow-[0_30px_60px_-30px_rgba(20,42,29,0.45)]">
+              <SlotImage
+                slot={images.familyHome}
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="aspect-[4/5] h-auto w-full object-[62%_center] md:aspect-[4/5]"
+              />
+            </div>
+          ) : (
+            <div className="flex aspect-[4/5] items-center justify-center rounded-[24px] bg-green">
+              <EstBadge className="size-56" />
+            </div>
+          )}
+          <EstBadge className="absolute -bottom-8 -left-6 size-28 drop-shadow-lg md:size-36" />
+        </div>
       </Container>
     </section>
   );

@@ -66,19 +66,21 @@ Pages for every service, pest, and area are generated from these files with `gen
 
 ### Images
 
-Image slots live in `lib/images.ts`. Until a slot has a file, it renders a styled placeholder at the right aspect ratio, so the layout never shifts.
+Image slots live in `lib/images.ts`.
 
 To add one: export it as WebP into `/public/images`, `import` it at the top of `lib/images.ts`, and set `src` on its slot. The static import gives `next/image` the dimensions and the blur placeholder.
 
 | Slot | File | Size | Used in |
 | --- | --- | --- | --- |
-| `hero` | `hero.webp` | 2400x1350 | Homepage hero, desktop |
-| `heroMobile` | `hero-mobile.webp` | 1080x1350 | Homepage hero, phones |
-| `truck` | `truck.webp` | 1600x1200 | Story section |
-| `inspection` | `inspection.webp` | 1200x900 | Visit step 2, homeowner service page |
-| `yard` | `yard.webp` | 1200x900 | Visit step 3, final quote band, mosquito service page |
-| `commercial` | `commercial.webp` | 1200x900 | Commercial plan card, commercial service page |
-| `familyHome` | `family-home.webp` ✅ | 1600x900 | Guarantee band |
+| `hero` | `hero.webp` ✅ | 1672x940 | Homepage hero, desktop (send a 2400px+ version for sharper retina) |
+| `heroMobile` | `hero-mobile.webp` ✅ | 752x940 | Homepage hero, phones (4:5 crop of the same photo) |
+| `familyHome` | `family-home.webp` ✅ | 1600x900 | Guarantee section |
+| `techCutout` | `tech-cutout.webp` | ~900x1100, transparent | Optional: appears in the orange closing band when present |
+| `inspection` | `inspection.webp` | 1200x900 | Homeowner service page |
+| `yard` | `yard.webp` | 1200x900 | Mosquito service page |
+| `commercial` | `commercial.webp` | 1200x900 | Commercial service page |
+
+A slot with no file renders nothing, and every section that uses one has a designed fallback (icon tile, seal, or timeline). The demo never shows a placeholder box.
 
 **These are AI demo images.** Keep captions generic. Never present them as the McDonald family, staff, or trucks, and no generated truck should carry a name or logo. Replace with real photos before launch.
 
@@ -111,10 +113,12 @@ scripts/                Icon export script
 - **Map is a hand drawn SVG**, not a Google Maps embed, to keep the page fast.
 - **The top bar is static.** It was a scrolling ticker, but with the moving reviews that was too much motion.
 - **Marquees are pure CSS.** The server sends each row once; a tiny client component clones the second copy that makes the loop seamless. They pause on hover, focus, and touch, swipe on phones, and become a static scrollable row for reduced motion.
-- **Header is transparent only at the very top of the homepage.** It turns solid as soon as the page scrolls. Waiting until the hero was gone let hero content slide under a see through header on phones.
-- **Below the fold sections use `content-visibility: auto`** so phones skip laying them out until they scroll near.
+- **Hero is the full bleed photo.** On phones the photo is a 4:5 block with the headline over the trees and the rest of the hero on deep green below, so the tech stays visible and the headline, rating, and Call button fit above the fold at 390x844. The photo is preloaded per breakpoint (next/image cannot preload `<picture>` art direction).
+- **Demo wordmark** (`components/site/logo.tsx`): the 1959 seal mark, "McDonald" in Bricolage, "EXTERMINATORS" in tracked Inter. Used in the header, footer, and OG image.
+- **Scroll reveal never hides what is on screen.** Only elements that start below the fold get `data-pending`, and they reveal at 10% visibility.
+- **`buttonVariants()` merges its classes.** Links use it directly, and without the merge `border-transparent` beat the outline colors by CSS order.
 - **Ratings render as text stars**, not SVGs, to keep the HTML small.
-- **Inter (body font) is not preloaded.** Bricolage (headings) is. On a slow first visit body text uses the size matched fallback.
+- **Font stacks end in a generic sans serif.** Without it, text fell back to a serif in environments with no Arial (headless Linux). Bricolage (headings) is preloaded; Inter (body) loads right after the CSS so it does not compete with the hero photo.
 - **Unknown slugs** (for example `/pests/termites` while the flag is off) return a real 404 on Vercel. Locally, `next start` can answer 200 with the not found page and a `noindex` tag, which is harmless.
 
 ## Deploy
@@ -153,6 +157,9 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Google Business Profile URL for the reviews link (`GOOGLE_REVIEWS_URL`)
 - [ ] Email address for quote form delivery (`QUOTE_TO_EMAIL`), then enable Resend
 - [ ] Star ratings for the three existing testimonials, plus more reviews (`content/reviews.ts`)
-- [ ] Founder name and family history for the story sections (home and `/about`)
+- [ ] Founder name, family history, and timeline milestones (`TIMELINE` in `content/site.ts`)
+- [ ] FDACS license number for the hero card (`FDACS_LICENSE`)
+- [ ] Hero availability card text (`HERO_AVAILABILITY`), static for the demo
+- [ ] Real plan prices ($149 and $45/mo are demo numbers)
 - [ ] Pet and family safe products claim (guarantee band, FAQ)
 - [ ] Privacy policy and terms reviewed

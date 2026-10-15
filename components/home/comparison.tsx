@@ -13,19 +13,19 @@ const rows = [
 
 export function Comparison() {
   return (
-    <section aria-labelledby="compare-title" className="bg-green py-16 text-cream md:py-24">
+    <section aria-labelledby="compare-title" className="bg-white py-16 md:py-24">
       <Container>
         <div data-reveal className="max-w-2xl">
-          <p className="mb-3 flex items-center gap-2 text-sm font-semibold tracking-wide text-cream/85 uppercase">
-            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-orange" />
-            Local vs national
-          </p>
-          <h2 id="compare-title" className="text-3xl leading-[1.1] font-extrabold sm:text-4xl">
+          <p className="eyebrow text-green">Local vs national</p>
+          <h2
+            id="compare-title"
+            className="mt-4 text-[2.25rem] leading-[1] font-extrabold text-ink md:text-[3.5rem] md:leading-[0.95]"
+          >
             Why neighbors pick the local guys
           </h2>
         </div>
 
-        <div data-reveal className="mt-10 overflow-hidden rounded-[16px] bg-cream text-ink shadow-2xl">
+        <div data-reveal className="mt-10 overflow-hidden rounded-[20px] border border-line bg-cream text-ink">
           <table className="w-full border-collapse text-left">
             <caption className="sr-only">McDonald Exterminators compared with national chains</caption>
             <thead>

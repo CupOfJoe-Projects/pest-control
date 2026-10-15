@@ -4,25 +4,32 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
 /**
- * One observer for the whole page. Any element with `data-reveal` fades in the
- * first time it scrolls into view. CSS in globals.css does the animation and
- * skips it entirely for reduced motion.
+ * One observer for the whole page. Elements with `data-reveal` that start
+ * below the fold get `data-pending` (hidden by CSS) and lose it once 10% of
+ * them is visible. Anything already on screen is never hidden, so there are no
+ * blank bands while scrolling or on first paint.
  */
 export function RevealObserver() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
-          entry.target.setAttribute("data-revealed", "");
+          entry.target.removeAttribute("data-pending");
           observer.unobserve(entry.target);
         }
       },
-      { rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.1 },
     );
-    document.querySelectorAll("[data-reveal]:not([data-revealed])").forEach((el) => observer.observe(el));
+    const fold = window.innerHeight;
+    document.querySelectorAll("[data-reveal]").forEach((el) => {
+      if (el.getBoundingClientRect().top < fold) return;
+      el.setAttribute("data-pending", "");
+      observer.observe(el);
+    });
     return () => observer.disconnect();
   }, [pathname]);
 

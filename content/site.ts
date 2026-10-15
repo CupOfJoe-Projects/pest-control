@@ -98,6 +98,20 @@ export const TRUST_BADGES = [
   { id: "guarantee", title: "Satisfaction guaranteed", detail: "If they come back, so do we", confirmed: false },
 ] as const;
 
+// Floating cards in the homepage hero.
+// TODO(owner): Static demo text. Could be wired to the real schedule later.
+export const HERO_AVAILABILITY = { title: "Tech available today", detail: "Next opening 2:30 PM" };
+// TODO(owner): Real FDACS license number. While null, the hero card shows the
+// licensing body without a number, so no made up license number is published.
+export const FDACS_LICENSE: string | null = null;
+
+// TODO(owner): Confirm these milestones and years.
+export const TIMELINE = [
+  { year: "1959", text: "Started in Lakeland with one truck" },
+  { year: "Later", text: "Moved the office to Bartow" },
+  { year: "Today", text: "Serving all of Polk County" },
+];
+
 // TODO(owner): Confirm there are no long term contracts. Until then the
 // contracts row is hidden from the comparison table.
 export const NO_LONG_CONTRACTS_CONFIRMED = false;
