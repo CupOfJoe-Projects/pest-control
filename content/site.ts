@@ -89,15 +89,6 @@ export const SECOND_RATING: {
   url: "https://www.trustpilot.com/",
 };
 
-// TODO(owner): Confirm which of these actually apply before launch.
-// Set confirmed: true once verified. Unconfirmed badges still show in the demo.
-export const TRUST_BADGES = [
-  { id: "fdacs", title: "Licensed by FDACS", detail: "Florida Dept. of Agriculture", confirmed: false },
-  { id: "fpma", title: "FPMA member", detail: "Florida Pest Management Assn.", confirmed: false },
-  { id: "bbb", title: "BBB", detail: "Better Business Bureau", confirmed: false },
-  { id: "guarantee", title: "Satisfaction guaranteed", detail: "If they come back, so do we", confirmed: false },
-] as const;
-
 // Floating cards in the homepage hero.
 // TODO(owner): Static demo text. Could be wired to the real schedule later.
 export const HERO_AVAILABILITY = { title: "Tech available today", detail: "Next opening 2:30 PM" };

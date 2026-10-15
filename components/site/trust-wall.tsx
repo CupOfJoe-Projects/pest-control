@@ -1,7 +1,8 @@
-import { Award, BadgeCheck, Landmark, ShieldCheck, Star, type LucideIcon } from "lucide-react";
+import { Star } from "lucide-react";
 import { Container } from "./section";
 import { StarRating } from "./star-rating";
-import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, IS_DEMO, SECOND_RATING, TRUST_BADGES } from "@/content/site";
+import { GOOGLE_RATING, GOOGLE_REVIEWS_URL, IS_DEMO, SECOND_RATING } from "@/content/site";
+import { Affiliations } from "./affiliations";
 import { reviews as allReviews, type Review, type ReviewPlatform } from "@/content/reviews";
 import { getCurrentYear } from "@/lib/year";
 import { cn } from "@/lib/utils";
@@ -110,13 +111,6 @@ function MarqueeRow({
     </div>
   );
 }
-
-const badgeIcons: Record<(typeof TRUST_BADGES)[number]["id"], LucideIcon> = {
-  fdacs: Landmark,
-  fpma: Award,
-  bbb: ShieldCheck,
-  guarantee: BadgeCheck,
-};
 
 export async function TrustWall({
   reviews = allReviews,
@@ -228,25 +222,7 @@ export async function TrustWall({
       </div>
 
       <Container>
-        {/* TODO(owner): Each badge is unconfirmed until TRUST_BADGES[].confirmed is true. */}
-        <ul className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4" aria-label="Credentials">
-          {TRUST_BADGES.map((b) => {
-            const Icon = badgeIcons[b.id];
-            return (
-              <li
-                key={b.id}
-                className="group flex items-center gap-2.5 rounded-[16px] border border-line bg-white px-3 py-3 grayscale transition hover:border-green/40 hover:grayscale-0 sm:gap-3 sm:px-4"
-              >
-                <Icon aria-hidden="true" className="size-6 shrink-0 text-green transition group-hover:text-orange sm:size-8" />
-                <span className="min-w-0">
-                  <span className="block text-sm leading-tight font-semibold text-ink sm:text-base">{b.title}</span>
-                  {/* Details only where there is room for them. */}
-                  <span className="hidden text-xs leading-snug text-muted-ink sm:block">{b.detail}</span>
-                </span>
-              </li>
-            );
-          })}
-        </ul>
+        <Affiliations className="mt-14 md:mt-16" />
       </Container>
     </section>
   );

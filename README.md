@@ -44,6 +44,7 @@ All copy lives in typed files under `/content`. There is no CMS.
 | `content/areas.ts` | City pages: blurb, local intro (written differently per city), common pests, map coordinates |
 | `content/reviews.ts` | Reviews for the trust wall marquee. **Sample reviews while `IS_DEMO` is true** |
 | `content/plans.ts` | Plan cards (One Time, Quarterly, Commercial). Prices are placeholders |
+| `content/affiliations.ts` | "Certified. Trusted. Proven." logos from the current site |
 | `content/faq.ts` | FAQ answers, also published as `FAQPage` JSON-LD |
 | `lib/images.ts` | Image slots. Each renders a placeholder until its file is imported |
 
@@ -61,7 +62,6 @@ Pages for every service, pest, and area are generated from these files with `gen
 | `GOOGLE_RATING` | `{ 4.9, 200+ }` | Rating shown in the hero, trust wall, and JSON-LD. Set to `null` to hide it everywhere |
 | `SECOND_RATING` | Trustpilot placeholder | Second rating badge on the trust wall. `null` hides it |
 | `SHOW_PRICING` | `true` | Shows the placeholder prices on the plan cards |
-| `TRUST_BADGES` | all unconfirmed | Credential badges under the reviews (FDACS, FPMA, BBB, guarantee) |
 | `NO_LONG_CONTRACTS_CONFIRMED` | `false` | Shows the contracts row in the local vs national table |
 
 ### Images
@@ -146,7 +146,7 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Current intro offer (`SHOW_OFFER`, `OFFER`)
 - [ ] Real reviews from the Google Business Profile, then set `IS_DEMO` to `false` (`content/reviews.ts`)
 - [ ] Which second review platform they use, and its real rating (`SECOND_RATING`)
-- [ ] Which credential badges apply: FDACS license, FPMA, BBB, satisfaction guarantee (`TRUST_BADGES`)
+- [ ] Original files for the affiliation logos (BusinessRate, FPMA, NPMA, Lakeland Chamber, BNI), pulled from the old site at web resolution (`content/affiliations.ts`)
 - [ ] Plan names, prices, and inclusions, including the 30 day warranty and free callbacks (`content/plans.ts`)
 - [ ] Exact guarantee wording (`components/home/guarantee.tsx`)
 - [ ] Contract terms (`NO_LONG_CONTRACTS_CONFIRMED`, FAQ)
