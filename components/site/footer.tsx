@@ -16,7 +16,7 @@ export async function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr] lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
           <div>
             <Logo tone="light" />
-            <p className="mt-4 max-w-xs text-cream/85">{site.tagline}</p>
+            <p className="mt-4 max-w-xs font-heading text-xl font-extrabold tracking-[-0.02em]">{site.tagline}</p>
             <address className="mt-6 space-y-3 not-italic">
               <p className="font-semibold">{site.name}</p>
               <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className={`flex gap-2 ${linkClass}`}>

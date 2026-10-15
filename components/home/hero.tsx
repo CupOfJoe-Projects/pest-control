@@ -148,9 +148,10 @@ export function Hero() {
               id="hero-title"
               className="mt-3 text-[3rem] leading-[0.95] font-extrabold drop-shadow-[0_2px_14px_rgba(0,0,0,0.35)] md:mt-5 md:text-[4.5rem] lg:text-[5.5rem]"
             >
-              Bugs out.
+              {/* Brand tagline. */}
+              Keep Florida
               <br />
-              <span className="text-orange">For good.</span>
+              <span className="text-orange">outside.</span>
             </h1>
           </div>
           {GOOGLE_RATING && (

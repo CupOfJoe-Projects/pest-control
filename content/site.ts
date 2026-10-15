@@ -22,7 +22,8 @@ export const site = {
   textUrl: "https://mcdexterminators.h.trustco.ai/",
   url: siteUrl,
   region: "Polk County, FL",
-  tagline: "Proudly serving Polk County since 1959.",
+  /** Brand tagline: hero headline, footer, and share image. */
+  tagline: "Keep Florida outside.",
 } as const;
 
 export const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.state} ${site.address.zip}`;

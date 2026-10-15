@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
 
-export const alt = `${site.name}. Pest control in Polk County since 1959.`;
+export const alt = `${site.name}. ${site.tagline} Pest control in Polk County since 1959.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -59,9 +59,11 @@ export default async function OpengraphImage() {
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", fontSize: 76, fontWeight: 800, lineHeight: 1.04, letterSpacing: -2 }}>Pest control in</div>
-          <div style={{ display: "flex", fontSize: 76, fontWeight: 800, lineHeight: 1.04, letterSpacing: -2 }}>
-            Polk County <span style={{ color: "#e8701a", marginLeft: 20 }}>since 1959</span>
+          <div style={{ display: "flex", fontSize: 104, fontWeight: 800, lineHeight: 1, letterSpacing: -3 }}>
+            Keep Florida <span style={{ color: "#e8701a", marginLeft: 26 }}>outside.</span>
+          </div>
+          <div style={{ display: "flex", fontSize: 34, fontWeight: 800, marginTop: 18, opacity: 0.85 }}>
+            Pest control in Polk County since 1959
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 32, fontWeight: 700 }}>
