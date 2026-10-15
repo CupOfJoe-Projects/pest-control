@@ -29,6 +29,10 @@ export const reviews: Review[] = [
   { platform: "google", name: "Amaryllis R.", rating: 5, date: "5 months ago", text: "Great company! Justin was very nice and courteous. Very pleased with the service." },
   { platform: "google", name: "Sherry K.", rating: 5, date: "10 months ago", text: "Jon Copple is always professional, thorough, and dependable whenever he services our property. We’ve had an excellent experience every time. I highly recommend McDonald Exterminators for anyone looking for reliable pest control." },
   { platform: "google", name: "Joan C.", rating: 5, date: "5 months ago", text: "Austin was very knowledgeable! He did a wonderful job. Love this company." },
+  { platform: "google", name: "Cheryl E.", rating: 5, date: "9 months ago", text: "Roy takes care of a place that we rent for a friend, and also our own home. he is the BEST! Very personable and friendly." },
+  { platform: "google", name: "Brandi B.", rating: 5, date: "a month ago", text: "Austin was thorough and did an excellent job. Haley recommend McDonald exterminators." },
+  { platform: "google", name: "Elizabeth M.", rating: 5, date: "5 months ago", text: "On-time, cordial, efficient, knowledgeable about my many insect questions. Great technician with a customer-service focus." },
+  { platform: "google", name: "Jenn H.", town: "Lake Wales", rating: 5, date: "4 months ago", text: "Austin did a wonderful job! Thank you for taking your time and answering all my questions Lake wales FL" },
 ];
 
 /** Reviews from a given town first, then the rest, so area pages always have a full wall. */
