@@ -59,16 +59,16 @@ export const OFFER = {
 // TODO(owner): Plan prices are placeholders. Set to false to hide prices.
 export const SHOW_PRICING = true;
 
-// TODO(owner): Replace with the real Google rating and review count.
+// Real numbers from their Google Business Profile, checked 2026-10-14.
 // Set to null to hide the rating everywhere (UI and JSON-LD).
 export const GOOGLE_RATING: {
   value: number;
   count: number;
   countLabel: string;
 } | null = {
-  value: 4.9,
-  count: 200,
-  countLabel: "200+",
+  value: 5,
+  count: 195,
+  countLabel: "195",
 };
 
 // TODO(owner): Replace with the Google Business Profile reviews URL.

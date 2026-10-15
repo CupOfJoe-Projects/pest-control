@@ -156,7 +156,7 @@ export async function TrustWall({
             <div data-reveal>
               <p className="flex items-end gap-4">
                 <span className="font-heading text-[7rem] leading-[0.8] font-extrabold tracking-[-0.05em] text-green tabular-nums md:text-[10rem]">
-                  {GOOGLE_RATING.value}
+                  {GOOGLE_RATING.value.toFixed(1)}
                 </span>
                 <span className="pb-2">
                   <StarRating rating={GOOGLE_RATING.value} />
@@ -172,7 +172,7 @@ export async function TrustWall({
                     className="flex items-center gap-2.5 rounded-full border border-line py-1.5 pr-4 pl-1.5 text-sm font-semibold text-ink transition hover:border-green/40"
                   >
                     <PlatformMark platform="google" className="size-7" />
-                    Google <span className="font-normal text-muted-ink tabular-nums">{GOOGLE_RATING.value}</span>
+                    Google <span className="font-normal text-muted-ink tabular-nums">{GOOGLE_RATING.value.toFixed(1)}</span>
                   </a>
                 </li>
                 {SECOND_RATING && (

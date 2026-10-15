@@ -40,7 +40,7 @@ function RatingCard() {
       </span>
       <span>
         <span className="flex items-center gap-1 font-heading text-lg leading-none font-extrabold text-ink tabular-nums">
-          <span className="text-orange">★</span> {GOOGLE_RATING.value}
+          <span className="text-orange">★</span> {GOOGLE_RATING.value.toFixed(1)}
         </span>
         <span className="mt-0.5 block text-xs leading-tight text-muted-ink">{GOOGLE_RATING.countLabel} Google reviews</span>
       </span>
@@ -157,7 +157,7 @@ export function Hero() {
           {GOOGLE_RATING && (
             <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.95rem] md:mt-6 md:text-base">
               <StarRating rating={GOOGLE_RATING.value} />
-              <span className="font-semibold tabular-nums">{GOOGLE_RATING.value}</span>
+              <span className="font-semibold tabular-nums">{GOOGLE_RATING.value.toFixed(1)}</span>
               <span className="text-cream/80">· {GOOGLE_RATING.countLabel} Google reviews</span>
             </p>
           )}

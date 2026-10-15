@@ -65,7 +65,7 @@ export function localBusinessJsonLd() {
       "@type": "Offer",
       itemOffered: { "@type": "Service", name: s.name, url: `${site.url}/services/${s.slug}` },
     })),
-    // TODO(owner): Placeholder rating. Controlled by GOOGLE_RATING in content/site.ts.
+    // Controlled by GOOGLE_RATING in content/site.ts.
     ...(GOOGLE_RATING && {
       aggregateRating: {
         "@type": "AggregateRating",

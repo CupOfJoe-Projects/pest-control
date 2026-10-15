@@ -59,7 +59,7 @@ Pages for every service, pest, and area are generated from these files with `gen
 | `SHOW_TERMITES` | `false` | Shows the termite service and termite pest page everywhere |
 | `SHOW_OFFER` | `true` | Shows the intro offer bar and offer callouts |
 | `IS_DEMO` | `true` | **Demo guardrail.** robots.txt disallows everything, every page is `noindex, nofollow`, the sitemap is empty, and the reviews wall shows a "Sample reviews" label. Set to `false` only after real reviews replace the samples |
-| `GOOGLE_RATING` | `{ 4.9, 200+ }` | Rating shown in the hero, trust wall, and JSON-LD. Set to `null` to hide it everywhere |
+| `GOOGLE_RATING` | `{ 5.0, 195 }` (real, checked Oct 2026) | Rating shown in the hero, trust wall, and JSON-LD. Set to `null` to hide it everywhere |
 | `SECOND_RATING` | Trustpilot placeholder | Second rating badge on the trust wall. `null` hides it |
 | `SHOW_PRICING` | `true` | Shows the placeholder prices on the plan cards |
 | `NO_LONG_CONTRACTS_CONFIRMED` | `false` | Shows the contracts row in the local vs national table |
@@ -141,7 +141,7 @@ Hosted on Vercel: project `mcdonald-exterminators` in the **Validated Peptides' 
 
 Every item below is marked with a `TODO(owner)` comment in the code.
 
-- [ ] Google rating and review count (`GOOGLE_RATING` in `content/site.ts`)
+- [x] Google rating and review count (`GOOGLE_RATING` in `content/site.ts`)
 - [ ] Termite service offered? (`SHOW_TERMITES`)
 - [ ] Current intro offer (`SHOW_OFFER`, `OFFER`)
 - [ ] Real reviews from the Google Business Profile, then set `IS_DEMO` to `false` (`content/reviews.ts`)
