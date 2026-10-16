@@ -21,8 +21,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Do you require a contract?",
-    // TODO(owner): Confirm agreement length and how to cancel, then say it here.
-    a: "We go over a simple service agreement with you at the first visit, so you know exactly what you are signing up for before we start.",
+    a: "We use a simple service agreement, and you choose how long it runs. We go over it with you at the first visit, so you know exactly what you are signing up for before we start.",
   },
   {
     q: "What if the bugs come back?",

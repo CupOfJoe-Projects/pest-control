@@ -150,8 +150,8 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Original files for the affiliation logos (BusinessRate, FPMA, NPMA, Lakeland Chamber, BNI), pulled from the old site at web resolution (`content/affiliations.ts`)
 - [ ] Plan names, and whether they want "starting at" prices (cards say "Free estimate" for now, `content/plans.ts`)
 - [x] Guarantee wording (from the old site)
-- [ ] Contract terms (`NO_LONG_CONTRACTS_CONFIRMED`, FAQ)
-- [x] FAQ answers: pet safety, response time, being home (from the old site; contracts still open)
+- [x] Contract terms: the customer picks the agreement length (FAQ). The contracts row in the comparison table stays hidden.
+- [x] FAQ answers: pet safety, response time, being home (from the old site, plus contracts)
 - [x] Same day policy ("Call before 2 PM") and service reports (from the old site)
 - [ ] Techs live in Polk County
 - [ ] Real photos to replace every AI demo image, plus the early days photo on `/about` (`lib/images.ts`, `PhotoPlaceholder`)
