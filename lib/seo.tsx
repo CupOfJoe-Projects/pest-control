@@ -48,6 +48,13 @@ export function localBusinessJsonLd() {
     description: `Family owned pest control serving Polk County, Florida since ${site.foundingYear}.`,
     image: `${site.url}/opengraph-image`,
     logo: `${site.url}/brand/logo-mark.png`,
+    sameAs: [site.social.facebook, site.social.instagram],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "17:00",
+    },
     address: {
       "@type": "PostalAddress",
       streetAddress: site.address.street,

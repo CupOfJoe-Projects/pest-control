@@ -1,6 +1,7 @@
-// TODO(owner): Every price and inclusion here is a placeholder ($149 and $45/mo
-// are realistic demo numbers, not real prices). Confirm the real
-// plans, the 30 day warranty, and free callbacks. SHOW_PRICING in site.ts hides prices.
+// No prices: the old site quotes every job after a free inspection, so each
+// card says "Free estimate". Inclusions follow what the old site promises.
+// TODO(owner): Confirm they sell one time treatments, and add "starting at"
+// prices here if they want them shown.
 
 export type PlanId = "one-time" | "quarterly" | "commercial";
 
@@ -19,17 +20,18 @@ export const plans: Plan[] = [
     id: "one-time",
     name: "One Time",
     forWho: "A single problem",
-    price: { prefix: "From", amount: "$149" },
-    includes: ["Full inspection", "Targeted treatment", "30 day warranty"],
+    price: { text: "Free estimate" },
+    includes: ["Free inspection", "Treatment made for your problem", "If they come back, so do we"],
   },
   {
     id: "quarterly",
     name: "Quarterly",
     forWho: "Year round home protection",
-    price: { prefix: "From", amount: "$45", suffix: "/mo" },
+    price: { text: "Free estimate" },
     includes: [
-      "Inside and outside treatment every 3 months",
-      "Free callbacks between visits",
+      "Inside and outside protection, all year",
+      "Seasonal visits that build up your protection",
+      "Free return visits if pests come back",
       "A service report after every visit",
     ],
     popular: true,
@@ -38,8 +40,8 @@ export const plans: Plan[] = [
     id: "commercial",
     name: "Commercial",
     forWho: "Businesses and rentals",
-    price: { text: "Custom quote" },
-    includes: ["Scheduled service", "Inspection ready records", "Rodent monitoring"],
+    price: { text: "Free estimate" },
+    includes: ["A plan built for your business", "Offices, food service, schools, and more", "A service report after every visit"],
   },
 ];
 

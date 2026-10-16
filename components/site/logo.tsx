@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -37,25 +38,25 @@ export function SealMark({ className, tone = "dark" }: { className?: string; ton
   );
 }
 
-// TODO(owner): Demo wordmark. Replace with the real vector logo files.
+/**
+ * Their real logo: the ant, grass, and mouse tiles with the name set beside
+ * them, one line per tile. The tiles were traced to SVG from the logo on the
+ * old site (the only copy we have). The name is live text in Arial Bold, like
+ * the original, so it stays sharp at any size.
+ * TODO(owner): Swap in the original logo files if they have them.
+ */
 export function Logo({ tone = "dark", className }: { tone?: "dark" | "light"; className?: string }) {
   return (
     <Link
       href="/"
-      className={cn("flex shrink-0 items-center gap-2.5 rounded-md", tone === "dark" ? "text-ink" : "text-cream", className)}
+      className={cn("flex shrink-0 items-center gap-2 rounded-md", tone === "dark" ? "text-ink" : "text-cream", className)}
     >
-      <SealMark tone={tone} className="size-9 sm:size-10" />
-      {/* The visible wordmark is the link name, so it matches what people see. */}
-      <span className="flex flex-col leading-none">
-        <span className="font-heading text-[1.35rem] font-bold tracking-[-0.03em] sm:text-[1.5rem]">McDonald</span>
-        <span
-          className={cn(
-            "mt-1 font-sans text-[0.625rem] font-semibold tracking-[0.2em]",
-            tone === "dark" ? "text-green" : "text-cream/80",
-          )}
-        >
-          EXTERMINATORS
-        </span>
+      <Image src="/images/logo-mark.svg" alt="" width={80} height={138} unoptimized priority className="h-12 w-auto sm:h-[3.25rem] lg:h-[3.625rem]" />
+      {/* The visible name is the link name. Line height matches the tile pitch (48/138 of the mark). */}
+      <span className="flex flex-col font-[Arial,Helvetica,sans-serif] text-[0.95rem] leading-[1.045rem] font-bold tracking-[-0.01em] sm:text-[1.03rem] sm:leading-[1.13rem] lg:text-[1.15rem] lg:leading-[1.26rem]">
+        <span>McDonald</span>
+        <span>Exterminators</span>
+        <span>Inc.</span>
       </span>
     </Link>
   );

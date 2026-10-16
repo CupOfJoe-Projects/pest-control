@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
 
@@ -18,6 +20,8 @@ async function loadHeadingFont() {
 
 export default async function OpengraphImage() {
   const heading = await loadHeadingFont();
+  const svg = await readFile(join(process.cwd(), "public/images/logo-mark.svg"));
+  const mark = `data:image/svg+xml;base64,${svg.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -35,27 +39,12 @@ export default async function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          {/* Demo wordmark: the 1959 seal, McDonald, and tracked EXTERMINATORS. */}
-          <div
-            style={{
-              width: 92,
-              height: 92,
-              borderRadius: 46,
-              background: "#faf7f0",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              border: "4px solid #faf7f0",
-              boxShadow: "inset 0 0 0 3px #1f3d2b",
-            }}
-          >
-            <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: 2, color: "#1f3d2b" }}>EST</span>
-            <span style={{ fontSize: 28, fontWeight: 800, color: "#e8701a", lineHeight: 1 }}>1959</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <span style={{ fontSize: 52, fontWeight: 800, lineHeight: 1, letterSpacing: -1.5 }}>McDonald</span>
-            <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: 7, marginTop: 8, opacity: 0.85 }}>EXTERMINATORS</span>
+          {/* Their logo: the ant, grass, and mouse tiles beside the name. */}
+          <img src={mark} width={64} height={110} alt="" />
+          <div style={{ display: "flex", flexDirection: "column", fontFamily: "Arial", fontSize: 34, fontWeight: 700, lineHeight: 1.12 }}>
+            <span>McDonald</span>
+            <span>Exterminators</span>
+            <span>Inc.</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>

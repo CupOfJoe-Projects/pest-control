@@ -49,6 +49,9 @@ export default function ContactPage() {
             </li>
           ))}
         </ul>
+        <p className="mt-6 text-muted-ink">
+          <span className="font-semibold text-ink">Office hours:</span> {site.hours}. {site.sameDay}.
+        </p>
       </Container>
       <QuoteSection />
     </>

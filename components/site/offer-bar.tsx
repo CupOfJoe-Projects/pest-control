@@ -7,8 +7,7 @@ import { OFFER, SHOW_OFFER, site } from "@/content/site";
  * phone and a couple of trust points.
  */
 export function OfferBar() {
-  // TODO(owner): Confirm "same day service when available".
-  const extras = ["Family owned since 1959", "Same day service when available"];
+  const extras = ["Family owned since 1959", site.sameDay];
 
   return (
     <div

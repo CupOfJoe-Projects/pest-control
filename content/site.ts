@@ -8,6 +8,8 @@ const siteUrl =
 
 export const site = {
   name: "McDonald Exterminators",
+  /** As written on their privacy policy and terms. */
+  legalName: "McDonald Exterminators, Inc.",
   phone: "863-533-1294",
   phoneHref: "tel:+18635331294",
   email: "info@McDonaldExterminators.com",
@@ -21,6 +23,14 @@ export const site = {
   foundingCity: "Lakeland",
   textUrl: "https://mcdexterminators.h.trustco.ai/",
   url: siteUrl,
+  /** Office hours, from the old site's contact page. */
+  hours: "Monday to Friday, 8 AM to 5 PM",
+  social: {
+    facebook: "https://www.facebook.com/profile.php?id=100063519311583",
+    instagram: "https://www.instagram.com/mcdonaldexterminators",
+  },
+  /** Their stated same day policy, from the old site. */
+  sameDay: "Call before 2 PM for same day service",
   region: "Polk County, FL",
   /** Brand tagline: hero headline, footer, and share image. */
   tagline: "Keep Florida outside.",
@@ -45,9 +55,9 @@ export const IS_DEMO = true;
 // Placeholders. Every value below needs confirming with the owner.
 // ---------------------------------------------------------------------------
 
-// TODO(owner): Is termite service offered? Flip to true to show the termite
-// service page, the termite pest page, and their links everywhere.
-export const SHOW_TERMITES = false;
+// Termite service is offered (the old site has a Termite Defense plan).
+// false hides the termite service page, pest page, and their links.
+export const SHOW_TERMITES = true;
 
 // TODO(owner): Confirm the current intro offer, or set SHOW_OFFER to false.
 export const SHOW_OFFER = true;
@@ -56,7 +66,7 @@ export const OFFER = {
   bar: "New customers: $50 off your first service.",
 };
 
-// TODO(owner): Plan prices are placeholders. Set to false to hide prices.
+// Shows the price line on plan cards (now "Free estimate"). false hides it.
 export const SHOW_PRICING = true;
 
 // Real numbers from their Google Business Profile, checked 2026-10-14.
@@ -84,16 +94,15 @@ export const SECOND_RATING: {
   url: string;
 } | null = null;
 
-// Floating cards in the homepage hero.
-// TODO(owner): Static demo text. Could be wired to the real schedule later.
-export const HERO_AVAILABILITY = { title: "Tech available today", detail: "Next opening 2:30 PM" };
+// Floating card in the homepage hero. Their real same day policy, not a live schedule.
+export const HERO_AVAILABILITY = { title: "Same day service", detail: "Call before 2 PM" };
 // TODO(owner): Real FDACS license number. While null, the hero card shows the
 // licensing body without a number, so no made up license number is published.
 export const FDACS_LICENSE: string | null = null;
 
 // TODO(owner): Confirm these milestones and years.
 export const TIMELINE = [
-  { year: "1959", text: "Started in Lakeland with one truck" },
+  { year: "1959", text: "Started as a small family business" },
   { year: "Later", text: "Moved the office to Bartow" },
   { year: "Today", text: "Serving all of Polk County" },
 ];

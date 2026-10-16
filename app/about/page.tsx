@@ -1,4 +1,4 @@
-import { HeartHandshake, MapPin, Phone, ThumbsUp } from "lucide-react";
+import { Award, HeartHandshake, MapPin, Newspaper, Phone, ThumbsUp } from "lucide-react";
 import { PageHeader } from "@/components/site/page-header";
 import { Container, Section, SectionHeading } from "@/components/site/section";
 import { TIMELINE } from "@/content/site";
@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   topic: "About Us",
   description:
-    "Started in Lakeland in 1959 and still family owned. Meet the local pest control company Polk County has trusted for generations.",
+    "Started in 1959 and still family owned. Meet the local pest control company Polk County has trusted for generations.",
   path: "/about",
 });
 
@@ -37,6 +37,22 @@ const values = [
   },
 ];
 
+// From the Press page on the old site.
+const press = [
+  {
+    icon: Newspaper,
+    title: "Featured in VoyageTampa's Rising Stars",
+    text: "A July 2026 interview about our growth, our long Central Florida history, and the long time team who care for our customers.",
+    href: "https://voyagetampa.com/interview/rising-stars-meet-victoria-ames-of-tampa",
+    linkLabel: "Read the interview",
+  },
+  {
+    icon: Award,
+    title: "Best Pest Control Company in Bartow, 2026",
+    text: "Named Bartow's best pest control company for 2026. Thank you to our customers and neighbors for trusting our local team.",
+  },
+];
+
 // TODO(owner): Confirm founder name, family generations, and key milestones, then make this specific.
 export default function AboutPage() {
   return (
@@ -59,16 +75,16 @@ export default function AboutPage() {
               1959
             </p>
             <h2 id="history-title" className="mt-4 text-3xl font-extrabold sm:text-4xl">
-              It started with one truck in Lakeland
+              It started as a small family business
             </h2>
             <div className="mt-5 space-y-4 text-lg text-cream/85">
               <p>
-                McDonald Exterminators opened in Lakeland in 1959. The idea was simple: show up when you say you will,
-                do the job right, and charge a fair price.
+                McDonald Exterminators got its start in 1959. Over more than 65 years it grew into one of the most
+                trusted names in pest and termite control around here, and it is still family owned and run.
               </p>
               <p>
-                The company grew the old fashioned way, one neighbor telling another. Today we run out of our office in
-                Bartow and serve all of Polk County, and the family behind the name still runs things the same way.
+                The business was built on word of mouth. That means doing the job right and making sure every customer
+                is happy. That is how we have done it for decades, and how we will keep doing it.
               </p>
             </div>
           </div>
@@ -104,7 +120,32 @@ export default function AboutPage() {
       </Section>
 
 
-      <TrustWall className="bg-cream" />
+      <Section labelledBy="press-title" className="bg-cream">
+        <SectionHeading id="press-title" eyebrow="Press" title="In the news" />
+        <ul className="mt-10 grid gap-5 sm:grid-cols-2">
+          {press.map((item) => (
+            <li key={item.title} className="flex flex-col rounded-lg border border-line bg-white p-6">
+              <span className="flex size-12 items-center justify-center rounded-lg bg-green-soft text-green">
+                <item.icon aria-hidden="true" className="size-6" />
+              </span>
+              <h3 className="mt-4 text-xl font-bold text-ink">{item.title}</h3>
+              <p className="mt-2 text-muted-ink">{item.text}</p>
+              {item.href && (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 font-semibold text-green underline underline-offset-4"
+                >
+                  {item.linkLabel}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <TrustWall />
       <CtaBlock />
     </>
   );

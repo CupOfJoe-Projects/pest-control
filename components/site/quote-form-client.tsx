@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { ChevronDown, CircleCheck, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SmsConsent } from "@/components/site/sms-consent";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -296,6 +297,7 @@ export function QuoteFormClient({
           "Get My Free Quote"
         )}
       </Button>
+      <SmsConsent className="-mt-2 text-center" />
       <p className="text-center text-muted-ink">
         Rather talk? Call{" "}
         <a href={phoneHref} className="font-semibold whitespace-nowrap text-green underline underline-offset-4">

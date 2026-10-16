@@ -5,8 +5,7 @@ const steps = [
   { icon: PhoneCall, title: "Call or request a quote", text: "We get back to you fast." },
   { icon: Search, title: "We inspect and make a plan", text: "A certified tech checks your property and builds a plan for it." },
   { icon: SprayCan, title: "We treat and follow up", text: "Regular follow ups with prevention tips, so they stay gone." },
-  // TODO(owner): Confirm service reports go out by text or email.
-  { icon: FileText, title: "You get a report", text: "A service report by text or email after every visit." },
+  { icon: FileText, title: "You get a report", text: "A detailed service report after every visit, with tips to keep pests out." },
 ];
 
 export function HowItWorks({ className }: { className?: string }) {

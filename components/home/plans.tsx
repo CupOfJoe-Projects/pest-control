@@ -6,7 +6,6 @@ import { SHOW_PRICING } from "@/content/site";
 import { cn } from "@/lib/utils";
 
 function Price({ price, popular }: { price: Plan["price"]; popular?: boolean }) {
-  // TODO(owner): Placeholder prices, see content/plans.ts.
   if (price.text) {
     return <p className="font-heading text-[2.5rem] leading-none font-extrabold tracking-[-0.03em]">{price.text}</p>;
   }
@@ -34,7 +33,7 @@ export function Plans() {
             Pick how much help you need
           </h2>
           <p className="mt-5 text-lg text-cream/85 md:text-xl">
-            One problem or year round peace of mind. Every plan starts with a free quote.
+            One problem or year round peace of mind. Every plan starts with a free inspection.
           </p>
         </div>
 

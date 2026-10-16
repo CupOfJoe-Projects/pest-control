@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { CircleCheck, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { SmsConsent } from "@/components/site/sms-consent";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { planLabels, type PlanId } from "@/content/plans";
@@ -228,6 +229,7 @@ export function QuoteStarter({ phone, phoneHref }: { phone: string; phoneHref: s
         </p>
       )}
       <p className="mt-3 text-sm text-muted-ink">A real person calls you back. No call center.</p>
+      <SmsConsent className="mt-2" />
     </form>
   );
 }

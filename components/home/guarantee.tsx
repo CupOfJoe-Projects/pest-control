@@ -4,9 +4,10 @@ import { SlotImage } from "@/components/site/slot-image";
 import { EstBadge } from "@/components/site/est-badge";
 import { images } from "@/lib/images";
 
-// TODO(owner): Confirm the exact guarantee wording before launch.
+// Matches the old site: "If they come back, so do we, at no extra cost",
+// "No unexpected charges", and "Family & Pet Safe".
 const points = [
-  { icon: RotateCcw, title: "Free callbacks", text: "If pests come back between visits, so do we, at no charge." },
+  { icon: RotateCcw, title: "Free callbacks", text: "If pests come back between visits, so do we, at no extra cost." },
   { icon: MessageSquareText, title: "No surprises", text: "Your tech explains what they found and what they will use before treating." },
   { icon: HandHeart, title: "Safe for your crew", text: "Pet and family safe products, applied where pests live." },
 ];

@@ -5,32 +5,28 @@ export type Faq = { q: string; a: string };
 const towns = areas.map((a) => a.name);
 const townList = `${towns.slice(0, -1).join(", ")}, and ${towns.at(-1)}`;
 
-// TODO(owner): Confirm every answer marked below before launch.
+// Answers follow the FAQ on the old site. The one TODO below still needs the owner.
 export const faqs: Faq[] = [
   {
     q: "Are your treatments safe for kids and pets?",
-    // TODO(owner): Confirm product practices and dry time guidance.
-    a: "Yes, when used the way we use them. We pick products labeled for homes, apply them where pests live instead of where you live, and tell you how long to keep kids and pets off treated areas. Usually that just means until it dries.",
+    a: "We use EPA approved products made for use around people and pets. Have birds, fish, or other sensitive pets? Tell us and we will pick the right treatment. For outside treatments, keep pets indoors until everything dries. Then the yard is safe to enjoy again.",
   },
   {
     q: "How fast can you come out?",
-    // TODO(owner): Confirm typical response time.
-    a: "Often the same day or the next one, depending on the schedule. Call us and a real person will give you an actual time, not a window that runs all day.",
+    a: "Call before 2 PM and we can come out the same day. A real person answers and gives you an actual time.",
   },
   {
     q: "Do I need to be home?",
-    // TODO(owner): Confirm policy for outside only visits.
-    a: "For inside treatments, yes, or someone over 18 who can let us in. Outside visits can usually happen while you are at work. We will let you know when we are done.",
+    a: "For the first visit, yes. We look over the inside of your home, plan your treatment with you, do the first treatment, and go over your service agreement. After that, you do not need to be home for outside visits, as long as we can get to the yard and pets are inside. We always leave a service report.",
   },
   {
     q: "Do you require a contract?",
-    // TODO(owner): Confirm contract terms.
-    a: "You can book a one time treatment with no ongoing plan. If you want year round protection, we will walk you through the quarterly plan on the phone so you know exactly what you are signing up for.",
+    // TODO(owner): Confirm agreement length and how to cancel, then say it here.
+    a: "We go over a simple service agreement with you at the first visit, so you know exactly what you are signing up for before we start.",
   },
   {
     q: "What if the bugs come back?",
-    // TODO(owner): Confirm guarantee wording.
-    a: "Call us. If pests come back between scheduled visits, we come back too, at no charge.",
+    a: "Call us. If they come back, so do we, at no extra cost. No fine print, no hassle.",
   },
   {
     q: "Do you treat inside and outside?",
@@ -42,6 +38,10 @@ export const faqs: Faq[] = [
   },
   {
     q: "How much does pest control cost?",
-    a: "It depends on the pest and the size of your property. Quotes are free and take a couple of minutes on the phone. We tell you the price up front, before we treat anything.",
+    a: "It depends on the size of your home and the kind of protection you need. We give you a free inspection and estimate, with no need to buy. You know the price before we treat anything.",
+  },
+  {
+    q: "What if someone at home has a health concern?",
+    a: "Tell us before we come. Your tech will adjust the service to fit your needs and walk the property with you to focus on problem areas.",
   },
 ];

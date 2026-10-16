@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, MapPin, MessageSquareText, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, MessageSquareText, Phone } from "lucide-react";
 import { Container } from "./section";
 import { Logo } from "./logo";
 import { fullAddress, mapsUrl, site } from "@/content/site";
@@ -43,6 +43,10 @@ export async function Footer() {
                 <MessageSquareText aria-hidden="true" className="size-5 shrink-0" />
                 Text us
               </a>
+              <p className="flex items-center gap-2 text-cream/85">
+                <Clock aria-hidden="true" className="size-5 shrink-0" />
+                {site.hours}
+              </p>
             </address>
           </div>
 
@@ -95,6 +99,16 @@ export async function Footer() {
                 <Link href="/contact" className={linkClass}>
                   Contact
                 </Link>
+              </li>
+              <li>
+                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  Facebook
+                </a>
+              </li>
+              <li>
+                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  Instagram
+                </a>
               </li>
               <li>
                 <Link href="/privacy" className={linkClass}>
