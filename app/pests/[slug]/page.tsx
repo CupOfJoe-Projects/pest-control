@@ -9,6 +9,8 @@ import { PestGrid } from "@/components/site/pest-grid";
 import { CtaBlock } from "@/components/site/cta-block";
 import { QuoteSection } from "@/components/site/quote-form";
 import { ReviewStrip } from "@/components/site/review-strip";
+import { PriceSection } from "@/components/site/price-coupon";
+import { pricesForPest } from "@/content/pricing";
 import { getPest, pests } from "@/content/pests";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
@@ -50,6 +52,8 @@ export default async function PestPage({ params }: PageProps<"/pests/[slug]">) {
           </div>
         }
       />
+
+      <PriceSection items={pricesForPest(pest.slug)} title={`${pest.singular} control pricing`} />
 
       <Section labelledBy="signs-title">
         <div className="grid gap-10 md:grid-cols-2 lg:gap-16">

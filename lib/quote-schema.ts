@@ -17,6 +17,8 @@ export const quoteSchema = z.object({
   message: z.string().trim().max(2000).optional().default(""),
   plan: z.enum(["one-time", "quarterly", "commercial"]).optional(),
   source: z.enum(["hero", "form"]).optional().default("form"),
+  /** Priced service they asked about, from a coupon button. */
+  service: z.string().trim().max(100).optional().default(""),
   /** Page the lead came from, e.g. /pests/termites. */
   page: z.string().trim().max(200).optional().default(""),
   // Honeypot. Real people never see or fill this field.

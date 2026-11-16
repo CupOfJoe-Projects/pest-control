@@ -1,8 +1,5 @@
-// No prices yet: each card says "Free estimate". Inclusions follow what the old
-// site promises.
-// TODO(owner): Vic is supplying starting prices. When they arrive, set price to
-// { prefix: "From", amount: "$__", suffix: "per visit" } and add the numbers
-// to the cost answer in content/faq.ts.
+// Starting prices from the owner's price list (content/pricing.ts has them all).
+// Keep these in step with that file.
 
 export type PlanId = "one-time" | "quarterly" | "commercial";
 
@@ -12,6 +9,8 @@ export type Plan = {
   forWho: string;
   /** Price line. Split so the number can use tabular figures. */
   price: { prefix?: string; amount?: string; suffix?: string; text?: string };
+  /** Small line under the price, e.g. the ongoing visit price. */
+  priceNote?: string;
   includes: string[];
   popular?: boolean;
   /** Shows the new customer offer tag (OFFER.tag) on the card. */
@@ -23,7 +22,8 @@ export const plans: Plan[] = [
     id: "one-time",
     name: "One Time",
     forWho: "A single problem",
-    price: { text: "Free estimate" },
+    price: { amount: "$299", suffix: "one time" },
+    priceNote: "Free inspection first",
     includes: ["Free inspection", "Treatment made for your problem", "If they come back, so do we"],
     offer: true,
   },
@@ -31,7 +31,8 @@ export const plans: Plan[] = [
     id: "quarterly",
     name: "Quarterly",
     forWho: "Year round home protection",
-    price: { text: "Free estimate" },
+    price: { prefix: "From", amount: "$199", suffix: "to start" },
+    priceNote: "Then from $137 per quarterly visit",
     includes: [
       "Inside and outside protection, all year",
       "Seasonal visits that build up your protection",
@@ -45,7 +46,8 @@ export const plans: Plan[] = [
     id: "commercial",
     name: "Commercial",
     forWho: "Businesses and rentals",
-    price: { text: "Free estimate" },
+    price: { text: "Free consultation" },
+    priceNote: "Custom quote for recurring service",
     includes: ["A plan built for your business", "Offices, food service, schools, and more", "A service report after every visit"],
   },
 ];

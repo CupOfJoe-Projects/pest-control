@@ -149,7 +149,6 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Set `IS_DEMO` to `false` at launch
 - [ ] Which second review platform they use, and its real rating (`SECOND_RATING`)
 - [ ] Original files for the affiliation logos (BusinessRate, FPMA, NPMA, Lakeland Chamber, BNI), pulled from the old site at web resolution (`content/affiliations.ts`)
-- [ ] Plan names, and whether they want "starting at" prices (cards say "Free estimate" for now, `content/plans.ts`)
 - [x] Guarantee wording (from the old site)
 - [x] Contract terms: no contract required (owner, November 2026). Shown in the FAQ and the comparison table.
 - [x] FAQ answers: pet safety, response time, being home (from the old site, plus contracts)
@@ -162,8 +161,9 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Founder name, family history, and timeline milestones (`TIMELINE` in `content/site.ts`)
 - [x] FDACS licenses: business JB3680, certified operator JF9080 (`FDACS_LICENSE`, `CERTIFIED_OPERATOR_LICENSE`)
 - [ ] Years with the company for each team member (`content/team.ts`, shows "TBD" for now)
-- [ ] Call back time during office hours for the thank you message (`CALLBACK_MINUTES`)
-- [ ] Starting prices for the plan cards and the cost FAQ
+- [x] Call back time: 15 minutes in office hours (`CALLBACK_MINUTES`)
+- [x] Starting prices (`content/pricing.ts`, `/pricing`, plan cards, cost FAQ)
+- [ ] Open pricing questions marked TODO in `content/pricing.ts` (one time scope, bundle startup charge, Platinum mouse coverage, what the $45/month plans cover, fire ant terms)
 - [ ] GoHighLevel inbound webhook URL for quote delivery (`GHL_WEBHOOK_URL`)
 - [x] Hero availability card (`HERO_AVAILABILITY`, now their same day policy)
 - [x] Pet and family safe claim (from the old site)

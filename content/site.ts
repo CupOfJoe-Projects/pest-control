@@ -116,9 +116,9 @@ export const BEST_OF_AWARD: { year: number; label: string } | null = {
   label: "Voted Best Pest Control in Bartow, 2026",
 };
 
-// TODO(owner): How fast the office calls back during office hours, in minutes
-// (for example 15). While null, the thank you message says "shortly".
-export const CALLBACK_MINUTES: number | null = null;
+// How fast the office calls back during office hours, in minutes (owner,
+// November 2026). After hours the message says next business day. null says "shortly".
+export const CALLBACK_MINUTES: number | null = 15;
 
 // TODO(owner): Confirm these milestones and years.
 export const TIMELINE = [
@@ -133,6 +133,7 @@ export const NO_LONG_CONTRACTS_CONFIRMED = true;
 export const mainNav = [
   { label: "Services", href: "/services" },
   { label: "Pests", href: "/pests" },
+  { label: "Pricing", href: "/pricing" },
   { label: "Service Areas", href: "/areas" },
   { label: "About", href: "/about" },
 ] as const;

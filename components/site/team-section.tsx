@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { MapPin } from "lucide-react";
 import { Container } from "./section";
 import { team } from "@/content/team";
 import { cn } from "@/lib/utils";
@@ -32,7 +33,11 @@ export function TeamSection({ className }: { className?: string }) {
               />
               <div className="p-4 sm:p-5">
                 <p className="font-heading text-lg font-extrabold text-ink sm:text-xl">{m.name}</p>
-                <p className="mt-0.5 text-sm text-muted-ink sm:text-base">Years with us: {m.years}</p>
+                <p className="mt-0.5 flex items-center gap-1 text-sm text-muted-ink sm:text-base">
+                  <MapPin aria-hidden="true" className="size-4 shrink-0 text-green" />
+                  {m.town}
+                </p>
+                <p className="text-sm text-muted-ink sm:text-base">Years with us: {m.years}</p>
               </div>
             </li>
           ))}

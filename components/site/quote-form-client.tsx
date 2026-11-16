@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { ChevronDown, Loader2 } from "lucide-react";
+import { ChevronDown, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SmsConsent } from "@/components/site/sms-consent";
 import { QuoteThanks } from "@/components/site/quote-thanks";
@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { planLabels, type PlanId } from "@/content/plans";
 import { PLAN_EVENT } from "@/components/home/plan-button";
+import { SERVICE_EVENT } from "@/components/site/price-action";
 
 type Option = { value: string; label: string };
 type Errors = Partial<Record<"name" | "phone" | "pest" | "zip" | "message" | "form", string>>;
@@ -55,6 +56,13 @@ export function QuoteFormClient({
     window.addEventListener(PLAN_EVENT, onPlan);
     return () => window.removeEventListener(PLAN_EVENT, onPlan);
   }, [showPlan]);
+  // Set when someone taps a price coupon button, e.g. "Request Bat Consultation".
+  const [service, setService] = useState("");
+  useEffect(() => {
+    const onService = (e: Event) => setService((e as CustomEvent<string>).detail);
+    window.addEventListener(SERVICE_EVENT, onService);
+    return () => window.removeEventListener(SERVICE_EVENT, onService);
+  }, []);
   const [errors, setErrors] = useState<Errors>({});
   const [pest, setPest] = useState<string>(defaultPest);
   const [firstName, setFirstName] = useState("");
@@ -87,6 +95,7 @@ export function QuoteFormClient({
       message: String(fd.get("message") ?? ""),
       company: String(fd.get("company") ?? ""),
       ...(plan && { plan }),
+      service,
       source: "form",
       page: window.location.pathname,
     };
@@ -148,6 +157,19 @@ export function QuoteFormClient({
       noValidate
       className="grid gap-5"
     >
+      {service && (
+        <p className="flex items-center justify-between gap-2 rounded-lg bg-green-soft py-2 pr-2 pl-4 font-semibold text-green">
+          Asking about: {service}
+          <button
+            type="button"
+            onClick={() => setService("")}
+            aria-label="Clear service"
+            className="flex size-8 shrink-0 items-center justify-center rounded-full hover:bg-green/10"
+          >
+            <X aria-hidden="true" className="size-4" />
+          </button>
+        </p>
+      )}
       <div className="grid gap-5 sm:grid-cols-2">
         <div className="grid gap-2 sm:col-span-2">
           <Label htmlFor="quote-name" className="text-base font-semibold">

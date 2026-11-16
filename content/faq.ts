@@ -37,7 +37,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "How much does pest control cost?",
-    a: "It depends on the size of your home and the kind of protection you need. We give you a free inspection and estimate, with no need to buy. You know the price before we treat anything.",
+    a: "Quarterly pest control starts at $199 for the first service, then from $137 per quarterly visit, for homes up to 2,500 square feet. A one time treatment is $299. Monthly mosquito control starts at $149, then from $79 a month. Rodent control starts at $299, then from $45 a month. Termite inspections are free. Your exact price depends on the size of your home and what we find, and you know the price before we treat anything. No contract required. See every price on our pricing page.",
   },
   {
     q: "What if someone at home has a health concern?",

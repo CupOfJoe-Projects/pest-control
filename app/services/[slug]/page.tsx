@@ -8,6 +8,8 @@ import { HowItWorks } from "@/components/site/how-it-works";
 import { CtaBlock } from "@/components/site/cta-block";
 import { QuoteSection } from "@/components/site/quote-form";
 import { ReviewStrip } from "@/components/site/review-strip";
+import { PriceSection } from "@/components/site/price-coupon";
+import { pricesForService } from "@/content/pricing";
 import { EstBadge } from "@/components/site/est-badge";
 import { getService, services } from "@/content/services";
 import { getPests } from "@/content/pests";
@@ -82,6 +84,8 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           </div>
         </div>
       </Section>
+
+      <PriceSection items={pricesForService(service.slug)} title={`${service.name} pricing`} />
 
       {pests.length > 0 && (
         <Section labelledBy="covered-title" className="bg-cream-dark/60">

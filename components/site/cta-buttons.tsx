@@ -14,6 +14,7 @@ function hasQuoteForm(pathname: string) {
   return (
     pathname === "/" ||
     pathname === "/contact" ||
+    pathname === "/pricing" ||
     pathname.startsWith("/services/") ||
     pathname.startsWith("/pests/") ||
     pathname.startsWith("/areas/")

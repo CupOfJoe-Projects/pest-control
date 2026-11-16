@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, fieldErrors }, { status: 400 });
   }
 
-  const { name, phone, pest, zip, message, plan, source, page } = result.data;
+  const { name, phone, pest, zip, message, plan, service, source, page } = result.data;
   const [firstName, ...rest] = name.trim().split(/\s+/);
   const lead = {
     name,
@@ -54,6 +54,7 @@ export async function POST(request: Request) {
     zip,
     message,
     plan: plan ?? "",
+    service,
     source: source === "hero" ? "Website: homepage quote bar" : "Website: quote form",
     page,
     offer: SHOW_OFFER ? OFFER.headline : "",

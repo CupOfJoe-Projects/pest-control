@@ -1,4 +1,5 @@
-import { Check } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Check } from "lucide-react";
 import { Container } from "@/components/site/section";
 import { PlanButton } from "./plan-button";
 import { Coupon, OfferTag } from "@/components/site/coupon";
@@ -66,6 +67,9 @@ export function Plans() {
               {SHOW_PRICING && (
                 <div className={cn("mt-6 border-t pt-6", plan.popular ? "border-cream/15" : "border-line")}>
                   <Price price={plan.price} popular={plan.popular} />
+                  {plan.priceNote && (
+                    <p className={cn("mt-2 font-semibold", plan.popular ? "text-cream/80" : "text-muted-ink")}>{plan.priceNote}</p>
+                  )}
                 </div>
               )}
               <ul className="mt-6 space-y-3">
@@ -82,6 +86,15 @@ export function Plans() {
             </li>
           ))}
         </ul>
+        <p className="mt-10 text-center">
+          <Link
+            href="/pricing"
+            className="inline-flex min-h-12 items-center gap-2 font-heading text-xl font-bold text-cream underline underline-offset-4 hover:no-underline"
+          >
+            See prices for mosquitoes, rodents, termites, and more
+            <ArrowRight aria-hidden="true" className="size-5" />
+          </Link>
+        </p>
       </Container>
     </section>
   );
