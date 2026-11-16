@@ -1,4 +1,8 @@
+import Image from "next/image";
 import { Award, HeartHandshake, MapPin, Newspaper, Phone, ThumbsUp } from "lucide-react";
+import familyDog from "@/public/images/family/family-dog.png";
+import familyTruck from "@/public/images/family/vic-truck.png";
+import { TeamSection } from "@/components/site/team-section";
 import { PageHeader } from "@/components/site/page-header";
 import { Container, Section, SectionHeading } from "@/components/site/section";
 import { TIMELINE } from "@/content/site";
@@ -104,6 +108,35 @@ export default function AboutPage() {
         </Container>
       </section>
 
+      <Section labelledBy="family-title" className="bg-cream">
+        <div className="grid items-center gap-10 md:grid-cols-[1fr_1.2fr] lg:gap-16">
+          <div>
+            <SectionHeading
+              id="family-title"
+              eyebrow="Still family"
+              title="The family behind the name"
+              intro="This is still a family business. We live here, raise our families here, and treat every home like it belongs to a neighbor, because it does."
+            />
+          </div>
+          <div className="grid grid-cols-2 gap-4 sm:gap-6">
+            <Image
+              src={familyDog}
+              alt="The family behind McDonald Exterminators sitting on the grass with their dog"
+              sizes="(min-width: 768px) 30vw, 50vw"
+              placeholder="blur"
+              className="aspect-[4/5] w-full rounded-[16px] object-cover object-top shadow-lg"
+            />
+            <Image
+              src={familyTruck}
+              alt="A McDonald Exterminators tech beside a company truck"
+              sizes="(min-width: 768px) 30vw, 50vw"
+              placeholder="blur"
+              className="mt-10 aspect-[4/5] w-full rounded-[16px] object-cover shadow-lg"
+            />
+          </div>
+        </div>
+      </Section>
+
       <Section labelledBy="values-title">
         <SectionHeading id="values-title" eyebrow="How we work" title="What has kept us going" />
         <ul className="mt-10 grid gap-5 sm:grid-cols-2">
@@ -145,6 +178,7 @@ export default function AboutPage() {
         </ul>
       </Section>
 
+      <TeamSection className="bg-cream-dark/60" />
       <TrustWall />
       <CtaBlock />
     </>

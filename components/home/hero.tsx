@@ -1,13 +1,14 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { getImageProps } from "next/image";
+import Image, { getImageProps } from "next/image";
+import bestOfBartow from "@/public/images/badges/best-of-bartow-2026.png";
 import { preload } from "react-dom";
 import { Phone, ShieldCheck } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Container } from "@/components/site/section";
 import { StarRating } from "@/components/site/star-rating";
 import { HeroParallax } from "./hero-parallax";
-import { FDACS_LICENSE, GOOGLE_RATING, HERO_AVAILABILITY, site } from "@/content/site";
+import { BEST_OF_AWARD, FDACS_LICENSE, GOOGLE_RATING, HERO_AVAILABILITY, site } from "@/content/site";
 import { reviews } from "@/content/reviews";
 import { images } from "@/lib/images";
 import { cn } from "@/lib/utils";
@@ -154,8 +155,23 @@ export function Hero() {
               <span className="text-orange">outside.</span>
             </h1>
           </div>
+          {BEST_OF_AWARD && (
+            <p className="mb-4 flex items-center gap-3 md:mt-6 md:mb-0">
+              <Image
+                src={bestOfBartow}
+                alt="BusinessRate Best of 2026 award winner"
+                sizes="240px"
+                priority
+                className="h-20 w-auto shrink-0 rounded-lg bg-white p-1.5 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)] md:h-24"
+              />
+              <span className="font-heading text-lg leading-tight font-extrabold md:text-xl">
+                Voted Best of Bartow
+                <span className="block text-orange">{BEST_OF_AWARD.year} award winner</span>
+              </span>
+            </p>
+          )}
           {GOOGLE_RATING && (
-            <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.95rem] md:mt-6 md:text-base">
+            <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.95rem] md:mt-5 md:text-base">
               <StarRating rating={GOOGLE_RATING.value} />
               <span className="font-semibold tabular-nums">{GOOGLE_RATING.value.toFixed(1)}</span>
               <span className="text-cream/80">· {GOOGLE_RATING.countLabel} Google reviews</span>

@@ -7,6 +7,7 @@ import { PestGrid } from "@/components/site/pest-grid";
 import { HowItWorks } from "@/components/site/how-it-works";
 import { CtaBlock } from "@/components/site/cta-block";
 import { QuoteSection } from "@/components/site/quote-form";
+import { ReviewStrip } from "@/components/site/review-strip";
 import { EstBadge } from "@/components/site/est-badge";
 import { getService, services } from "@/content/services";
 import { getPests } from "@/content/pests";
@@ -89,9 +90,10 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </Section>
       )}
 
+      <ReviewStrip />
+      <QuoteSection />
       <HowItWorks className="bg-white" />
       <CtaBlock />
-      <QuoteSection title={`Get a free quote for ${service.name.toLowerCase()}`} />
     </>
   );
 }

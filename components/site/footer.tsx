@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Clock, Mail, MapPin, MessageSquareText, Phone } from "lucide-react";
 import { Container } from "./section";
 import { Logo } from "./logo";
-import { fullAddress, mapsUrl, site } from "@/content/site";
+import { CERTIFIED_OPERATOR_LICENSE, FDACS_LICENSE, fullAddress, mapsUrl, site } from "@/content/site";
 import { services } from "@/content/services";
 import { areas } from "@/content/areas";
 import { getCurrentYear } from "@/lib/year";
@@ -127,6 +127,13 @@ export async function Footer() {
         <div className="mt-12 flex flex-col gap-2 border-t border-cream/15 pt-6 text-sm text-cream/75 sm:flex-row sm:justify-between">
           <p>
             © {year} {site.name}. {fullAddress}.
+            {FDACS_LICENSE && (
+              <>
+                {" "}
+                <span className="whitespace-nowrap">FL pest control license #{FDACS_LICENSE}</span>
+                {CERTIFIED_OPERATOR_LICENSE && <span className="whitespace-nowrap">, certified operator #{CERTIFIED_OPERATOR_LICENSE}</span>}.
+              </>
+            )}
           </p>
           <p>Proudly serving Polk County since 1959.</p>
         </div>

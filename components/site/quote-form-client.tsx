@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { ChevronDown, CircleCheck, Loader2 } from "lucide-react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SmsConsent } from "@/components/site/sms-consent";
+import { QuoteThanks } from "@/components/site/quote-thanks";
+import { digitsOnly, phoneError, zipError } from "@/lib/quote-validate";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,10 +22,11 @@ const fieldClass = "h-12 bg-white px-3.5 text-base md:text-base";
 function validate(data: Record<string, string>): Errors {
   const errors: Errors = {};
   if (data.name.trim().length < 2) errors.name = "Please enter your name.";
-  const digits = data.phone.replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "");
-  if (digits.length !== 10) errors.phone = "Please enter a 10 digit phone number.";
+  const phone = phoneError(data.phone);
+  if (phone) errors.phone = phone;
   if (!data.pest) errors.pest = "Please pick a pest, or choose Not sure.";
-  if (!/^\d{5}$/.test(data.zip.trim())) errors.zip = "Please enter a 5 digit ZIP code.";
+  const zip = zipError(data.zip);
+  if (zip) errors.zip = zip;
   return errors;
 }
 
@@ -67,6 +70,12 @@ export function QuoteFormClient({
     });
   }
 
+  // Check phone and ZIP when the person leaves the field, so mistakes show before submit.
+  function check(field: "phone" | "zip", value: string) {
+    const message = field === "phone" ? phoneError(value) : zipError(value);
+    if (message && value.trim()) setErrors((prev) => ({ ...prev, [field]: message }));
+  }
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const fd = new FormData(event.currentTarget);
@@ -79,6 +88,7 @@ export function QuoteFormClient({
       company: String(fd.get("company") ?? ""),
       ...(plan && { plan }),
       source: "form",
+      page: window.location.pathname,
     };
 
     const clientErrors = validate(data);
@@ -113,21 +123,7 @@ export function QuoteFormClient({
     }
   }
 
-  if (status === "success") {
-    return (
-      <div role="status" className="flex min-h-80 flex-col items-center justify-center py-8 text-center">
-        <CircleCheck aria-hidden="true" className="size-14 text-green" />
-        <h3 className="mt-4 text-2xl font-extrabold text-ink">Thanks, {firstName}! We got it.</h3>
-        <p className="mt-2 max-w-sm text-lg text-muted-ink">
-          We will call you soon to talk about your free quote. Need us sooner? Call{" "}
-          <a href={phoneHref} className="font-semibold whitespace-nowrap text-green underline underline-offset-4">
-            {phone}
-          </a>
-          .
-        </p>
-      </div>
-    );
-  }
+  if (status === "success") return <QuoteThanks firstName={firstName} />;
 
   const describedBy = (field: keyof Errors) => (errors[field] ? `${field}-error` : undefined);
   const errorText = (field: keyof Errors) =>
@@ -183,6 +179,7 @@ export function QuoteFormClient({
             required
             aria-invalid={Boolean(errors.phone)}
             aria-describedby={describedBy("phone")}
+            onBlur={(e) => check("phone", e.currentTarget.value)}
             className={fieldClass}
           />
           {errorText("phone")}
@@ -201,6 +198,10 @@ export function QuoteFormClient({
             required
             aria-invalid={Boolean(errors.zip)}
             aria-describedby={describedBy("zip")}
+            onInput={(e) => {
+              e.currentTarget.value = digitsOnly(e.currentTarget.value, 5);
+            }}
+            onBlur={(e) => check("zip", e.currentTarget.value)}
             className={fieldClass}
           />
           {errorText("zip")}
@@ -294,7 +295,7 @@ export function QuoteFormClient({
             <Loader2 aria-hidden="true" className="animate-spin" /> Sending
           </>
         ) : (
-          "Get My Free Quote"
+          "Claim my free quote"
         )}
       </Button>
       <SmsConsent className="-mt-2 text-center" />

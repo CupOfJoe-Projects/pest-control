@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
 import { Container } from "@/components/site/section";
 import { PlanButton } from "./plan-button";
+import { Coupon, OfferTag } from "@/components/site/coupon";
 import { plans, type Plan } from "@/content/plans";
 import { SHOW_PRICING } from "@/content/site";
 import { cn } from "@/lib/utils";
@@ -27,14 +28,18 @@ export function Plans() {
   return (
     <section id="plans" aria-labelledby="plans-title" className="grain bg-green py-16 text-cream md:py-24">
       <Container>
-        <div data-reveal className="max-w-3xl">
-          <p className="eyebrow text-cream/85">Plans</p>
-          <h2 id="plans-title" className="mt-4 text-[2.25rem] leading-[1] font-extrabold md:text-[3.5rem] md:leading-[0.95]">
-            Pick how much help you need
-          </h2>
-          <p className="mt-5 text-lg text-cream/85 md:text-xl">
-            One problem or year round peace of mind. Every plan starts with a free inspection.
-          </p>
+        <div className="grid items-center gap-10 md:grid-cols-[1.4fr_1fr] lg:gap-16">
+          <div data-reveal className="max-w-3xl">
+            <p className="eyebrow text-cream/85">Plans</p>
+            <h2 id="plans-title" className="mt-4 text-[2.25rem] leading-[1] font-extrabold md:text-[3.5rem] md:leading-[0.95]">
+              Pick how much help you need
+            </h2>
+            <p className="mt-5 text-lg text-cream/85 md:text-xl">
+              One problem or year round peace of mind. Every plan starts with a free inspection, and there is no
+              contract required.
+            </p>
+          </div>
+          <Coupon tone="light" className="mx-auto w-full max-w-sm md:mr-0" />
         </div>
 
         <ul className="mt-12 grid items-stretch gap-5 md:grid-cols-3 md:gap-6">
@@ -57,6 +62,7 @@ export function Plans() {
               )}
               <h3 className="text-2xl font-extrabold">{plan.name}</h3>
               <p className={cn("mt-1", plan.popular ? "text-cream/75" : "text-muted-ink")}>{plan.forWho}</p>
+              {plan.offer && <OfferTag className="mt-4 self-start" />}
               {SHOW_PRICING && (
                 <div className={cn("mt-6 border-t pt-6", plan.popular ? "border-cream/15" : "border-line")}>
                   <Price price={plan.price} popular={plan.popular} />

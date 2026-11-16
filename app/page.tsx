@@ -8,6 +8,7 @@ import { StorySection } from "@/components/home/story-section";
 import { AreaSection } from "@/components/home/area-section";
 import { FinalCta } from "@/components/home/final-cta";
 import { TrustWall } from "@/components/site/trust-wall";
+import { TeamSection } from "@/components/site/team-section";
 import { HowItWorks } from "@/components/site/how-it-works";
 import { Faq } from "@/components/site/faq";
 import { JsonLd, localBusinessJsonLd, pageMetadata } from "@/lib/seo";
@@ -41,6 +42,7 @@ export default function HomePage() {
       <QuoteBar />
       {/* Extra top padding makes room for the quote bar that overlaps this section. */}
       <TrustWall className="pt-28 md:pt-36" />
+      <TeamSection className="bg-cream-dark/60" />
       {belowFold.map(({ key, Section }) => (
         <Section key={key} />
       ))}

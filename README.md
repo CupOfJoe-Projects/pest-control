@@ -27,6 +27,7 @@ Copy `.env.example` to `.env.local`. All are optional for the demo.
 | Variable | Purpose |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL for sitemap, robots, Open Graph, and JSON-LD. On Vercel it falls back to the production domain. |
+| `GHL_WEBHOOK_URL` | GoHighLevel inbound webhook. Every quote request is posted here; GHL handles the team text and email and the customer confirmation text. Unset: leads are only logged. |
 | `RESEND_API_KEY` | Email delivery for quote requests. Not wired up yet. |
 | `QUOTE_TO_EMAIL` | Inbox that receives quote requests. Not wired up yet. |
 
@@ -150,17 +151,20 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Original files for the affiliation logos (BusinessRate, FPMA, NPMA, Lakeland Chamber, BNI), pulled from the old site at web resolution (`content/affiliations.ts`)
 - [ ] Plan names, and whether they want "starting at" prices (cards say "Free estimate" for now, `content/plans.ts`)
 - [x] Guarantee wording (from the old site)
-- [x] Contract terms: the customer picks the agreement length (FAQ). The contracts row in the comparison table stays hidden.
+- [x] Contract terms: no contract required (owner, November 2026). Shown in the FAQ and the comparison table.
 - [x] FAQ answers: pet safety, response time, being home (from the old site, plus contracts)
 - [x] Same day policy ("Call before 2 PM") and service reports (from the old site)
 - [ ] Techs live in Polk County
 - [ ] Real photos to replace every AI demo image, plus the early days photo on `/about` (`lib/images.ts`, `PhotoPlaceholder`)
-- [ ] Original logo files (`components/site/logo.tsx`; the tiles in `public/images/logo-mark.svg` were traced from the old site header)
+- [x] Original logo files (`public/brand/logo.png` red and black, `public/brand/logo-black-white.png` one color)
 - [ ] Google Business Profile URL for the reviews link (`GOOGLE_REVIEWS_URL`)
-- [ ] Email address for quote form delivery (`QUOTE_TO_EMAIL`), then enable Resend
 - [ ] More real reviews, ideally ones that name a pest or a town (`content/reviews.ts`)
 - [ ] Founder name, family history, and timeline milestones (`TIMELINE` in `content/site.ts`)
-- [ ] FDACS license number for the hero card (`FDACS_LICENSE`)
+- [x] FDACS licenses: business JB3680, certified operator JF9080 (`FDACS_LICENSE`, `CERTIFIED_OPERATOR_LICENSE`)
+- [ ] Years with the company for each team member (`content/team.ts`, shows "TBD" for now)
+- [ ] Call back time during office hours for the thank you message (`CALLBACK_MINUTES`)
+- [ ] Starting prices for the plan cards and the cost FAQ
+- [ ] GoHighLevel inbound webhook URL for quote delivery (`GHL_WEBHOOK_URL`)
 - [x] Hero availability card (`HERO_AVAILABILITY`, now their same day policy)
 - [x] Pet and family safe claim (from the old site)
 - [x] Privacy policy and terms (carried over from the old site)

@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import { Section, SectionHeading } from "./section";
 import { QuoteFormClient } from "./quote-form-client";
-import { EstBadge } from "./est-badge";
+import { Coupon } from "./coupon";
 import { pests } from "@/content/pests";
 import { OFFER, SHOW_OFFER, site } from "@/content/site";
 
@@ -10,9 +10,21 @@ export const pestOptions = [
   { value: "Not sure", label: "Not sure" },
 ];
 
-const promises = ["No pressure, no obligation", "Local techs, not a call center", "Honest prices, explained up front"];
+const promises = [
+  "No pressure, no obligation",
+  "No contract required",
+  "Local techs, not a call center",
+  "Honest prices, explained up front",
+];
 
-export function QuoteSection({ defaultPest, title = "Get your free quote" }: { defaultPest?: string; title?: string }) {
+const defaultTitle = SHOW_OFFER ? `Get a free quote + ${OFFER.headline}` : "Get your free quote";
+
+/**
+ * The quote form section. Used on the contact page and on every pest, service,
+ * and area page, so people landing from Google never have to click away to ask
+ * for a quote. `defaultPest` preselects the pest (a pest name from content/pests).
+ */
+export function QuoteSection({ defaultPest, title = defaultTitle }: { defaultPest?: string; title?: string }) {
   return (
     <Section id="quote" labelledBy="quote-title" className="bg-cream-dark/60">
       <div className="grid gap-10 md:grid-cols-[0.9fr_1.1fr] lg:gap-16">
@@ -31,12 +43,7 @@ export function QuoteSection({ defaultPest, title = "Get your free quote" }: { d
               </li>
             ))}
           </ul>
-          {SHOW_OFFER && (
-            <p className="mt-6 inline-block rounded-lg border-2 border-dashed border-orange bg-white px-4 py-3 font-semibold text-ink">
-              New customers get {OFFER.headline}.
-            </p>
-          )}
-          <EstBadge className="mt-8 hidden size-32 md:block" />
+          <Coupon size="sm" className="mt-8 max-w-xs" />
         </div>
         <div className="relative rounded-lg border border-line bg-white p-5 shadow-lg sm:p-8">
           <QuoteFormClient

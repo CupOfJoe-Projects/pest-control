@@ -47,7 +47,7 @@ function PlatformMark({ platform, className }: { platform: ReviewPlatform | "nex
   );
 }
 
-function ReviewCard({ review, wide = false }: { review: Review; wide?: boolean }) {
+export function ReviewCard({ review, wide = false }: { review: Review; wide?: boolean }) {
   return (
     <figure
       className={cn(

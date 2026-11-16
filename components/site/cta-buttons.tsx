@@ -11,7 +11,13 @@ type Size = "xl" | "2xl" | "default" | "lg";
 
 /** Pages that render their own quote form, so the quote CTA can scroll to it. */
 function hasQuoteForm(pathname: string) {
-  return pathname === "/" || pathname === "/contact" || pathname.startsWith("/services/");
+  return (
+    pathname === "/" ||
+    pathname === "/contact" ||
+    pathname.startsWith("/services/") ||
+    pathname.startsWith("/pests/") ||
+    pathname.startsWith("/areas/")
+  );
 }
 
 export function useQuoteHref() {

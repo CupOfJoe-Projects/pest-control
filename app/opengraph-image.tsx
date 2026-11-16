@@ -20,8 +20,8 @@ async function loadHeadingFont() {
 
 export default async function OpengraphImage() {
   const heading = await loadHeadingFont();
-  const svg = await readFile(join(process.cwd(), "public/images/logo-mark.svg"));
-  const mark = `data:image/svg+xml;base64,${svg.toString("base64")}`;
+  const png = await readFile(join(process.cwd(), "public/brand/logo.png"));
+  const mark = `data:image/png;base64,${png.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -39,12 +39,11 @@ export default async function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          {/* Their logo: the ant, grass, and mouse tiles beside the name. */}
-          <img src={mark} width={64} height={110} alt="" />
+          {/* Their logo seal beside the name. */}
+          <img src={mark} width={120} height={120} alt="" />
           <div style={{ display: "flex", flexDirection: "column", fontFamily: "Arial", fontSize: 34, fontWeight: 700, lineHeight: 1.12 }}>
             <span>McDonald</span>
             <span>Exterminators</span>
-            <span>Inc.</span>
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>

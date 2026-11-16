@@ -17,6 +17,8 @@ export function Affiliations({ className }: { className?: string }) {
               src={a.logo}
               alt={a.name}
               sizes="(min-width: 640px) 240px, 180px"
+              // Load right away: lazy loading left these blank on first view.
+              loading="eager"
               className={cn(
                 "w-auto object-contain transition duration-200 hover:scale-[1.04]",
                 a.badge ? "h-20 sm:h-28" : "h-12 sm:h-16",

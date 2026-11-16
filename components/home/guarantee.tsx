@@ -3,6 +3,7 @@ import { Container } from "@/components/site/section";
 import { SlotImage } from "@/components/site/slot-image";
 import { EstBadge } from "@/components/site/est-badge";
 import { images } from "@/lib/images";
+import { CERTIFIED_OPERATOR_LICENSE, FDACS_LICENSE } from "@/content/site";
 
 // Matches the old site: "If they come back, so do we, at no extra cost",
 // "No unexpected charges", and "Family & Pet Safe".
@@ -39,6 +40,12 @@ export function Guarantee() {
               </li>
             ))}
           </ul>
+          {FDACS_LICENSE && (
+            <p className="mt-5 text-sm text-muted-ink">
+              Licensed by the Florida Department of Agriculture (FDACS). Pest control business license #{FDACS_LICENSE}
+              {CERTIFIED_OPERATOR_LICENSE && <>, certified operator #{CERTIFIED_OPERATOR_LICENSE}</>}.
+            </p>
+          )}
         </div>
 
         <div data-reveal className="relative">

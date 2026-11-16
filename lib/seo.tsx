@@ -47,7 +47,7 @@ export function localBusinessJsonLd() {
     foundingLocation: { "@type": "Place", name: `${site.foundingCity}, FL` },
     description: `Family owned pest control serving Polk County, Florida since ${site.foundingYear}.`,
     image: `${site.url}/opengraph-image`,
-    logo: `${site.url}/brand/logo-mark.png`,
+    logo: `${site.url}/brand/logo.png`,
     sameAs: [site.social.facebook, site.social.instagram],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",

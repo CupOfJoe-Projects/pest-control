@@ -7,6 +7,8 @@ import { Container, Section, SectionHeading } from "@/components/site/section";
 import { CheckList } from "@/components/site/check-list";
 import { PestGrid } from "@/components/site/pest-grid";
 import { CtaBlock } from "@/components/site/cta-block";
+import { QuoteSection } from "@/components/site/quote-form";
+import { ReviewStrip } from "@/components/site/review-strip";
 import { getPest, pests } from "@/content/pests";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
@@ -65,6 +67,9 @@ export default async function PestPage({ params }: PageProps<"/pests/[slug]">) {
           </div>
         </div>
       </Section>
+
+      <ReviewStrip match={[pest.singular, pest.name, pest.singular.replace(/^cock/i, "")]} />
+      <QuoteSection defaultPest={pest.name} />
 
       <Section labelledBy="prevention-title" className="bg-white">
         <div className="grid gap-10 md:grid-cols-2 lg:gap-16">

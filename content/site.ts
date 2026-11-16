@@ -59,11 +59,21 @@ export const IS_DEMO = true;
 // false hides the termite service page, pest page, and their links.
 export const SHOW_TERMITES = true;
 
-// TODO(owner): Confirm the current intro offer, or set SHOW_OFFER to false.
+// The intro offer. Edit it here only: the coupon, quote forms, plan cards, and
+// every call to action read from this. Swap it for seasonal offers, or set
+// SHOW_OFFER to false to hide it everywhere.
 export const SHOW_OFFER = true;
 export const OFFER = {
   headline: "$50 off your first service",
   bar: "New customers: $50 off your first service.",
+  /** Big text on the coupon. */
+  amount: "$50 OFF",
+  /** Line under the amount on the coupon. */
+  detail: "Your first service",
+  /** Small tag on plan cards. */
+  tag: "$50 off for new customers",
+  /** Fine print on the coupon. */
+  terms: "New customers only. Ask when you book or claim it online.",
 };
 
 // Shows the price line on plan cards (now "Free estimate"). false hides it.
@@ -96,9 +106,19 @@ export const SECOND_RATING: {
 
 // Floating card in the homepage hero. Their real same day policy, not a live schedule.
 export const HERO_AVAILABILITY = { title: "Same day service", detail: "Call before 2 PM" };
-// TODO(owner): Real FDACS license number. While null, the hero card shows the
-// licensing body without a number, so no made up license number is published.
-export const FDACS_LICENSE: string | null = null;
+// Florida (FDACS) pest control licenses, supplied by the owner (November 2026).
+export const FDACS_LICENSE: string | null = "JB3680";
+export const CERTIFIED_OPERATOR_LICENSE: string | null = "JF9080";
+
+// "Best of Bartow" award shown near the top of the homepage. null hides it.
+export const BEST_OF_AWARD: { year: number; label: string } | null = {
+  year: 2026,
+  label: "Voted Best Pest Control in Bartow, 2026",
+};
+
+// TODO(owner): How fast the office calls back during office hours, in minutes
+// (for example 15). While null, the thank you message says "shortly".
+export const CALLBACK_MINUTES: number | null = null;
 
 // TODO(owner): Confirm these milestones and years.
 export const TIMELINE = [
@@ -107,9 +127,8 @@ export const TIMELINE = [
   { year: "Today", text: "Serving all of Polk County" },
 ];
 
-// TODO(owner): Confirm there are no long term contracts. Until then the
-// contracts row is hidden from the comparison table.
-export const NO_LONG_CONTRACTS_CONFIRMED = false;
+// Confirmed by the owner (November 2026): no contract is required.
+export const NO_LONG_CONTRACTS_CONFIRMED = true;
 
 export const mainNav = [
   { label: "Services", href: "/services" },

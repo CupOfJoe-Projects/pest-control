@@ -3,12 +3,15 @@ import { Container } from "@/components/site/section";
 import { NO_LONG_CONTRACTS_CONFIRMED } from "@/content/site";
 
 // Keep this honest: no competitor names, nothing we cannot back up.
+// Rows confirmed by the owner (November 2026).
 const rows = [
+  ...(NO_LONG_CONTRACTS_CONFIRMED ? [{ label: "Contract", us: "No contract required", them: "Often a 12 month minimum" }] : []),
+  { label: "Same day service", us: "Call before 2 PM", them: "Often days out" },
+  { label: "Pricing", us: "Built around your home and your problem", them: "One size fits all packages" },
+  { label: "Free callbacks", us: "Yes, between visits", them: "Varies by plan" },
   { label: "Who answers the phone", us: "Local office in Bartow", them: "Call center" },
   { label: "Who shows up", us: "Techs who live in Polk County", them: "Rotating techs" },
-  { label: "How long around", us: "Since 1959", them: "Varies" },
-  // TODO(owner): Confirm contract terms. Row stays hidden until confirmed.
-  ...(NO_LONG_CONTRACTS_CONFIRMED ? [{ label: "Contracts", us: "No long term contracts", them: "Often long term" }] : []),
+  { label: "Who owns it", us: "A local family since 1959", them: "A corporation" },
 ];
 
 export function Comparison() {

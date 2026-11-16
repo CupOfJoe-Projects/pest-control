@@ -17,11 +17,11 @@ export const faqs: Faq[] = [
   },
   {
     q: "Do I need to be home?",
-    a: "For the first visit, yes. We look over the inside of your home, plan your treatment with you, do the first treatment, and go over your service agreement. After that, you do not need to be home for outside visits, as long as we can get to the yard and pets are inside. We always leave a service report.",
+    a: "For the first visit, yes. We look over the inside of your home, plan your treatment with you, do the first treatment, and go over your plan and price. After that, you do not need to be home for outside visits, as long as we can get to the yard and pets are inside. We always leave a service report.",
   },
   {
     q: "Do you require a contract?",
-    a: "We use a simple service agreement, and you choose how long it runs. We go over it with you at the first visit, so you know exactly what you are signing up for before we start.",
+    a: "No. There is no contract required. Stay with us because the service is good, not because you signed something. We go over your plan and price with you at the first visit, so you know exactly what you are getting before we start.",
   },
   {
     q: "What if the bugs come back?",

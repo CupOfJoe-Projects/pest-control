@@ -1,7 +1,8 @@
-// No prices: the old site quotes every job after a free inspection, so each
-// card says "Free estimate". Inclusions follow what the old site promises.
-// TODO(owner): Confirm they sell one time treatments, and add "starting at"
-// prices here if they want them shown.
+// No prices yet: each card says "Free estimate". Inclusions follow what the old
+// site promises.
+// TODO(owner): Vic is supplying starting prices. When they arrive, set price to
+// { prefix: "From", amount: "$__", suffix: "per visit" } and add the numbers
+// to the cost answer in content/faq.ts.
 
 export type PlanId = "one-time" | "quarterly" | "commercial";
 
@@ -13,6 +14,8 @@ export type Plan = {
   price: { prefix?: string; amount?: string; suffix?: string; text?: string };
   includes: string[];
   popular?: boolean;
+  /** Shows the new customer offer tag (OFFER.tag) on the card. */
+  offer?: boolean;
 };
 
 export const plans: Plan[] = [
@@ -22,6 +25,7 @@ export const plans: Plan[] = [
     forWho: "A single problem",
     price: { text: "Free estimate" },
     includes: ["Free inspection", "Treatment made for your problem", "If they come back, so do we"],
+    offer: true,
   },
   {
     id: "quarterly",
@@ -35,6 +39,7 @@ export const plans: Plan[] = [
       "A service report after every visit",
     ],
     popular: true,
+    offer: true,
   },
   {
     id: "commercial",

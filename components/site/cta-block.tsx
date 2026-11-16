@@ -1,4 +1,5 @@
 import { CallButton, QuoteButton } from "./cta-buttons";
+import { OfferTag } from "./coupon";
 import { Container } from "./section";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +19,7 @@ export function CtaBlock({
           <div className="max-w-xl">
             <p className="font-heading text-2xl font-extrabold sm:text-3xl">{title}</p>
             <p className="mt-2 text-lg text-cream/85">{text}</p>
+            <OfferTag className="mt-4" />
           </div>
           <div className="flex flex-col gap-3 sm:flex-row md:shrink-0">
             <QuoteButton size="2xl" />

@@ -1,15 +1,18 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { CircleCheck, Loader2, X } from "lucide-react";
+import { Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SmsConsent } from "@/components/site/sms-consent";
+import { QuoteThanks } from "@/components/site/quote-thanks";
+import { OFFER, SHOW_OFFER } from "@/content/site";
+import { digitsOnly, phoneError, zipError } from "@/lib/quote-validate";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { planLabels, type PlanId } from "@/content/plans";
 import { PLAN_EVENT } from "./plan-button";
 
-const CHIPS = ["Roaches", "Ants", "Rodents", "Mosquitoes", "Spiders", "Bed bugs", "Not sure"];
+const CHIPS = ["Roaches", "Ants", "Rodents", "Mosquitoes", "Spiders", "Termites", "Not sure"];
 
 type Errors = Partial<Record<"pest" | "zip" | "phone" | "form", string>>;
 
@@ -18,7 +21,7 @@ type Errors = Partial<Record<"pest" | "zip" | "phone" | "form", string>>;
  * desktop, stacked on phones. Plan cards preselect a plan through PLAN_EVENT.
  * Posts to the same /api/quote handler as the full form.
  */
-export function QuoteStarter({ phone, phoneHref }: { phone: string; phoneHref: string }) {
+export function QuoteStarter({ phone }: { phone: string }) {
   const [pest, setPest] = useState("");
   const [plan, setPlan] = useState<PlanId | "">("");
   const [errors, setErrors] = useState<Errors>({});
@@ -29,6 +32,12 @@ export function QuoteStarter({ phone, phoneHref }: { phone: string; phoneHref: s
     window.addEventListener(PLAN_EVENT, onPlan);
     return () => window.removeEventListener(PLAN_EVENT, onPlan);
   }, []);
+
+  // Check a field when the person leaves it, so mistakes show before submit.
+  const check = (field: "zip" | "phone", value: string) => {
+    const message = field === "zip" ? zipError(value) : phoneError(value);
+    if (message && value.trim()) setErrors((prev) => ({ ...prev, [field]: message }));
+  };
 
   const clear = (field: keyof Errors) => {
     if (!errors[field]) return;
@@ -48,13 +57,16 @@ export function QuoteStarter({ phone, phoneHref }: { phone: string; phoneHref: s
       phone: String(fd.get("phone") ?? "").trim(),
       company: String(fd.get("company") ?? ""),
       source: "hero",
+      page: window.location.pathname,
       ...(plan && { plan }),
     };
 
     const next: Errors = {};
     if (!pest) next.pest = "Pick what you are seeing, or Not sure.";
-    if (!/^\d{5}$/.test(data.zip)) next.zip = "Enter a 5 digit ZIP.";
-    if (data.phone.replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "").length !== 10) next.phone = "Enter a 10 digit phone.";
+    const zipMessage = zipError(data.zip);
+    if (zipMessage) next.zip = zipMessage;
+    const phoneMessage = phoneError(data.phone);
+    if (phoneMessage) next.phone = phoneMessage;
     setErrors(next);
     if (Object.keys(next).length) {
       const first = Object.keys(next)[0];
@@ -78,28 +90,13 @@ export function QuoteStarter({ phone, phoneHref }: { phone: string; phoneHref: s
     }
   }
 
-  if (status === "success") {
-    return (
-      <div role="status" className="flex flex-col items-center gap-3 py-4 text-center md:flex-row md:text-left">
-        <CircleCheck aria-hidden="true" className="size-10 shrink-0 text-green" />
-        <p className="text-ink">
-          <span className="block font-heading text-xl font-extrabold">Got it. We will call you soon.</span>
-          <span className="text-muted-ink">
-            A real person from our Bartow office will reach out. Need us now?{" "}
-            <a href={phoneHref} className="font-semibold whitespace-nowrap text-green underline underline-offset-4">
-              Call {phone}
-            </a>
-          </span>
-        </p>
-      </div>
-    );
-  }
+  if (status === "success") return <QuoteThanks compact />;
 
   return (
     <form onSubmit={onSubmit} noValidate aria-labelledby="starter-title">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <h2 id="starter-title" className="font-heading text-xl font-extrabold text-ink md:text-2xl">
-          Get a free quote in 30 seconds
+          {SHOW_OFFER ? `Get a free quote + ${OFFER.headline}` : "Get a free quote in 30 seconds"}
         </h2>
         {plan && (
           <p className="flex items-center gap-1.5 rounded-full bg-green-soft py-1 pr-1.5 pl-3 text-sm font-semibold text-green">
@@ -169,7 +166,11 @@ export function QuoteStarter({ phone, phoneHref }: { phone: string; phoneHref: s
               maxLength={5}
               aria-invalid={Boolean(errors.zip)}
               aria-describedby={errors.zip ? "starter-zip-error" : undefined}
-              onChange={() => clear("zip")}
+              onChange={(e) => {
+                e.currentTarget.value = digitsOnly(e.currentTarget.value, 5);
+                clear("zip");
+              }}
+              onBlur={(e) => check("zip", e.currentTarget.value)}
               className="mt-2 h-12 bg-white px-3.5 text-base tabular-nums md:text-base"
             />
             {errors.zip && (
@@ -192,6 +193,7 @@ export function QuoteStarter({ phone, phoneHref }: { phone: string; phoneHref: s
               aria-invalid={Boolean(errors.phone)}
               aria-describedby={errors.phone ? "starter-phone-error" : undefined}
               onChange={() => clear("phone")}
+              onBlur={(e) => check("phone", e.currentTarget.value)}
               className="mt-2 h-12 bg-white px-3.5 text-base tabular-nums md:text-base"
             />
             {errors.phone && (
@@ -213,7 +215,7 @@ export function QuoteStarter({ phone, phoneHref }: { phone: string; phoneHref: s
                   <Loader2 aria-hidden="true" className="animate-spin" /> Sending
                 </>
               ) : (
-                "Get my free quote"
+                "Claim my free quote"
               )}
             </Button>
           </div>

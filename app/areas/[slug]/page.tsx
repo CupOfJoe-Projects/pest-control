@@ -7,6 +7,7 @@ import { Section, SectionHeading } from "@/components/site/section";
 import { PestGrid } from "@/components/site/pest-grid";
 import { TrustWall } from "@/components/site/trust-wall";
 import { CtaBlock } from "@/components/site/cta-block";
+import { QuoteSection } from "@/components/site/quote-form";
 import { AreaMap } from "@/components/site/area-map";
 import { areas, getArea } from "@/content/areas";
 import { getPests } from "@/content/pests";
@@ -64,6 +65,8 @@ export default async function AreaPage({ params }: PageProps<"/areas/[slug]">) {
         />
         <PestGrid pests={localPests} className="mt-8" />
       </Section>
+
+      <QuoteSection />
 
       <Section labelledBy="area-services-title" className="bg-white">
         <SectionHeading id="area-services-title" title={`Services in ${area.name}`} />

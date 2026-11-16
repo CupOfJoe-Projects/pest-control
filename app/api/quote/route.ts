@@ -1,5 +1,31 @@
 import { z } from "zod";
 import { quoteSchema } from "@/lib/quote-schema";
+import { isPolkZip } from "@/lib/polk-zips";
+import { isOfficeOpen } from "@/lib/office-hours";
+import { OFFER, SHOW_OFFER } from "@/content/site";
+
+/**
+ * Sends the lead to GoHighLevel through an inbound webhook. GHL then texts and
+ * emails the sales team and texts the customer a confirmation (set up inside
+ * GHL). Without GHL_WEBHOOK_URL the lead is only logged.
+ */
+async function sendToGhl(lead: Record<string, unknown>) {
+  const url = process.env.GHL_WEBHOOK_URL;
+  if (!url) return true;
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(lead),
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) console.error("[quote] GHL webhook failed", res.status);
+    return res.ok;
+  } catch (error) {
+    console.error("[quote] GHL webhook error", error);
+    return false;
+  }
+}
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -17,22 +43,33 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, fieldErrors }, { status: 400 });
   }
 
-  const { name, phone, pest, zip, message, plan, source } = result.data;
-  const quote = { name, phone, pest, zip, message, plan, source };
+  const { name, phone, pest, zip, message, plan, source, page } = result.data;
+  const [firstName, ...rest] = name.trim().split(/\s+/);
+  const lead = {
+    name,
+    firstName: firstName ?? "",
+    lastName: rest.join(" "),
+    phone,
+    pest,
+    zip,
+    message,
+    plan: plan ?? "",
+    source: source === "hero" ? "Website: homepage quote bar" : "Website: quote form",
+    page,
+    offer: SHOW_OFFER ? OFFER.headline : "",
+    // Flags for the office. Out of area leads are still accepted.
+    outsidePolkCounty: !isPolkZip(zip),
+    afterHours: !isOfficeOpen(),
+    receivedAt: new Date().toISOString(),
+  };
 
-  // Demo: log the submission so it shows up in Vercel function logs.
-  console.log("[quote] New quote request", { ...quote, receivedAt: new Date().toISOString() });
+  // Shows up in the Vercel function logs either way.
+  console.log("[quote] New quote request", lead);
 
-  // TODO: Deliver by email with Resend once the owner confirms the inbox.
-  //   Env vars: RESEND_API_KEY, QUOTE_TO_EMAIL
-  //   import { Resend } from "resend";
-  //   const resend = new Resend(process.env.RESEND_API_KEY);
-  //   await resend.emails.send({
-  //     from: "Website <quotes@mcdonaldexterminators.com>",
-  //     to: process.env.QUOTE_TO_EMAIL!,
-  //     subject: `Quote request: ${quote.name} (${quote.pest}, ${quote.zip})`,
-  //     text: Object.entries(quote).map(([k, v]) => `${k}: ${v}`).join("\n"),
-  //   });
-
+  const delivered = await sendToGhl(lead);
+  if (!delivered) {
+    // Never lose a lead silently: ask them to call instead.
+    return Response.json({ ok: false }, { status: 502 });
+  }
   return Response.json({ ok: true });
 }
