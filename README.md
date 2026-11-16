@@ -60,7 +60,7 @@ Pages for every service, pest, and area are generated from these files with `gen
 | `SHOW_TERMITES` | `true` | Shows the termite service and termite pest page everywhere |
 | `SHOW_OFFER` | `true` | Shows the intro offer bar and offer callouts |
 | `IS_DEMO` | `true` | **Demo guardrail.** robots.txt disallows everything, every page is `noindex, nofollow`, the sitemap is empty. Set to `false` at launch |
-| `GOOGLE_RATING` | `{ 5.0, 195 }` (real, checked Oct 2026) | Rating shown in the hero, trust wall, and JSON-LD. Set to `null` to hide it everywhere |
+| `GOOGLE_RATING` | `{ 5.0, 202 }` (real, checked Nov 16, 2026) | Rating shown in the hero, trust wall, and JSON-LD. Set to `null` to hide it everywhere |
 | `SECOND_RATING` | `null` (hidden) | Second rating badge on the trust wall. `null` hides it |
 | `SHOW_PRICING` | `true` | Shows the price line ("Free estimate") on the plan cards |
 | `NO_LONG_CONTRACTS_CONFIRMED` | `false` | Shows the contracts row in the local vs national table |
@@ -156,7 +156,7 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] Techs live in Polk County
 - [ ] Real photos to replace every AI demo image, plus the early days photo on `/about` (`lib/images.ts`, `PhotoPlaceholder`)
 - [x] Original logo files (`public/brand/logo.png` red and black, `public/brand/logo-black-white.png` one color)
-- [ ] Google Business Profile URL for the reviews link (`GOOGLE_REVIEWS_URL`)
+- [x] Google Business Profile linked (`site.googleBusiness`): reviews links, address links, footer, and JSON-LD `sameAs`
 - [ ] More real reviews, ideally ones that name a pest or a town (`content/reviews.ts`)
 - [ ] Founder name, family history, and timeline milestones (`TIMELINE` in `content/site.ts`)
 - [x] FDACS licenses: business JB3680, certified operator JF9080 (`FDACS_LICENSE`, `CERTIFIED_OPERATOR_LICENSE`)

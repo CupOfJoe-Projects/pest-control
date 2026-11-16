@@ -25,6 +25,13 @@ export const site = {
   url: siteUrl,
   /** Office hours, from the old site's contact page. */
   hours: "Monday to Friday, 8 AM to 5 PM",
+  /**
+   * Their Google Business Profile ("McDonald Exterminators Inc", Bartow), as a
+   * stable Maps CID link. Linked from the site and listed in the JSON-LD
+   * sameAs, so Google can tie the site to the profile. Knowledge graph ID
+   * /g/1v2jdqjs, place 0x88dd17bd5de6fd7f:0xf56c7363e7fd4da2.
+   */
+  googleBusiness: "https://maps.google.com/?cid=17684636709708189090",
   social: {
     facebook: "https://www.facebook.com/profile.php?id=100063519311583",
     instagram: "https://www.instagram.com/mcdonaldexterminators",
@@ -38,9 +45,8 @@ export const site = {
 
 export const fullAddress = `${site.address.street}, ${site.address.city}, ${site.address.state} ${site.address.zip}`;
 
-export const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-  `${site.name} ${fullAddress}`,
-)}`;
+/** Address links open their Google Business Profile, not a generic map search. */
+export const mapsUrl = site.googleBusiness;
 
 // ---------------------------------------------------------------------------
 // Demo guardrail
@@ -79,7 +85,7 @@ export const OFFER = {
 // Shows the price line on plan cards (now "Free estimate"). false hides it.
 export const SHOW_PRICING = true;
 
-// Real numbers from their Google Business Profile, checked 2026-10-14.
+// Real numbers from their Google Business Profile, checked 2026-11-16.
 // Set to null to hide the rating everywhere (UI and JSON-LD).
 export const GOOGLE_RATING: {
   value: number;
@@ -87,12 +93,11 @@ export const GOOGLE_RATING: {
   countLabel: string;
 } | null = {
   value: 5,
-  count: 195,
-  countLabel: "195",
+  count: 202,
+  countLabel: "202",
 };
 
-// TODO(owner): Replace with the Google Business Profile reviews URL.
-export const GOOGLE_REVIEWS_URL = mapsUrl;
+export const GOOGLE_REVIEWS_URL = site.googleBusiness;
 
 // TODO(owner): Second review platform. Use whichever they actually have
 // (Trustpilot, Facebook, or Nextdoor), with real numbers. null hides it.

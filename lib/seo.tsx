@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { GOOGLE_RATING, fullAddress, site } from "@/content/site";
+import { GOOGLE_RATING, site } from "@/content/site";
 import { areas } from "@/content/areas";
 import { services } from "@/content/services";
 
@@ -48,7 +48,8 @@ export function localBusinessJsonLd() {
     description: `Family owned pest control serving Polk County, Florida since ${site.foundingYear}.`,
     image: `${site.url}/opengraph-image`,
     logo: `${site.url}/brand/logo.png`,
-    sameAs: [site.social.facebook, site.social.instagram],
+    hasMap: site.googleBusiness,
+    sameAs: [site.googleBusiness, site.social.facebook, site.social.instagram],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
@@ -63,7 +64,6 @@ export function localBusinessJsonLd() {
       postalCode: site.address.zip,
       addressCountry: "US",
     },
-    hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`,
     areaServed: [
       ...areas.map((a) => ({ "@type": "City", name: `${a.name}, FL` })),
       { "@type": "AdministrativeArea", name: "Polk County, FL" },

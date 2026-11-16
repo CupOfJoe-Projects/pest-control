@@ -3,6 +3,7 @@ import { Award, HeartHandshake, MapPin, Newspaper, Phone, ThumbsUp } from "lucid
 import familyDog from "@/public/images/family/family-dog.png";
 import familyTruck from "@/public/images/family/vic-truck.png";
 import { TeamSection } from "@/components/site/team-section";
+import { OfficeMap } from "@/components/site/office-map";
 import { PageHeader } from "@/components/site/page-header";
 import { Container, Section, SectionHeading } from "@/components/site/section";
 import { TIMELINE } from "@/content/site";
@@ -179,7 +180,8 @@ export default function AboutPage() {
       </Section>
 
       <TeamSection className="bg-cream-dark/60" />
-      <TrustWall />
+      <OfficeMap />
+      <TrustWall className="bg-cream" />
       <CtaBlock />
     </>
   );

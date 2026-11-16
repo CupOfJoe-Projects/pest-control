@@ -101,6 +101,11 @@ export async function Footer() {
                 </Link>
               </li>
               <li>
+                <a href={site.googleBusiness} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  Google reviews
+                </a>
+              </li>
+              <li>
                 <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   Facebook
                 </a>
