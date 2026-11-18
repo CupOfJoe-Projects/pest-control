@@ -136,7 +136,12 @@ export async function Footer() {
               <>
                 {" "}
                 <span className="whitespace-nowrap">FL pest control license #{FDACS_LICENSE}</span>
-                {CERTIFIED_OPERATOR_LICENSE && <span className="whitespace-nowrap">, certified operator #{CERTIFIED_OPERATOR_LICENSE}</span>}.
+                {CERTIFIED_OPERATOR_LICENSE && (
+                  <>
+                    , <span className="whitespace-nowrap">certified operator #{CERTIFIED_OPERATOR_LICENSE}</span>
+                  </>
+                )}
+                .
               </>
             )}
           </p>

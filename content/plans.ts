@@ -32,7 +32,7 @@ export const plans: Plan[] = [
     name: "Quarterly",
     forWho: "Year round home protection",
     price: { prefix: "From", amount: "$199", suffix: "to start" },
-    priceNote: "Then from $137 per quarterly visit",
+    priceNote: "One time price for your first service",
     includes: [
       "Inside and outside protection, all year",
       "Seasonal visits that build up your protection",
@@ -47,7 +47,7 @@ export const plans: Plan[] = [
     name: "Commercial",
     forWho: "Businesses and rentals",
     price: { text: "Free consultation" },
-    priceNote: "Custom quote for recurring service",
+    priceNote: "Custom quote for your property",
     includes: ["A plan built for your business", "Offices, food service, schools, and more", "A service report after every visit"],
   },
 ];

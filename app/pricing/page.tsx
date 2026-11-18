@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components/site/page-header";
 import { Container } from "@/components/site/section";
 import { Coupon } from "@/components/site/coupon";
-import { PriceRow } from "@/components/site/price-coupon";
+import { PriceList } from "@/components/site/price-coupon";
 import { QuoteSection } from "@/components/site/quote-form";
 import { CtaBlock } from "@/components/site/cta-block";
 import { PRICE_NOTE, priceGroups } from "@/content/pricing";
@@ -11,7 +11,7 @@ import { JsonLd, pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   topic: "Pest Control Prices",
   description:
-    "Pest control prices in Polk County: quarterly service from $199, mosquito control from $79 a month, rodent control, termite inspections, and more. No contract required.",
+    "Pest control prices in Polk County: one time prices with no monthly fees. Pest control from $199, mosquito yard treatment from $149, rodent control, free termite inspections, and more. No contract required.",
   path: "/pricing",
 });
 
@@ -30,7 +30,6 @@ function pricingJsonLd() {
         name: item.name,
         description: [
           [item.headline.prefix, item.headline.amount, item.headline.label.toLowerCase()].filter(Boolean).join(" "),
-          item.ongoing,
           item.qualifier,
         ]
           .filter(Boolean)
@@ -50,18 +49,32 @@ function pricingJsonLd() {
   };
 }
 
+/** The coupon questions as FAQ structured data. Shared questions appear once. */
+function pricingFaqJsonLd() {
+  const seen = new Set<string>();
+  const faqs = priceGroups
+    .flatMap((g) => g.items.flatMap((i) => i.faqs))
+    .filter((f) => !seen.has(f.q) && seen.add(f.q));
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  };
+}
+
 export default function PricingPage() {
   return (
     <>
       <JsonLd data={pricingJsonLd()} />
+      <JsonLd data={pricingFaqJsonLd()} />
       <PageHeader
         crumbs={[{ label: "Pricing" }]}
         eyebrow="Pricing"
-        title="Honest prices, up front"
+        title="Clip a coupon. Pay one time."
         intro={
           <p>
-            Starting prices for every service we offer in Polk County. No contract required, and you always know the
-            price before we treat anything.
+            One time prices for every service we offer in Polk County. No monthly fees, no contract, and you always
+            know the price before we treat anything.
           </p>
         }
         aside={<Coupon size="sm" />}
@@ -92,10 +105,7 @@ export default function PricingPage() {
             </h2>
             <p className="mt-3 max-w-2xl text-lg text-muted-ink">{group.intro}</p>
             <div className="mt-2">
-              {group.items.map((item, i) => (
-                // Alternate coupon colors down the page, like the reference layout.
-                <PriceRow key={item.id} item={item} tone={(gi + i) % 2 ? "orange" : "green"} />
-              ))}
+              <PriceList items={group.items} offset={gi} />
             </div>
           </Container>
         </section>
