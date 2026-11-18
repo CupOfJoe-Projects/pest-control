@@ -1,7 +1,7 @@
 import { Hero } from "@/components/home/hero";
 import { QuoteBar } from "@/components/home/quote-bar";
 import { ProblemPicker } from "@/components/home/problem-picker";
-import { Plans } from "@/components/home/plans";
+import { Coupons } from "@/components/home/coupons";
 import { Guarantee } from "@/components/home/guarantee";
 import { Comparison } from "@/components/home/comparison";
 import { StorySection } from "@/components/home/story-section";
@@ -20,11 +20,11 @@ export const metadata = pageMetadata({
   path: "/",
 });
 
-// Rooms: cream hero, white trust wall, cream pests, green plans, cream guarantee,
+// Rooms: cream hero, white trust wall, cream pests, white coupons, cream guarantee,
 // white comparison, cream how it works, green story, white FAQ, cream area, orange CTA.
 const belowFold = [
   { key: "pests", Section: ProblemPicker },
-  { key: "plans", Section: Plans },
+  { key: "coupons", Section: Coupons },
   { key: "guarantee", Section: Guarantee },
   { key: "comparison", Section: Comparison },
   { key: "how", Section: () => <HowItWorks className="grain bg-cream" /> },

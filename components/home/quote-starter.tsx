@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { planLabels, type PlanId } from "@/content/plans";
 import { PLAN_EVENT } from "./plan-button";
+import { SERVICE_EVENT } from "@/components/site/price-action";
 
 const CHIPS = ["Roaches", "Ants", "Rodents", "Mosquitoes", "Spiders", "Termites", "Not sure"];
 
@@ -24,13 +25,20 @@ type Errors = Partial<Record<"pest" | "zip" | "phone" | "form", string>>;
 export function QuoteStarter({ phone }: { phone: string }) {
   const [pest, setPest] = useState("");
   const [plan, setPlan] = useState<PlanId | "">("");
+  // The coupon the visitor clicked, so the office knows which service.
+  const [service, setService] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
 
   useEffect(() => {
     const onPlan = (e: Event) => setPlan((e as CustomEvent<PlanId>).detail);
+    const onService = (e: Event) => setService((e as CustomEvent<string>).detail);
     window.addEventListener(PLAN_EVENT, onPlan);
-    return () => window.removeEventListener(PLAN_EVENT, onPlan);
+    window.addEventListener(SERVICE_EVENT, onService);
+    return () => {
+      window.removeEventListener(PLAN_EVENT, onPlan);
+      window.removeEventListener(SERVICE_EVENT, onService);
+    };
   }, []);
 
   // Check a field when the person leaves it, so mistakes show before submit.
@@ -59,6 +67,7 @@ export function QuoteStarter({ phone }: { phone: string }) {
       source: "hero",
       page: window.location.pathname,
       ...(plan && { plan }),
+      ...(service && { service }),
     };
 
     const next: Errors = {};
@@ -98,13 +107,16 @@ export function QuoteStarter({ phone }: { phone: string }) {
         <h2 id="starter-title" className="font-heading text-xl font-extrabold text-ink md:text-2xl">
           {SHOW_OFFER ? `Get a free quote + ${OFFER.headline}` : "Get a free quote in 30 seconds"}
         </h2>
-        {plan && (
+        {(service || plan) && (
           <p className="flex items-center gap-1.5 rounded-full bg-green-soft py-1 pr-1.5 pl-3 text-sm font-semibold text-green">
-            Plan: {planLabels[plan]}
+            {service ? `Coupon: ${service}` : `Plan: ${plan && planLabels[plan]}`}
             <button
               type="button"
-              onClick={() => setPlan("")}
-              aria-label="Clear plan"
+              onClick={() => {
+                setPlan("");
+                setService("");
+              }}
+              aria-label={service ? "Clear coupon" : "Clear plan"}
               className="flex size-6 items-center justify-center rounded-full hover:bg-green/10"
             >
               <X aria-hidden="true" className="size-3.5" />
