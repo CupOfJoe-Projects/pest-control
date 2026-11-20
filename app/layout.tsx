@@ -5,6 +5,7 @@ import { OfferBar } from "@/components/site/offer-bar";
 import { Footer } from "@/components/site/footer";
 import { MobileActionBar } from "@/components/site/mobile-action-bar";
 import { RevealObserver } from "@/components/site/reveal-observer";
+import { ChatWidget } from "@/components/site/chat-widget";
 import { IS_DEMO, site } from "@/content/site";
 import "./globals.css";
 
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <MobileActionBar />
         <RevealObserver />
+        <ChatWidget />
       </body>
     </html>
   );
