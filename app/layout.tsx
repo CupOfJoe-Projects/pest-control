@@ -6,6 +6,7 @@ import { Footer } from "@/components/site/footer";
 import { MobileActionBar } from "@/components/site/mobile-action-bar";
 import { RevealObserver } from "@/components/site/reveal-observer";
 import { ChatWidget } from "@/components/site/chat-widget";
+import { LeadTracking } from "@/components/site/lead-tracking";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { GA_MEASUREMENT_ID, GTM_ID, IS_DEMO, site } from "@/content/site";
 import "./globals.css";
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <MobileActionBar />
         <RevealObserver />
         <ChatWidget />
+        <LeadTracking />
       </body>
     </html>
   );

@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { planLabels, type PlanId } from "@/content/plans";
 import { PLAN_EVENT } from "./plan-button";
 import { SERVICE_EVENT } from "@/components/site/price-action";
+import { track } from "@/lib/analytics";
 
 const CHIPS = ["Roaches", "Ants", "Rodents", "Mosquitoes", "Spiders", "Termites", "Not sure"];
 
@@ -92,6 +93,7 @@ export function QuoteStarter({ phone }: { phone: string }) {
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) throw new Error();
+      track("generate_lead", { form: "homepage bar", pest, service });
       setStatus("success");
     } catch {
       setErrors({ form: `Something went wrong. Please call ${phone}.` });

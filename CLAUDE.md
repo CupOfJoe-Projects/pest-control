@@ -101,6 +101,8 @@ Browser test failures save a trace: `npx playwright show-trace test-results/<tes
 
 **Chat widget.** `components/site/chat-widget.tsx` loads GHL's chat loader with `next/script` (`lazyOnload`, so it never slows the first paint). The bubble lives in a shadow root that page CSS cannot reach, so the component injects a small style into it on phones to lift the bubble above the Call / Text / Quote bar. Bubble colors and greeting are set in GHL.
 
+**Analytics events.** Google Analytics 4 loads in `app/layout.tsx`. `components/site/lead-tracking.tsx` watches clicks site wide and sends lead events based on where a link points, so new call buttons, quote links, and service links are tracked with no extra code. Events: `contact_click` (method: call, text, email; location: header, footer, quick actions, or the section), `chat_open` (once per page view), `quote_click`, `claim_coupon` (coupon), `service_click` (service slug), and `generate_lead` (sent from both quote forms only after the lead is saved; form, pest, service). `lib/analytics.ts` has `track()` for adding new ones. `tests/e2e/analytics.spec.ts` checks them.
+
 **Next.js 16.** This is newer than most training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing framework code (see the AGENTS.md note above). Run `npx next typegen` if TypeScript cannot find `PageProps` or image modules on a fresh checkout; `npm run typecheck` already does this.
 
 ## Accounts and access

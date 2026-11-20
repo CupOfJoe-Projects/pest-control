@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics";
 import { planLabels, type PlanId } from "@/content/plans";
 import { PLAN_EVENT } from "@/components/home/plan-button";
 import { SERVICE_EVENT } from "@/components/site/price-action";
@@ -124,6 +125,7 @@ export function QuoteFormClient({
         setStatus("idle");
         return;
       }
+      track("generate_lead", { form: "quote form", pest: data.pest, service: data.service });
       setFirstName(data.name.trim().split(/\s+/)[0]);
       setStatus("success");
     } catch {
