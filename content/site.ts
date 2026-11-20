@@ -63,7 +63,13 @@ export const IS_DEMO = true;
 // Do not also add a Google Analytics tag inside Tag Manager, or every visit is counted twice.
 export const GA_MEASUREMENT_ID: string | null = "G-7XP5Q72MXN";
 
-// Google Tag Manager container, for any other tags (ads conversions, etc.).
+// Google Ads account tag, copied from the old site. null removes it.
+export const GOOGLE_ADS_ID: string | null = "AW-17583644549";
+// Google Ads conversion ("Contact Us"), sent each time a quote form is saved.
+// The name comes from the conversion action in Google Ads. null stops sending it.
+export const GOOGLE_ADS_LEAD_CONVERSION: string | null = "ads_conversion_Contact_Us_1";
+
+// Google Tag Manager container, for any other tags.
 // Those are set up in Tag Manager (tagmanager.google.com), not in this code. null removes it.
 export const GTM_ID: string | null = "GTM-WH8QTB97";
 

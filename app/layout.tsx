@@ -7,8 +7,9 @@ import { MobileActionBar } from "@/components/site/mobile-action-bar";
 import { RevealObserver } from "@/components/site/reveal-observer";
 import { ChatWidget } from "@/components/site/chat-widget";
 import { LeadTracking } from "@/components/site/lead-tracking";
-import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { GA_MEASUREMENT_ID, GTM_ID, IS_DEMO, site } from "@/content/site";
+import { GoogleTagManager } from "@next/third-parties/google";
+import { GTM_ID, IS_DEMO, site } from "@/content/site";
+import { GoogleTags } from "@/components/site/google-tags";
 import "./globals.css";
 
 // Fonts swap in. Fallback lists end in a generic sans so text never drops to a
@@ -51,8 +52,8 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${bricolage.variable}`}>
-      {/* Google Analytics and Tag Manager. Both load after the page is interactive. */}
-      {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
+      {/* Google Analytics + Google Ads, and Tag Manager. All load after the page is interactive. */}
+      <GoogleTags />
       {GTM_ID && <GoogleTagManager gtmId={GTM_ID} />}
       <body className="flex min-h-dvh flex-col">
         <a

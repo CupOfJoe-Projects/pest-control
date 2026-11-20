@@ -55,7 +55,7 @@ All copy and business data is in typed files under `content/`. There is no CMS. 
 | Edit a pest or service page | `content/pests.ts`, `content/services.ts` |
 | Add or change a team member | `content/team.ts` (photos in `public/images/team/`) |
 | Change the top menu | `mainNav` in `content/site.ts` |
-| Google Analytics or other tracking tags | `GA_MEASUREMENT_ID` (Google Analytics 4, loaded directly) and `GTM_ID` (Tag Manager, for other tags) in `content/site.ts`. Never add an Analytics tag inside Tag Manager too, or visits count twice. |
+| Google Analytics, Google Ads, or other tracking tags | In `content/site.ts`: `GA_MEASUREMENT_ID` (Analytics), `GOOGLE_ADS_ID` and `GOOGLE_ADS_LEAD_CONVERSION` (Ads, loaded together with Analytics in `components/site/google-tags.tsx`), and `GTM_ID` (Tag Manager, for other tags). Never add an Analytics or Ads tag inside Tag Manager too, or everything counts twice. |
 | Redirect an old URL | `redirects()` in `next.config.ts` |
 | Swap a photo | `lib/images.ts` slots, or the static `import` in the component that uses it. Use WebP or JPG, and give every image real alt text. |
 
@@ -101,7 +101,7 @@ Browser test failures save a trace: `npx playwright show-trace test-results/<tes
 
 **Chat widget.** `components/site/chat-widget.tsx` loads GHL's chat loader with `next/script` (`lazyOnload`, so it never slows the first paint). The bubble lives in a shadow root that page CSS cannot reach, so the component injects a small style into it on phones to lift the bubble above the Call / Text / Quote bar. Bubble colors and greeting are set in GHL.
 
-**Analytics events.** Google Analytics 4 loads in `app/layout.tsx`. `components/site/lead-tracking.tsx` watches clicks site wide and sends lead events based on where a link points, so new call buttons, quote links, and service links are tracked with no extra code. Events: `contact_click` (method: call, text, email; location: header, footer, quick actions, or the section), `chat_open` (once per page view), `quote_click`, `claim_coupon` (coupon), `service_click` (service slug), and `generate_lead` (sent from both quote forms only after the lead is saved; form, pest, service). `lib/analytics.ts` has `track()` for adding new ones. `tests/e2e/analytics.spec.ts` checks them.
+**Analytics events.** Google Analytics 4 loads in `app/layout.tsx`. `components/site/lead-tracking.tsx` watches clicks site wide and sends lead events based on where a link points, so new call buttons, quote links, and service links are tracked with no extra code. Events: `contact_click` (method: call, text, email; location: header, footer, quick actions, or the section), `chat_open` (once per page view), `quote_click`, `claim_coupon` (coupon), `service_click` (service slug), and `generate_lead` (sent from both quote forms only after the lead is saved; form, pest, service). Each `generate_lead` also sends the Google Ads "Contact Us" conversion. `lib/analytics.ts` has `track()` for adding new ones. `tests/e2e/analytics.spec.ts` checks them.
 
 **Next.js 16.** This is newer than most training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing framework code (see the AGENTS.md note above). Run `npx next typegen` if TypeScript cannot find `PageProps` or image modules on a fresh checkout; `npm run typecheck` already does this.
 

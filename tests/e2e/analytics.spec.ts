@@ -1,5 +1,5 @@
 /** Google Analytics and Google Tag Manager load on every page with our IDs. */
-import { GA_MEASUREMENT_ID, GTM_ID } from "@/content/site";
+import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID, GOOGLE_ADS_LEAD_CONVERSION, GTM_ID } from "@/content/site";
 import { expect, test } from "./fixtures";
 
 // Third parties are blocked in tests, so each check confirms the page asks Google for the right ID.
@@ -20,6 +20,18 @@ for (const tag of tags) {
     });
   }
 }
+
+test("the Google tag is set up for Analytics and Google Ads", async ({ page }) => {
+  await page.goto("/");
+  const configured = () =>
+    page.evaluate(() =>
+      (window.dataLayer ?? [])
+        .map((entry) => Array.from(entry as ArrayLike<unknown>))
+        .filter((args) => args[0] === "config")
+        .map((args) => args[1]),
+    );
+  await expect.poll(configured).toEqual(expect.arrayContaining([GA_MEASUREMENT_ID, GOOGLE_ADS_ID].filter(Boolean)));
+});
 
 /** Lead events sent to Google Analytics, as [event name, params]. */
 async function events(page: import("@playwright/test").Page) {
@@ -88,5 +100,9 @@ test.describe("lead events", () => {
     const sent = await events(page);
     expect(sent.find(([e]) => e === "claim_coupon")?.[1]).toEqual({ coupon: "Rat Control" });
     expect(sent.find(([e]) => e === "generate_lead")?.[1]).toMatchObject({ form: "homepage bar", service: "Rat Control" });
+    // A saved lead also counts as a Google Ads conversion.
+    if (GOOGLE_ADS_ID && GOOGLE_ADS_LEAD_CONVERSION) {
+      expect(sent.filter(([e]) => e === GOOGLE_ADS_LEAD_CONVERSION)).toHaveLength(1);
+    }
   });
 });
