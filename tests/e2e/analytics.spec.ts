@@ -15,8 +15,8 @@ for (const tag of tags) {
       const request = page.waitForRequest((req) => req.url().startsWith(tag.url) && req.url().includes(`id=${tag.id}`));
       await page.goto(path);
       await request;
-      const dataLayer = await page.evaluate(() => (window as unknown as { dataLayer?: unknown[] }).dataLayer);
-      expect(Array.isArray(dataLayer)).toBe(true);
+      // The setup script can run just after the request starts, so wait for it.
+      await expect.poll(() => page.evaluate(() => Array.isArray(window.dataLayer))).toBe(true);
     });
   }
 }
@@ -31,6 +31,12 @@ async function events(page: import("@playwright/test").Page) {
   );
 }
 
+/** Opens a page and waits until it is interactive (Analytics has started), so clicks are tracked. */
+async function open(page: import("@playwright/test").Page, path: string) {
+  await page.goto(path);
+  await expect.poll(() => page.evaluate(() => Array.isArray(window.dataLayer))).toBe(true);
+}
+
 test.describe("lead events", () => {
   // Stop link clicks from leaving the page, so the test can read what was recorded.
   test.beforeEach(async ({ page }) => {
@@ -42,7 +48,7 @@ test.describe("lead events", () => {
   });
 
   test("call, text, and email clicks", async ({ page }) => {
-    await page.goto("/contact");
+    await open(page, "/contact");
     await page.locator("main a[href^='tel:']").first().click();
     await page.locator("main a[href^='mailto:']").first().click();
     await page.locator("main a[href^='https://mcdexterminators.h.trustco.ai']").first().click();
@@ -51,7 +57,7 @@ test.describe("lead events", () => {
   });
 
   test("chat bubble opens are counted once per page", async ({ page }) => {
-    await page.goto("/");
+    await open(page, "/");
     const bubble = page.locator("chat-widget").locator(".lc_text-widget--bubble");
     await bubble.click();
     await bubble.click();
@@ -59,7 +65,7 @@ test.describe("lead events", () => {
   });
 
   test("service link clicks name the service", async ({ page }) => {
-    await page.goto("/");
+    await open(page, "/");
     await page.locator("footer a[href^='/services/']").first().click();
     const click = (await events(page)).find(([e]) => e === "service_click");
     expect(click?.[1]).toMatchObject({ location: "footer" });
@@ -68,7 +74,7 @@ test.describe("lead events", () => {
 
   test("coupon claims and finished quote forms", async ({ page }) => {
     await page.route("**/api/quote", (route) => route.fulfill({ json: { ok: true } }));
-    await page.goto("/");
+    await open(page, "/");
     await page.getByRole("tab", { name: "Rodents" }).click();
     const panel = page.getByRole("tabpanel", { name: "Rodents" });
     await panel.getByRole("article", { name: "Rat Control", exact: true }).getByRole("link", { name: /Claim This Coupon/ }).click();
