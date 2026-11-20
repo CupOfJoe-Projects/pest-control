@@ -21,7 +21,11 @@ export default defineConfig({
     ...(process.env.CHROME_PATH && { launchOptions: { executablePath: process.env.CHROME_PATH } }),
   },
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"] } },
+    // Reduced motion on desktop: the test browser has no graphics card, so the
+    // homepage's looping animations (review marquee, drifting cards) eat the CPU
+    // at desktop size and tests time out when they run in parallel. Phone keeps
+    // the animations, so the animated version is still tested.
+    { name: "desktop", use: { ...devices["Desktop Chrome"], reducedMotion: "reduce" } },
     // Phone width with Chromium, so only one browser needs installing.
     { name: "phone", use: { ...devices["Desktop Chrome"], viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } },
   ],
