@@ -58,6 +58,10 @@ export const mapsUrl = site.googleBusiness;
 // the sitemap is empty, and the reviews wall shows a "Sample reviews" label.
 export const IS_DEMO = true;
 
+// Google Tag Manager container. Google Analytics and other tags are set up
+// inside Tag Manager (tagmanager.google.com), not in this code. null removes it.
+export const GTM_ID: string | null = "GTM-WH8QTB97";
+
 // ---------------------------------------------------------------------------
 // Placeholders. Every value below needs confirming with the owner.
 // ---------------------------------------------------------------------------

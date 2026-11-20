@@ -55,6 +55,7 @@ All copy and business data is in typed files under `content/`. There is no CMS. 
 | Edit a pest or service page | `content/pests.ts`, `content/services.ts` |
 | Add or change a team member | `content/team.ts` (photos in `public/images/team/`) |
 | Change the top menu | `mainNav` in `content/site.ts` |
+| Google Analytics or other tracking tags | `GTM_ID` in `content/site.ts` loads the Google Tag Manager container. Add or change Analytics tags in Tag Manager itself (tagmanager.google.com), not in the code. |
 | Redirect an old URL | `redirects()` in `next.config.ts` |
 | Swap a photo | `lib/images.ts` slots, or the static `import` in the component that uses it. Use WebP or JPG, and give every image real alt text. |
 
