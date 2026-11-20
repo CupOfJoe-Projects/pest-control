@@ -1,3 +1,13 @@
-# Nothing reaches GitHub (and so Vercel, which deploys main) unless every test
-# passes: types, lint, unit tests, a production build, and the browser tests.
-npm run verify
+# Nothing reaches GitHub unless the fast checks pass, and (where a test browser
+# is available) the production build and browser tests too. GitHub Actions and
+# the Vercel "Tests" deployment check run the full suite again before anything
+# goes live, so a machine without the browser (a Claude cloud session) still
+# cannot publish a broken change.
+npm run check || exit 1
+
+if [ -n "$CHROME_PATH" ] || node -e "process.exit(require('fs').existsSync(require('@playwright/test').chromium.executablePath()) ? 0 : 1)" 2>/dev/null; then
+  npm run test:e2e
+else
+  echo "No test browser on this machine (run: npx playwright install chromium)."
+  echo "Browser tests will run on GitHub before the live site updates."
+fi

@@ -33,6 +33,8 @@ edit → git commit → git push → GitHub → Vercel builds → Vercel waits f
 - **On GitHub**, the `Tests` workflow (`.github/workflows/ci.yml`) runs `npm run verify` again. This catches edits made on github.com, which skip the local hooks.
 - **On Vercel**, every push to `main` builds a production deployment, but a Deployment Check named "Tests" holds the live site until the GitHub `test` job passes. If the tests fail, the old version stays live.
 
+**Cloud sessions (claude.ai/code)** are how the editor usually works: no installs, and each session works on its own branch. The flow there is: make the change, run `npm run check`, open a pull request, wait for the GitHub `Tests` check to pass, then merge into `main`. If the session has no test browser, the pre-push hook runs the fast checks and leaves the browser tests to GitHub. Walk the editor through the pull request step if they are unsure, and never tell them to merge while `Tests` is red.
+
 To confirm a change is live: `vercel ls mcdonald-exterminators --prod` shows the newest deployment as Ready, and `curl -s https://mcdonald-exterminators-kappa.vercel.app/<page>` contains the new text. Run `vercel whoami` first; it should print `vpsciences`.
 
 If something broke after going live, `vercel rollback` puts the previous deployment back immediately. Then fix the cause and push again.

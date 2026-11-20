@@ -14,7 +14,12 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",
-  use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },
+  use: {
+    baseURL: `http://localhost:${PORT}`,
+    trace: "retain-on-failure",
+    // Claude cloud sessions ship Chrome and set CHROME_PATH; use it instead of downloading one.
+    ...(process.env.CHROME_PATH && { launchOptions: { executablePath: process.env.CHROME_PATH } }),
+  },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
     // Phone width with Chromium, so only one browser needs installing.
