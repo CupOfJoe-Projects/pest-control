@@ -1,6 +1,6 @@
 import { test as base, expect } from "@playwright/test";
 
-export const GHL_WIDGET_ID = "6afe09090cda8e93036ce785";
+export const GHL_WIDGET_ID = "68cf3025f6dad85ecdf9c863";
 
 /**
  * Stand-in for the GHL chat loader: draws a bubble inside a shadow root at the
