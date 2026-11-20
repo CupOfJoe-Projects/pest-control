@@ -131,6 +131,30 @@ Hosted on Vercel: project `mcdonald-exterminators` in the **Validated Peptides' 
 - Manual deploys from this folder: `vercel deploy` (preview) or `vercel deploy --prod`. Run `vercel whoami` first and confirm the account.
 - Preview URLs are behind Vercel Authentication. Share the production URL with people outside the team.
 
+## Tests
+
+Git hooks run the tests automatically, so a broken edit cannot reach the live site:
+
+- **On commit** (a few seconds): `npm run check` runs the type check, lint, and unit tests.
+- **On push** (about a minute): `npm run verify` runs everything above, then a production build and the browser tests. If anything fails, the push is stopped and nothing deploys.
+- **On GitHub**: `.github/workflows/ci.yml` runs the same `npm run verify` for every push to `main`, which covers edits made on github.com.
+
+| Command | What it runs |
+| --- | --- |
+| `npm test` | Unit tests (`tests/unit`, Vitest) |
+| `npm run test:e2e` | Production build, then browser tests (`tests/e2e`, Playwright, desktop and phone widths) |
+| `npm run verify` | Everything; what the pre-push hook runs |
+
+What they cover:
+
+- **Content guard rails** (`tests/unit/content.test.ts`): unique URL slugs, area and coupon pest links that point to real pages, coupons with questions, no monthly prices, phone number matches the tap to call link, social links without tracking codes.
+- **SEO** (`tests/unit/seo.test.ts`, `tests/e2e/seo.spec.ts`): every page is server rendered with one `<h1>`, title, description, canonical, and Open Graph tags; LocalBusiness and FAQ structured data; robots and sitemap follow `IS_DEMO`; old site URLs redirect.
+- **Quote forms and GoHighLevel** (`tests/unit/quote-route.test.ts`, `tests/unit/ghl.test.ts`, `tests/e2e/quote-forms.spec.ts`): validation, honeypot, coupon tagging, the GHL contact, tags, and note, and the "please call us" fallback when GHL fails. Tests never contact the real GHL account.
+- **Chat widget** (`tests/e2e/chat-widget.spec.ts`): loads with the right widget ID, and on phones sits above the Call / Text / Quote bar. The GHL loader is faked in tests.
+- **Links and layout** (`tests/e2e/links.spec.ts`, `tests/e2e/layout.spec.ts`): no broken internal links, no sideways scrolling.
+
+First time on a new computer: `npm install` sets up the hooks, and `npx playwright install chromium` downloads the test browser.
+
 ## Checks run before handoff
 
 - Lighthouse mobile on the live Vercel site (V2): Performance 95 to 97, Accessibility 100, Best Practices 100. SEO shows 69 only because `IS_DEMO` sets `noindex`; it was 100 before the flag and returns when it is turned off

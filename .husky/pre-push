@@ -1,0 +1,3 @@
+# Nothing reaches GitHub (and so Vercel, which deploys main) unless every test
+# passes: types, lint, unit tests, a production build, and the browser tests.
+npm run verify
