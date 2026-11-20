@@ -13,13 +13,13 @@ export function Header() {
       <Container className="flex h-16 items-center gap-4 sm:h-[4.5rem]">
         <Logo />
 
-        <nav aria-label="Main" className="ml-6 hidden lg:block">
+        <nav aria-label="Main" className="ml-2 hidden lg:block xl:ml-6">
           <ul className="flex items-center gap-1">
             {mainNav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="rounded-md px-3 py-2 text-[0.95rem] font-medium text-ink/85 transition-colors hover:bg-green-soft hover:text-green"
+                  className="rounded-md px-2.5 py-2 text-[0.95rem] whitespace-nowrap xl:px-3 font-medium text-ink/85 transition-colors hover:bg-green-soft hover:text-green"
                 >
                   {item.label}
                 </Link>
@@ -34,7 +34,8 @@ export function Header() {
             className="hidden items-center gap-2 rounded-md px-2 py-2 font-heading text-lg font-bold text-green hover:underline md:flex"
           >
             <Phone aria-hidden="true" className="size-5" />
-            {site.phone}
+            {/* Icon only between lg and xl, where the full nav leaves no room for the number. */}
+            <span className="whitespace-nowrap lg:max-xl:sr-only">{site.phone}</span>
           </a>
           <QuoteButton size="lg" className="hidden h-11 px-4 text-[0.95rem] md:inline-flex" />
 

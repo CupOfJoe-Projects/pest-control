@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Award, HeartHandshake, MapPin, Newspaper, Phone, ThumbsUp } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Award, HeartHandshake, MapPin, Newspaper, Phone, ThumbsUp } from "lucide-react";
 import familyDog from "@/public/images/family/family-dog.png";
 import familyTruck from "@/public/images/family/vic-truck.png";
 import { TeamSection } from "@/components/site/team-section";
@@ -11,6 +12,7 @@ import { EstBadge } from "@/components/site/est-badge";
 import { TrustWall } from "@/components/site/trust-wall";
 import { CtaBlock } from "@/components/site/cta-block";
 import { pageMetadata } from "@/lib/seo";
+import { pressItems } from "@/content/press";
 
 export const metadata = pageMetadata({
   topic: "About Us",
@@ -39,22 +41,6 @@ const values = [
     icon: MapPin,
     title: "We know Polk County",
     text: "Lakes, groves, sandy ridges, and old oaks all bring different pests. We have seen them all.",
-  },
-];
-
-// From the Press page on the old site.
-const press = [
-  {
-    icon: Newspaper,
-    title: "Featured in VoyageTampa's Rising Stars",
-    text: "A July 2026 interview about our growth, our long Central Florida history, and the long time team who care for our customers.",
-    href: "https://voyagetampa.com/interview/rising-stars-meet-victoria-ames-of-tampa",
-    linkLabel: "Read the interview",
-  },
-  {
-    icon: Award,
-    title: "Best Pest Control Company in Bartow, 2026",
-    text: "Named Bartow's best pest control company for 2026. Thank you to our customers and neighbors for trusting our local team.",
   },
 ];
 
@@ -157,26 +143,28 @@ export default function AboutPage() {
       <Section labelledBy="press-title" className="bg-cream">
         <SectionHeading id="press-title" eyebrow="Press" title="In the news" />
         <ul className="mt-10 grid gap-5 sm:grid-cols-2">
-          {press.map((item) => (
-            <li key={item.title} className="flex flex-col rounded-lg border border-line bg-white p-6">
-              <span className="flex size-12 items-center justify-center rounded-lg bg-green-soft text-green">
-                <item.icon aria-hidden="true" className="size-6" />
-              </span>
-              <h3 className="mt-4 text-xl font-bold text-ink">{item.title}</h3>
-              <p className="mt-2 text-muted-ink">{item.text}</p>
-              {item.href && (
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 font-semibold text-green underline underline-offset-4"
-                >
-                  {item.linkLabel}
-                </a>
-              )}
-            </li>
-          ))}
+          {pressItems.map((item) => {
+            const KindIcon = item.kind === "award" ? Award : Newspaper;
+            return (
+              <li key={item.id} className="flex flex-col rounded-lg border border-line bg-white p-6">
+                <span className="flex size-12 items-center justify-center rounded-lg bg-green-soft text-green">
+                  <KindIcon aria-hidden="true" className="size-6" />
+                </span>
+                <h3 className="mt-4 text-xl font-bold text-ink">{item.title}</h3>
+                <p className="mt-2 line-clamp-3 text-muted-ink">{item.summary}</p>
+              </li>
+            );
+          })}
         </ul>
+        <p className="mt-8">
+          <Link
+            href="/press"
+            className="inline-flex min-h-12 items-center gap-2 font-heading text-xl font-bold text-green underline underline-offset-4 hover:no-underline"
+          >
+            See all press
+            <ArrowRight aria-hidden="true" className="size-5" />
+          </Link>
+        </p>
       </Section>
 
       <TeamSection className="bg-cream-dark/60" />

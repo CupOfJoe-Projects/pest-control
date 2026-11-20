@@ -14,7 +14,6 @@ const nextConfig: NextConfig = {
     const old: Record<string, string> = {
       "/home": "/",
       "/appointments": "/contact",
-      "/press": "/about",
       "/privacypolicy": "/privacy",
       "/termsandconditions": "/terms",
       "/serviceareas": "/areas",

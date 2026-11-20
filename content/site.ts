@@ -141,4 +141,5 @@ export const mainNav = [
   { label: "Pricing", href: "/pricing" },
   { label: "Service Areas", href: "/areas" },
   { label: "About", href: "/about" },
+  { label: "Press", href: "/press" },
 ] as const;

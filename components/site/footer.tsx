@@ -96,6 +96,11 @@ export async function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/press" className={linkClass}>
+                  Press
+                </Link>
+              </li>
+              <li>
                 <Link href="/contact" className={linkClass}>
                   Contact
                 </Link>
