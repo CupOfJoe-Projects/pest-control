@@ -58,9 +58,10 @@ export const mapsUrl = site.googleBusiness;
 // the sitemap is empty, and the reviews wall shows a "Sample reviews" label.
 export const IS_DEMO = true;
 
-// Google Analytics 4, loaded directly ("McDonald" web stream). null removes it.
+// Google Analytics 4, loaded directly ("McDonald Exterminators" web stream, the same
+// property the old site used). null removes it.
 // Do not also add a Google Analytics tag inside Tag Manager, or every visit is counted twice.
-export const GA_MEASUREMENT_ID: string | null = "G-JJ24VTJ504";
+export const GA_MEASUREMENT_ID: string | null = "G-7XP5Q72MXN";
 
 // Google Tag Manager container, for any other tags (ads conversions, etc.).
 // Those are set up in Tag Manager (tagmanager.google.com), not in this code. null removes it.
