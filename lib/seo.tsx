@@ -49,7 +49,7 @@ export function localBusinessJsonLd() {
     image: `${site.url}/opengraph-image`,
     logo: `${site.url}/brand/logo.png`,
     hasMap: site.googleBusiness,
-    sameAs: [site.googleBusiness, site.social.facebook, site.social.instagram],
+    sameAs: [site.googleBusiness, site.social.facebook, site.social.instagram, site.social.linkedin],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],

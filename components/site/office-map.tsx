@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
  * Keyless Google Maps embed with the pin on their office. Searching the
  * business name plus address drops the pin on their Business Profile listing.
  */
-const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
+export const officeMapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
   `McDonald Exterminators Inc, ${fullAddress}`,
 )}&z=15&output=embed`;
 
@@ -60,7 +60,7 @@ export function OfficeMap({ className }: { className?: string }) {
 
         <div className="relative overflow-hidden rounded-[20px] border border-line bg-cream-dark shadow-[0_24px_60px_-24px_rgba(20,42,29,0.35)]">
           <iframe
-            src={embedUrl}
+            src={officeMapEmbedUrl}
             title={`Map of ${site.name}, ${fullAddress}`}
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"

@@ -35,6 +35,7 @@ export const site = {
   social: {
     facebook: "https://www.facebook.com/profile.php?id=100063519311583",
     instagram: "https://www.instagram.com/mcdonaldexterminators",
+    linkedin: "https://www.linkedin.com/company/mcdonald-exterminators/",
   },
   /** Their stated same day policy, from the old site. */
   sameDay: "Call before 2 PM for same day service",
@@ -85,7 +86,7 @@ export const OFFER = {
 // Shows the price line on plan cards (now "Free estimate"). false hides it.
 export const SHOW_PRICING = true;
 
-// Real numbers from their Google Business Profile, checked 2026-11-16.
+// Real numbers from their Google Business Profile, checked 2026-11-20.
 // Set to null to hide the rating everywhere (UI and JSON-LD).
 export const GOOGLE_RATING: {
   value: number;
@@ -93,8 +94,8 @@ export const GOOGLE_RATING: {
   countLabel: string;
 } | null = {
   value: 5,
-  count: 202,
-  countLabel: "202",
+  count: 204,
+  countLabel: "204",
 };
 
 export const GOOGLE_REVIEWS_URL = site.googleBusiness;

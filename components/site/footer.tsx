@@ -2,10 +2,18 @@ import Link from "next/link";
 import { Clock, Mail, MapPin, MessageSquareText, Phone } from "lucide-react";
 import { Container } from "./section";
 import { Logo } from "./logo";
+import { BrandIcon, type BrandIconName } from "./brand-icon";
 import { CERTIFIED_OPERATOR_LICENSE, FDACS_LICENSE, fullAddress, mapsUrl, site } from "@/content/site";
 import { services } from "@/content/services";
 import { areas } from "@/content/areas";
 import { getCurrentYear } from "@/lib/year";
+
+const socials: { name: string; icon: BrandIconName; href: string }[] = [
+  { name: "Google", icon: "google", href: site.googleBusiness },
+  { name: "Facebook", icon: "facebook", href: site.social.facebook },
+  { name: "Instagram", icon: "instagram", href: site.social.instagram },
+  { name: "LinkedIn", icon: "linkedin", href: site.social.linkedin },
+];
 
 export async function Footer() {
   const year = await getCurrentYear();
@@ -48,6 +56,21 @@ export async function Footer() {
                 {site.hours}
               </p>
             </address>
+            <ul aria-label="Follow us" className="mt-6 flex gap-2.5">
+              {socials.map((s) => (
+                <li key={s.name}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${site.name} on ${s.name}`}
+                    className="flex size-11 items-center justify-center rounded-full border border-cream/25 text-cream transition hover:border-orange hover:bg-orange hover:text-ink"
+                  >
+                    <BrandIcon name={s.icon} />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <nav aria-labelledby="footer-services">
@@ -108,16 +131,6 @@ export async function Footer() {
               <li>
                 <a href={site.googleBusiness} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   Google reviews
-                </a>
-              </li>
-              <li>
-                <a href={site.social.facebook} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                  Facebook
-                </a>
-              </li>
-              <li>
-                <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className={linkClass}>
-                  Instagram
                 </a>
               </li>
               <li>
