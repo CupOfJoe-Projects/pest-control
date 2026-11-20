@@ -27,7 +27,8 @@ Copy `.env.example` to `.env.local`. All are optional for the demo.
 | Variable | Purpose |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL for sitemap, robots, Open Graph, and JSON-LD. On Vercel it falls back to the production domain. |
-| `GHL_WEBHOOK_URL` | GoHighLevel inbound webhook. Every quote request is posted here; GHL handles the team text and email and the customer confirmation text. Unset: leads are only logged. |
+| `GHL_CONTACT_FORM_API_KEY` | GoHighLevel Private Integration token (contacts.write scope). Each quote request is upserted as a contact, tagged `website lead`, with a note holding the details (`lib/ghl.ts`). GHL workflows on that tag send the team and customer texts. Unset: leads are only logged. |
+| `GHL_LOCATION_ID` | The GHL sub-account's Location ID. |
 | `RESEND_API_KEY` | Email delivery for quote requests. Not wired up yet. |
 | `QUOTE_TO_EMAIL` | Inbox that receives quote requests. Not wired up yet. |
 
@@ -164,7 +165,7 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [x] Call back time: 15 minutes in office hours (`CALLBACK_MINUTES`)
 - [x] Starting prices (`content/pricing.ts`, `/pricing`, plan cards, cost FAQ)
 - [ ] Open pricing questions marked TODO in `content/pricing.ts` (one time scope, bundle startup charge, Platinum mouse coverage, what the $45/month plans cover, fire ant terms)
-- [ ] GoHighLevel inbound webhook URL for quote delivery (`GHL_WEBHOOK_URL`)
+- [ ] GoHighLevel API token and Location ID for quote delivery (`GHL_CONTACT_FORM_API_KEY`, `GHL_LOCATION_ID`), plus a GHL workflow on the `website lead` tag
 - [x] Hero availability card (`HERO_AVAILABILITY`, now their same day policy)
 - [x] Pet and family safe claim (from the old site)
 - [x] Privacy policy and terms (carried over from the old site)

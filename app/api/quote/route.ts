@@ -3,29 +3,7 @@ import { quoteSchema } from "@/lib/quote-schema";
 import { isPolkZip } from "@/lib/polk-zips";
 import { isOfficeOpen } from "@/lib/office-hours";
 import { OFFER, SHOW_OFFER } from "@/content/site";
-
-/**
- * Sends the lead to GoHighLevel through an inbound webhook. GHL then texts and
- * emails the sales team and texts the customer a confirmation (set up inside
- * GHL). Without GHL_WEBHOOK_URL the lead is only logged.
- */
-async function sendToGhl(lead: Record<string, unknown>) {
-  const url = process.env.GHL_WEBHOOK_URL;
-  if (!url) return true;
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(lead),
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) console.error("[quote] GHL webhook failed", res.status);
-    return res.ok;
-  } catch (error) {
-    console.error("[quote] GHL webhook error", error);
-    return false;
-  }
-}
+import { GHL_TAGS, ghlConfigured, sendLeadToGhl } from "@/lib/ghl";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -67,7 +45,39 @@ export async function POST(request: Request) {
   // Shows up in the Vercel function logs either way.
   console.log("[quote] New quote request", lead);
 
-  const delivered = await sendToGhl(lead);
+  // Without GHL_CONTACT_FORM_API_KEY and GHL_LOCATION_ID (local dev) the lead is only logged.
+  if (!ghlConfigured()) return Response.json({ ok: true });
+
+  const note = [
+    `Website quote request (${lead.source})`,
+    `Pest: ${pest}`,
+    service && `Coupon: ${service}`,
+    plan && `Plan: ${plan}`,
+    `ZIP: ${zip}${lead.outsidePolkCounty ? " (outside Polk County)" : ""}`,
+    message && `Message: ${message}`,
+    lead.offer && `Offer shown: ${lead.offer}`,
+    page && `Page: ${page}`,
+    lead.afterHours ? "Came in after hours." : "",
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const tags = [
+    ...GHL_TAGS,
+    source === "hero" ? "website: homepage bar" : "website: quote form",
+    ...(service ? [`coupon: ${service.toLowerCase()}`] : []),
+    ...(lead.outsidePolkCounty ? ["outside polk county"] : []),
+  ];
+
+  const delivered = await sendLeadToGhl({
+    firstName: lead.firstName,
+    lastName: lead.lastName,
+    phone,
+    zip,
+    source: lead.source,
+    tags,
+    note,
+  });
   if (!delivered) {
     // Never lose a lead silently: ask them to call instead.
     return Response.json({ ok: false }, { status: 502 });
