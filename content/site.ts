@@ -69,6 +69,10 @@ export const GOOGLE_ADS_ID: string | null = "AW-17583644549";
 // The name comes from the conversion action in Google Ads. null stops sending it.
 export const GOOGLE_ADS_LEAD_CONVERSION: string | null = "ads_conversion_Contact_Us_1";
 
+// Meta (Facebook) Pixel, copied from the old site. Sends a PageView on every page,
+// as before. null removes it.
+export const META_PIXEL_ID: string | null = "9307303622727901";
+
 // Google Tag Manager container, for any other tags.
 // Those are set up in Tag Manager (tagmanager.google.com), not in this code. null removes it.
 export const GTM_ID: string | null = "GTM-WH8QTB97";

@@ -55,7 +55,7 @@ All copy and business data is in typed files under `content/`. There is no CMS. 
 | Edit a pest or service page | `content/pests.ts`, `content/services.ts` |
 | Add or change a team member | `content/team.ts` (photos in `public/images/team/`) |
 | Change the top menu | `mainNav` in `content/site.ts` |
-| Google Analytics, Google Ads, or other tracking tags | In `content/site.ts`: `GA_MEASUREMENT_ID` (Analytics), `GOOGLE_ADS_ID` and `GOOGLE_ADS_LEAD_CONVERSION` (Ads, loaded together with Analytics in `components/site/google-tags.tsx`), and `GTM_ID` (Tag Manager, for other tags). Never add an Analytics or Ads tag inside Tag Manager too, or everything counts twice. |
+| Google Analytics, Google Ads, or other tracking tags | In `content/site.ts`: `GA_MEASUREMENT_ID` (Analytics), `GOOGLE_ADS_ID` and `GOOGLE_ADS_LEAD_CONVERSION` (Ads, loaded together with Analytics in `components/site/google-tags.tsx`), `META_PIXEL_ID` (Meta/Facebook Pixel, `components/site/meta-pixel.tsx`), and `GTM_ID` (Tag Manager, for other tags). Never add an Analytics or Ads tag inside Tag Manager too, or everything counts twice. |
 | Redirect an old URL | `redirects()` in `next.config.ts` |
 | Swap a photo | `lib/images.ts` slots, or the static `import` in the component that uses it. Use WebP or JPG, and give every image real alt text. |
 

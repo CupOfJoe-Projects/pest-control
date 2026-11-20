@@ -1,5 +1,5 @@
 /** Google Analytics and Google Tag Manager load on every page with our IDs. */
-import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID, GOOGLE_ADS_LEAD_CONVERSION, GTM_ID } from "@/content/site";
+import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID, GOOGLE_ADS_LEAD_CONVERSION, GTM_ID, META_PIXEL_ID } from "@/content/site";
 import { expect, test } from "./fixtures";
 
 // Third parties are blocked in tests, so each check confirms the page asks Google for the right ID.
@@ -31,6 +31,22 @@ test("the Google tag is set up for Analytics and Google Ads", async ({ page }) =
         .map((args) => args[1]),
     );
   await expect.poll(configured).toEqual(expect.arrayContaining([GA_MEASUREMENT_ID, GOOGLE_ADS_ID].filter(Boolean)));
+});
+
+test("Meta Pixel sends a PageView on load and on each page change", async ({ page }) => {
+  test.skip(!META_PIXEL_ID, "META_PIXEL_ID is turned off in content/site.ts");
+  const request = page.waitForRequest("https://connect.facebook.net/en_US/fbevents.js");
+  await page.goto("/");
+  await request;
+  // Meta's script is blocked in tests, so its queue keeps every call made.
+  const calls = () =>
+    page.evaluate(() =>
+      ((window.fbq as unknown as { queue?: ArrayLike<unknown>[] })?.queue ?? []).map((c) => Array.from(c).slice(0, 2).join(" ")),
+    );
+  await expect.poll(calls).toEqual([`init ${META_PIXEL_ID}`, "track PageView"]);
+  await page.locator("footer a[href='/contact']").first().click();
+  await expect(page).toHaveURL(/\/contact$/);
+  await expect.poll(calls).toEqual([`init ${META_PIXEL_ID}`, "track PageView", "track PageView"]);
 });
 
 /** Lead events sent to Google Analytics, as [event name, params]. */

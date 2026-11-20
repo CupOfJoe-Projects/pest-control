@@ -7,6 +7,7 @@ import { MobileActionBar } from "@/components/site/mobile-action-bar";
 import { RevealObserver } from "@/components/site/reveal-observer";
 import { ChatWidget } from "@/components/site/chat-widget";
 import { LeadTracking } from "@/components/site/lead-tracking";
+import { MetaPixel } from "@/components/site/meta-pixel";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { GTM_ID, IS_DEMO, site } from "@/content/site";
 import { GoogleTags } from "@/components/site/google-tags";
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <RevealObserver />
         <ChatWidget />
         <LeadTracking />
+        <MetaPixel />
       </body>
     </html>
   );
