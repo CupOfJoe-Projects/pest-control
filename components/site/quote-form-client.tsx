@@ -14,6 +14,7 @@ import { track } from "@/lib/analytics";
 import { planLabels, type PlanId } from "@/content/plans";
 import { PLAN_EVENT } from "@/components/home/plan-button";
 import { SERVICE_EVENT } from "@/components/site/price-action";
+import { TextUsLink } from "@/components/site/text-us-link";
 
 type Option = { value: string; label: string };
 type Errors = Partial<Record<"name" | "phone" | "pest" | "zip" | "message" | "form", string>>;
@@ -37,14 +38,12 @@ export function QuoteFormClient({
   defaultPest = "",
   phone,
   phoneHref,
-  textUrl,
   showPlan = false,
 }: {
   pestOptions: Option[];
   defaultPest?: string;
   phone: string;
   phoneHref: string;
-  textUrl: string;
   /** Show the plan picker. Plan cards preselect it through PLAN_EVENT. */
   showPlan?: boolean;
 }) {
@@ -329,9 +328,7 @@ export function QuoteFormClient({
           {phone}
         </a>{" "}
         or{" "}
-        <a href={textUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-green underline underline-offset-4">
-          text us
-        </a>
+        <TextUsLink className="font-semibold text-green underline underline-offset-4">text us a photo</TextUsLink>
         .
       </p>
     </form>

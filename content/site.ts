@@ -23,7 +23,11 @@ export const site = {
   },
   foundingYear: 1959,
   foundingCity: "Lakeland",
-  textUrl: "https://mcdexterminators.h.trustco.ai/",
+  /**
+   * The number customers text (photos included). Texts land in GoHighLevel →
+   * Conversations, where a workflow can analyze photos. Every "Text us" button uses it.
+   */
+  textNumber: "863-533-1294",
   url: siteUrl,
   /** Office hours, from the old site's contact page. */
   hours: "Monday to Friday, 8 AM to 6 PM",

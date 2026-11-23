@@ -3,7 +3,7 @@ import { ArrowRight, Camera } from "lucide-react";
 import { Icon } from "@/components/icons";
 import { Section, SectionHeading } from "@/components/site/section";
 import { commonPests } from "@/content/pests";
-import { site } from "@/content/site";
+import { TextUsLink } from "@/components/site/text-us-link";
 
 export function ProblemPicker() {
   return (
@@ -48,10 +48,7 @@ export function ProblemPicker() {
 
         {/* The differentiator: no idea what it is? Send a photo. */}
         <li data-reveal className="col-span-2 lg:col-span-1">
-          <a
-            href={site.textUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <TextUsLink
             className="group flex h-full items-center gap-4 rounded-[16px] bg-orange p-5 text-ink shadow-md transition duration-200 hover:-translate-y-1 hover:shadow-xl sm:gap-5 sm:p-6"
           >
             <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-ink text-orange sm:size-16">
@@ -65,7 +62,7 @@ export function ProblemPicker() {
                 Text us a photo <ArrowRight aria-hidden="true" className="size-4 transition group-hover:translate-x-1" />
               </span>
             </span>
-          </a>
+          </TextUsLink>
         </li>
       </ul>
     </Section>

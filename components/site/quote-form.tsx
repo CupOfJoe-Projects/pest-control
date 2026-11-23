@@ -51,7 +51,6 @@ export function QuoteSection({ defaultPest, title = defaultTitle }: { defaultPes
             defaultPest={defaultPest}
             phone={site.phone}
             phoneHref={site.phoneHref}
-            textUrl={site.textUrl}
           />
         </div>
       </div>

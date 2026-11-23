@@ -4,6 +4,7 @@ import { Camera, CircleCheck } from "lucide-react";
 import { CALLBACK_MINUTES, site } from "@/content/site";
 import { isOfficeOpen, nextOpenLabel } from "@/lib/office-hours";
 import { cn } from "@/lib/utils";
+import { TextUsLink } from "@/components/site/text-us-link";
 
 /**
  * Thank you state for both quote forms. Sets expectations: a call back soon
@@ -43,10 +44,10 @@ export function QuoteThanks({ firstName, compact = false }: { firstName?: string
           ) : (
             <>
               Need help now?{" "}
-              <a href={site.textUrl} target="_blank" rel="noopener noreferrer" className={cn(link, "inline-flex items-center gap-1")}>
+              <TextUsLink className={cn(link, "inline-flex items-center gap-1")}>
                 <Camera aria-hidden="true" className="size-4" />
                 Text us a photo
-              </a>{" "}
+              </TextUsLink>{" "}
               and we will take a look.
             </>
           )}

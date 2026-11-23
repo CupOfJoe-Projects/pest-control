@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { site } from "@/content/site";
 import { track } from "@/lib/analytics";
 import { SERVICE_EVENT } from "./price-action";
 
@@ -42,7 +41,7 @@ export function LeadTracking() {
       const location = locationOf(link);
 
       if (href.startsWith("tel:")) return track("contact_click", { method: "call", location });
-      if (href.startsWith("sms:") || href.startsWith(site.textUrl)) return track("contact_click", { method: "text", location });
+      if (href.startsWith("sms:")) return track("contact_click", { method: "text", location });
       if (href.startsWith("mailto:")) return track("contact_click", { method: "email", location });
       if (href === "#quote" || href.startsWith("/contact")) return track("quote_click", { location });
       const service = href.match(/^\/services\/([a-z0-9-]+)/);

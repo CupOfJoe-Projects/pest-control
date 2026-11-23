@@ -7,6 +7,7 @@ import { CERTIFIED_OPERATOR_LICENSE, FDACS_LICENSE, fullAddress, mapsUrl, site }
 import { services } from "@/content/services";
 import { areas } from "@/content/areas";
 import { getCurrentYear } from "@/lib/year";
+import { TextUsLink } from "@/components/site/text-us-link";
 
 const socials: { name: string; icon: BrandIconName; href: string }[] = [
   { name: "Google", icon: "google", href: site.googleBusiness },
@@ -47,10 +48,10 @@ export async function Footer() {
                   <wbr />@{site.email.split("@")[1]}
                 </span>
               </a>
-              <a href={site.textUrl} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 ${linkClass}`}>
+              <TextUsLink className={`flex items-center gap-2 ${linkClass}`}>
                 <MessageSquareText aria-hidden="true" className="size-5 shrink-0" />
-                Text us
-              </a>
+                Text us a photo
+              </TextUsLink>
               <p className="flex items-center gap-2 text-cream/85">
                 <Clock aria-hidden="true" className="size-5 shrink-0" />
                 {site.hours}

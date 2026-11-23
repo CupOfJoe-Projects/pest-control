@@ -4,6 +4,7 @@ import { SlotImage } from "@/components/site/slot-image";
 import { site } from "@/content/site";
 import { images } from "@/lib/images";
 import { cn } from "@/lib/utils";
+import { TextUsLink } from "@/components/site/text-us-link";
 
 /** Full width orange closing band. Ink text: white on this orange fails contrast. */
 export function FinalCta() {
@@ -26,15 +27,10 @@ export function FinalCta() {
               <Phone aria-hidden="true" className="size-6" />
               Call {site.phone}
             </a>
-            <a
-              href={site.textUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-h-12 items-center justify-center gap-2 text-lg font-semibold underline decoration-2 underline-offset-[6px] hover:no-underline"
-            >
+            <TextUsLink className="inline-flex min-h-12 items-center justify-center gap-2 text-lg font-semibold underline decoration-2 underline-offset-[6px] hover:no-underline">
               <Camera aria-hidden="true" className="size-5" />
               Text us a photo
-            </a>
+            </TextUsLink>
           </div>
         </div>
         {hasTech && (

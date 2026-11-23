@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ClipboardList, MessageSquareText, Phone } from "lucide-react";
 import { site } from "@/content/site";
 import { useQuoteHref } from "./cta-buttons";
+import { TextUsLink } from "@/components/site/text-us-link";
 
 /** Sticky bottom bar on phones: Call, Text, Quote. */
 export function MobileActionBar() {
@@ -20,10 +21,10 @@ export function MobileActionBar() {
         <Phone aria-hidden="true" className="size-5" />
         Call
       </a>
-      <a href={site.textUrl} target="_blank" rel="noopener noreferrer" className={`${item} border-x border-cream/15`}>
+      <TextUsLink className={`${item} border-x border-cream/15`}>
         <MessageSquareText aria-hidden="true" className="size-5" />
         Text
-      </a>
+      </TextUsLink>
       <Link href={quoteHref} className={`${item} bg-orange text-ink`}>
         <ClipboardList aria-hidden="true" className="size-5" />
         Quote

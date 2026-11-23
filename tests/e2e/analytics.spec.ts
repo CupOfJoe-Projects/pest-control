@@ -70,7 +70,7 @@ test.describe("lead events", () => {
   test.beforeEach(async ({ page }) => {
     await page.addInitScript(() =>
       document.addEventListener("click", (e) => {
-        if ((e.target as Element).closest?.('a[href^="tel:"], a[href^="mailto:"], a[target="_blank"], a[href^="/services/"]')) e.preventDefault();
+        if ((e.target as Element).closest?.('a[href^="tel:"], a[href^="sms:"], a[href^="mailto:"], a[target="_blank"], a[href^="/services/"]')) e.preventDefault();
       }),
     );
   });
@@ -79,7 +79,7 @@ test.describe("lead events", () => {
     await open(page, "/contact");
     await page.locator("main a[href^='tel:']").first().click();
     await page.locator("main a[href^='mailto:']").first().click();
-    await page.locator("main a[href^='https://mcdexterminators.h.trustco.ai']").first().click();
+    await page.locator("main a[href^='sms:']").first().click();
     const sent = await events(page);
     expect(sent.filter(([e]) => e === "contact_click").map(([, p]) => p.method)).toEqual(["call", "email", "text"]);
   });

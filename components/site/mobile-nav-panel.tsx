@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { mainNav, site } from "@/content/site";
 import { services } from "@/content/services";
 import { useQuoteHref } from "./cta-buttons";
+import { TextUsLink } from "@/components/site/text-us-link";
 
 /** Loaded on first tap of the menu button, so pages do not ship dialog code up front. */
 export default function MobileNavPanel({
@@ -79,15 +80,10 @@ export default function MobileNavPanel({
             <Phone aria-hidden="true" />
             Call {site.phone}
           </a>
-          <a
-            href={site.textUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex min-h-12 items-center justify-center gap-2 text-base font-medium text-green underline underline-offset-4"
-          >
+          <TextUsLink className="flex min-h-12 items-center justify-center gap-2 text-base font-medium text-green underline underline-offset-4">
             <MessageSquareText aria-hidden="true" className="size-5" />
-            Or text us
-          </a>
+            Or text us a photo
+          </TextUsLink>
         </div>
       </SheetContent>
     </Sheet>
