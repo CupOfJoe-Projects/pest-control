@@ -37,7 +37,6 @@ export function TeamSection({ className }: { className?: string }) {
                   <MapPin aria-hidden="true" className="size-4 shrink-0 text-green" />
                   {m.town}
                 </p>
-                <p className="text-sm text-muted-ink sm:text-base">Years with us: {m.years}</p>
               </div>
             </li>
           ))}

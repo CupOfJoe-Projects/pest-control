@@ -1,8 +1,8 @@
-// Office hours: Monday to Friday, 8 AM to 5 PM, Florida (Eastern) time.
+// Office hours: Monday to Friday, 8 AM to 6 PM, Florida (Eastern) time.
 // Used by the quote thank you message and to flag after hours leads.
 
 const OPEN_HOUR = 8;
-const CLOSE_HOUR = 17;
+const CLOSE_HOUR = 18;
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 /** Day of week (0 = Sunday) and hour in Florida, whatever the visitor's own time zone. */

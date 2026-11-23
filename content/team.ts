@@ -9,8 +9,6 @@ import michelle from "@/public/images/team/michelle-patrick.png";
 export type TeamMember = {
   name: string;
   photo: StaticImageData;
-  /** TODO(owner): Years with the company. "TBD" until Vic supplies them. */
-  years: string;
   /** Where they live (owner, November 2026). */
   town: string;
 };
@@ -20,10 +18,10 @@ export type TeamMember = {
 // Order matters: Justin and Roy wear the same shirt and look alike, so they sit
 // at opposite corners of the grid (first and last) on phones and desktop.
 export const team: TeamMember[] = [
-  { name: "Justin Smith", photo: justin, years: "TBD", town: "Bartow, FL" },
-  { name: "Austin Taylor", photo: austin, years: "TBD", town: "Bartow, FL" },
-  { name: "Vic Ames", photo: vic, years: "TBD", town: "Lakeland, FL" },
-  { name: "Bill Long", photo: bill, years: "TBD", town: "Winter Haven, FL" },
-  { name: "Michelle Patrick", photo: michelle, years: "TBD", town: "Bartow, FL" },
-  { name: "Roy Holmes", photo: roy, years: "TBD", town: "Bartow, FL" },
+  { name: "Justin Smith", photo: justin, town: "Bartow, FL" },
+  { name: "Austin Taylor", photo: austin, town: "Bartow, FL" },
+  { name: "Vic Ames", photo: vic, town: "Lakeland, FL" },
+  { name: "Bill Long", photo: bill, town: "Winter Haven, FL" },
+  { name: "Michelle Patrick", photo: michelle, town: "Bartow, FL" },
+  { name: "Roy Holmes", photo: roy, town: "Babson Park, FL" },
 ];

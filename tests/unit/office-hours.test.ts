@@ -10,9 +10,10 @@ describe("office hours (Florida time)", () => {
     expect(isOfficeOpen(at("2026-11-18T15:00:00Z"))).toBe(true); // Wed 10 AM
   });
 
-  it("is closed before 8 AM, after 5 PM, and on weekends", () => {
+  it("is open until 6 PM, closed before 8 AM, after 6 PM, and on weekends", () => {
+    expect(isOfficeOpen(at("2026-11-18T22:30:00Z"))).toBe(true); // Wed 5:30 PM
     expect(isOfficeOpen(at("2026-11-18T12:30:00Z"))).toBe(false); // Wed 7:30 AM
-    expect(isOfficeOpen(at("2026-11-18T22:00:00Z"))).toBe(false); // Wed 5 PM
+    expect(isOfficeOpen(at("2026-11-18T23:00:00Z"))).toBe(false); // Wed 6 PM
     expect(isOfficeOpen(at("2026-11-21T15:00:00Z"))).toBe(false); // Sat 10 AM
   });
 

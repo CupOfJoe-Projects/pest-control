@@ -192,7 +192,7 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [ ] More real reviews, ideally ones that name a pest or a town (`content/reviews.ts`)
 - [ ] Founder name, family history, and timeline milestones (`TIMELINE` in `content/site.ts`)
 - [x] FDACS licenses: business JB3680, certified operator JF9080 (`FDACS_LICENSE`, `CERTIFIED_OPERATOR_LICENSE`)
-- [ ] Years with the company for each team member (`content/team.ts`, shows "TBD" for now)
+- [x] Years with the company: not shown (owner, November 2026)
 - [x] Call back time: 15 minutes in office hours (`CALLBACK_MINUTES`)
 - [x] Starting prices (`content/pricing.ts`, `/pricing`, plan cards, cost FAQ)
 - [ ] Open pricing questions marked TODO in `content/pricing.ts` (one time scope, bundle startup charge, Platinum mouse coverage, what the $45/month plans cover, fire ant terms)

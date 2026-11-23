@@ -26,7 +26,7 @@ export const site = {
   textUrl: "https://mcdexterminators.h.trustco.ai/",
   url: siteUrl,
   /** Office hours, from the old site's contact page. */
-  hours: "Monday to Friday, 8 AM to 5 PM",
+  hours: "Monday to Friday, 8 AM to 6 PM",
   /**
    * Their Google Business Profile ("McDonald Exterminators Inc", Bartow), as a
    * stable Maps CID link. Linked from the site and listed in the JSON-LD
