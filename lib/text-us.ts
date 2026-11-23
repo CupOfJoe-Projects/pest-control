@@ -12,7 +12,7 @@ export const TEXT_MESSAGE = [
   "Where I see them:",
 ].join("\n");
 
-/** "863-533-1294" -> "+18635331294" */
+/** "863-457-2734" -> "+18634572734" */
 export const textNumberE164 = `+1${site.textNumber.replace(/\D/g, "").replace(/^1(?=\d{10}$)/, "")}`;
 
 /**

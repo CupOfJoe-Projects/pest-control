@@ -24,10 +24,11 @@ export const site = {
   foundingYear: 1959,
   foundingCity: "Lakeland",
   /**
-   * The number customers text (photos included). Texts land in GoHighLevel →
-   * Conversations, where a workflow can analyze photos. Every "Text us" button uses it.
+   * The number customers text (photos included). This is the GoHighLevel texting
+   * number, not the main phone line: texts land in GoHighLevel → Conversations,
+   * where a workflow can analyze photos. Every "Text us" button uses it.
    */
-  textNumber: "863-533-1294",
+  textNumber: "863-457-2734",
   url: siteUrl,
   /** Office hours, from the old site's contact page. */
   hours: "Monday to Friday, 8 AM to 6 PM",

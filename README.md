@@ -202,4 +202,4 @@ Every item below is marked with a `TODO(owner)` comment in the code.
 - [x] Pet and family safe claim (from the old site)
 - [x] Privacy policy and terms (carried over from the old site)
 - [ ] Lakeland or Bartow as the founding city (old site says both; `foundingCity`)
-- [x] Working text line: "Text us" buttons text `site.textNumber` (863-533-1294) with a message filled in; computers get a QR code. Confirm that number is text enabled in GoHighLevel.
+- [x] Working text line: "Text us" buttons text `site.textNumber` (863-457-2734, the GoHighLevel texting number) with a message filled in; computers get a QR code. Confirm that number is text enabled in GoHighLevel.

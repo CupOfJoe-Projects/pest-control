@@ -45,7 +45,7 @@ All copy and business data is in typed files under `content/`. There is no CMS. 
 
 | They want to... | Edit |
 | --- | --- |
-| Change the texting number or the message a "Text us" button fills in | `textNumber` in `content/site.ts`, `TEXT_MESSAGE` in `lib/text-us.ts`. Every "Text us" button is `components/site/text-us-link.tsx`: phones open the texting app, computers get a QR code. |
+| Change the texting number (863-457-2734, the GoHighLevel texting number; not the main phone line) or the message a "Text us" button fills in | `textNumber` in `content/site.ts`, `TEXT_MESSAGE` in `lib/text-us.ts`. Every "Text us" button is `components/site/text-us-link.tsx`: phones open the texting app, computers get a QR code. |
 | Change the phone, email, address, hours, or social links | `content/site.ts` (`site`). Change `phone` and `phoneHref` together. The `telephone` value in `lib/seo.tsx` must match too; a test checks this. |
 | Update the Google rating or review count | `GOOGLE_RATING` in `content/site.ts` (value, count, and countLabel). Shown in the hero, trust wall, homepage map card, and structured data. |
 | Change a coupon price, its questions, or add a coupon | `content/pricing.ts`. Each coupon needs a headline amount, a description, and at least one question. `pests` and `services` decide which pest and service pages also show it. |
