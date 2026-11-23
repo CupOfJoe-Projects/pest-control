@@ -50,6 +50,8 @@ export async function POST(request: Request) {
 
   const note = [
     `Website quote request (${lead.source})`,
+    `Name: ${name.trim()}`,
+    `Phone: ${phone}`,
     `Pest: ${pest}`,
     service && `Coupon: ${service}`,
     plan && `Plan: ${plan}`,

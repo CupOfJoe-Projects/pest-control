@@ -27,31 +27,71 @@ describe("GoHighLevel client", () => {
     expect(ghlConfigured()).toBe(false);
   });
 
-  it("upserts the contact, then adds tags and a note", async () => {
-    const fetchMock = vi.fn(async (url: string | URL | Request) =>
-      String(url).endsWith("/contacts/upsert") ? json({ contact: { id: "c1" } }) : json({}),
-    );
+  /** A fake GHL. `existingId` is the contact already saved with the phone number, if any. */
+  function fakeGhl(existingId: string | null = null) {
+    const fetchMock = vi.fn(async (url: string | URL | Request, init?: RequestInit) => {
+      const u = String(url);
+      if (u.includes("/contacts/search/duplicate")) return json({ contact: existingId ? { id: existingId } : null });
+      if (u.endsWith("/contacts/upsert")) return json({ contact: { id: existingId ?? "c1" } });
+      void init;
+      return json({});
+    });
     vi.stubGlobal("fetch", fetchMock);
+    return () => (fetchMock.mock.calls as unknown as [string, RequestInit][]).map(([u, i]) => ({
+      url: u,
+      method: i?.method ?? "GET",
+      body: i?.body ? JSON.parse(String(i.body)) : undefined,
+      headers: i?.headers as Record<string, string>,
+    }));
+  }
 
+  it("saves a new contact with their name, then adds tags and a note", async () => {
+    const calls = fakeGhl(null);
     await expect(sendLeadToGhl(lead)).resolves.toBe(true);
 
-    const calls = fetchMock.mock.calls as unknown as [string, RequestInit][];
-    const [upsertUrl, upsertInit] = calls[0];
-    expect(upsertUrl).toBe("https://services.leadconnectorhq.com/contacts/upsert");
-    const headers = upsertInit.headers as Record<string, string>;
-    expect(headers.Authorization).toBe("Bearer pit-test");
-    expect(headers.Version).toBe("2021-07-28");
-    expect(JSON.parse(String(upsertInit.body))).toMatchObject({
+    const all = calls();
+    expect(all[0].url).toContain("/contacts/search/duplicate?locationId=loc-test&number=%2B18635550123");
+    const upsert = all.find((c) => c.url.endsWith("/contacts/upsert"))!;
+    expect(upsert.headers.Authorization).toBe("Bearer pit-test");
+    expect(upsert.headers.Version).toBe("2021-07-28");
+    expect(upsert.body).toMatchObject({
       locationId: "loc-test",
       firstName: "Jane",
       lastName: "Smith",
       phone: "+18635550123",
       postalCode: "33830",
     });
+    expect(all.some((c) => c.method === "DELETE")).toBe(false);
+    expect(all).toContainEqual(expect.objectContaining({ url: "https://services.leadconnectorhq.com/contacts/c1/tags", method: "POST" }));
+    expect(all).toContainEqual(expect.objectContaining({ url: "https://services.leadconnectorhq.com/contacts/c1/notes", method: "POST" }));
+  });
 
-    const urls = calls.map(([u]) => u);
-    expect(urls).toContain("https://services.leadconnectorhq.com/contacts/c1/tags");
-    expect(urls).toContain("https://services.leadconnectorhq.com/contacts/c1/notes");
+  it("keeps a returning contact's saved name and re-adds the trigger tag so workflows fire again", async () => {
+    const calls = fakeGhl("old1");
+    await expect(sendLeadToGhl(lead)).resolves.toBe(true);
+
+    const all = calls();
+    const upsert = all.find((c) => c.url.endsWith("/contacts/upsert"))!;
+    expect(upsert.body).not.toHaveProperty("firstName");
+    expect(upsert.body).not.toHaveProperty("lastName");
+    const remove = all.findIndex((c) => c.method === "DELETE" && c.url.endsWith("/contacts/old1/tags"));
+    const add = all.findIndex((c) => c.method === "POST" && c.url.endsWith("/contacts/old1/tags"));
+    expect(remove).toBeGreaterThan(-1);
+    expect(all[remove].body).toEqual({ tags: ["website lead"] });
+    expect(add).toBeGreaterThan(remove);
+  });
+
+  it("still saves the lead, with the name, if the contact lookup fails", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async (url: string | URL | Request) => {
+        const u = String(url);
+        if (u.includes("/contacts/search/duplicate")) return json({ message: "scope" }, 401);
+        if (u.endsWith("/contacts/upsert")) return json({ contact: { id: "c1" } });
+        return json({});
+      }),
+    );
+    await expect(sendLeadToGhl(lead)).resolves.toBe(true);
   });
 
   it("reports failure when GHL rejects the contact", async () => {
@@ -69,6 +109,7 @@ describe("GoHighLevel client", () => {
       "fetch",
       vi.fn(async (url: string | URL | Request) => {
         const u = String(url);
+        if (u.includes("/contacts/search/duplicate")) return json({ contact: null });
         if (u.endsWith("/contacts/upsert")) return json({ contact: { id: "c1" } });
         if (u.endsWith("/notes")) return json({}, 500);
         return json({});

@@ -27,7 +27,11 @@ describe("POST /api/quote", () => {
     vi.spyOn(console, "log").mockImplementation(() => {});
     vi.spyOn(console, "error").mockImplementation(() => {});
     fetchMock = vi.fn(async (url: string | URL | Request) =>
-      Response.json(String(url).endsWith("/contacts/upsert") ? { contact: { id: "c1" } } : {}),
+      Response.json(
+        String(url).includes("/contacts/search/duplicate")
+          ? { contact: null }
+          : String(url).endsWith("/contacts/upsert") ? { contact: { id: "c1" } } : {},
+      ),
     );
     vi.stubGlobal("fetch", fetchMock);
   });
@@ -70,6 +74,7 @@ describe("POST /api/quote", () => {
       expect.arrayContaining(["website lead", "website: quote form", "coupon: rat control"]),
     );
     const note: string = bodyFor("/notes").body;
+    expect(note).toMatch(/^Name: \S+/m); // Kept in the note, since a returning contact's saved name is not changed.
     expect(note).toContain("Pest: Ants");
     expect(note).toContain("Coupon: Rat Control");
     expect(note).toContain("Page: /pests/rats");
